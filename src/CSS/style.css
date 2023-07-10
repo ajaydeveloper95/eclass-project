@@ -1,0 +1,110 @@
+.background-color-and-padding {
+    background-color: white;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+.margin-and-setup {
+    margin: 20px 0px;
+}
+
+.side-dual-content-fit {
+    display: flex;
+    justify-content: space-between;
+}
+
+.background-padding-cont {
+    padding: 20px;
+    background-color: 'white'
+}
+
+.margin-background-white-padding {
+    margin: 20px 0px;
+    background-color: white;
+    padding: 20px 10px;
+}
+
+.justify-content-borderRight {
+    justify-content: 'space-evenly';
+    border-right: '2px solid grey';
+}
+
+.justify-content-space-evenly {
+    justify-content: space-evenly;
+}
+
+.padding-20px-10px {
+    padding: 20px 10px;
+}
+
+.background-white-border-radious {
+    border-radius: 10px;
+    background-color: white;
+}
+
+.display-flex-justify-space-between-padding {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px;
+}
+
+.text-weight-1-3rem {
+    font-size: 1.3rem;
+}
+
+.margin-right {
+    margin-right: 20px;
+}
+
+.width-30per {
+    width: 50%;
+}
+
+.width-dec10 {
+    width: 90%;
+}
+
+.margin-down-and-top {
+    margin: 10px 0px;
+}
+
+.width-20-set {
+    width: 20% !important;
+}
+
+.margin-right-10px {
+    margin-right: 10px
+}
+
+.margin-right-40px {
+    margin-right: 40px;
+}
+
+.width-30-percent {
+    width: 30%;
+}
+
+.background-grey-form-border-radious-padding {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: rgba(12, 61, 238, 0.1);
+}
+
+.Font-bold{
+    font-weight: bold;
+}
+
+.text-alignment{
+    color: black !important;
+    font-size: 1.4rem;
+    text-align: start !important;
+}
+
+.onhover-CNavItem:hover{
+    background-color: rgb(223, 204, 240);
+    border-radius: 10px;
+}
+
+.div-class-btn-target button{
+    text-align: start;
+}

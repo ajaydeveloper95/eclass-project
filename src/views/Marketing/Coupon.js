@@ -1,0 +1,327 @@
+import { cilTrash, cilPlus, cibSonos } from '@coreui/icons'
+import React, { useState, useEffect } from 'react'
+
+import {
+  CSmartTable,
+  CButton,
+  CCardBody,
+  CCollapse,
+  CRow,
+  CCol,
+  CFormInput,
+  CForm,
+  CFormSelect,
+  CFormSwitch,
+  CBadge,
+  CInputGroupText,
+  CInputGroup,
+  CDatePicker,
+} from '@coreui/react-pro'
+import CIcon from '@coreui/icons-react'
+import axios from 'axios'
+
+function Coupon() {
+  document.title = 'Eclass - Reported Courses'
+  const [details, setDetails] = useState([])
+  const [dataHandle, setDataHandle] = useState([])
+  const [stateTrue, setStateTrue] = useState('true')
+  const columns = [
+    {
+      key: 'CouponCode',
+      _style: { width: '20%' },
+      _props: { className: 'fw-semibold' },
+    },
+    { key: 'Amount', _style: { width: '20%' } },
+    { key: 'MaxUsage', _style: { width: '25%' } },
+    { key: 'Details', sorter: false, _style: { width: '20%' } },
+    {
+      key: 'show_details',
+      label: 'Action',
+      _style: { width: '1%' },
+      filter: false,
+      sorter: false,
+      _props: { className: 'fw-semibold' },
+    },
+  ]
+  const usersData = [
+    {
+      id: 0,
+      CouponCode: 'Cimg',
+      Amount: 'good',
+      MaxUsage: 'true',
+      Details: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 1,
+      CouponCode: 'Cimg',
+      Amount: 'good',
+      MaxUsage: 'true',
+      Details: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 2,
+      CouponCode: 'Cimg',
+      Amount: 'good',
+      MaxUsage: 'true',
+      Details: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 3,
+      CouponCode: 'Cimg',
+      Amount: 'good',
+      MaxUsage: 'true',
+      Details: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 4,
+      CouponCode: 'Cimg',
+      Amount: 'good',
+      MaxUsage: 'true',
+      Details: 'false',
+      _props: { align: 'middle' },
+    },
+  ]
+  const toggleDetails = (index) => {
+    const position = details.indexOf(index)
+    let newDetails = details.slice()
+    if (position !== -1) {
+      newDetails.splice(position, 1)
+    } else {
+      newDetails = [...details, index]
+    }
+    setDetails(newDetails)
+  }
+
+  console.log(dataHandle)
+  const onSubmitCoupon = () => {
+    axios
+      .post('http://localhost:5000/admin/addCoupon', dataHandle, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => [console.log('successfully')])
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+  }
+
+  return (
+    <div className="margin-down-and-top">
+      <CRow>
+        <CCol xs={4}>
+          <div className="background-white-border-radious padding-20px-10px ">
+            <div>
+              <p className="text-weight-1-3rem">Add New Coupon</p>
+            </div>
+            <hr />
+            <CForm>
+              <div className="width-dec10">
+                <CFormInput
+                  type="text"
+                  id="exampleFormControlInput2"
+                  label="Coupon Code :"
+                  placeholder="Enter Code"
+                  onChange={(e) => {
+                    let couponCode = e.target.value
+                    setDataHandle((value) => ({ ...value, couponCode: couponCode }))
+                  }}
+                  aria-describedby="exampleFormControlInputHelpInline"
+                />
+              </div>
+              <div className="width-30per margin-down-and-top">
+                <CFormSelect
+                  label="Discount Type :"
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    let discountType = e.target.value
+                    setDataHandle((value) => ({ ...value, discountType: discountType }))
+                  }}
+                  options={[
+                    'None',
+                    { label: 'Fix Amount', value: 'Fix Amount' },
+                    { label: '% Percentage', value: '%Percentage' },
+                  ]}
+                />
+              </div>
+              <div className="width-dec10">
+                <CFormInput
+                  type="text"
+                  id="exampleFormControlInput3"
+                  label="Amount :"
+                  placeholder="Enter Amount"
+                  onChange={(e) => {
+                    let amount = e.target.value
+                    setDataHandle((value) => ({ ...value, amount: amount }))
+                  }}
+                  aria-describedby="exampleFormControlInputHelpInline"
+                />
+              </div>
+              <div className="width-dec10 margin-down-and-top">
+                <CFormSelect
+                  label="Linked to :"
+                  aria-label="Default select example"
+                  onChange={(e) => {
+                    let linkedTo = e.target.value
+                    setDataHandle((value) => ({ ...value, linkedTo: linkedTo }))
+                  }}
+                  options={[
+                    'Select an Option',
+                    { label: 'Link to Course', value: 'Link to Course' },
+                    { label: 'Link to Cart', value: 'Link to Cart' },
+                    { label: 'Link to Category', value: 'Link to Category' },
+                    { label: 'Link to Bundle', value: 'Link to Bundle' },
+                  ]}
+                />
+              </div>
+              <div className="width-dec10 margin-down-and-top">
+                <label htmlFor="selettest">Coupon Code Display On Front :</label>
+                <CFormSwitch
+                  id="selettest"
+                  onChange={(e) => {
+                    if (stateTrue === 'true') {
+                      setStateTrue('false')
+                      setDataHandle((value) => ({ ...value, couponCodeDisplayFront: stateTrue }))
+                    } else {
+                      setStateTrue('true')
+                      setDataHandle((value) => ({ ...value, couponCodeDisplayFront: stateTrue }))
+                    }
+                  }}
+                />
+                <p className="margin-down-and-top">
+                  {' '}
+                  (If Choose Yes then Coupon Code shows to all users)
+                </p>
+              </div>
+              <div className="width-dec10 margin-down-and-top">
+                <CInputGroup className="mb-3">
+                  <CInputGroupText>$</CInputGroupText>
+                  <CFormInput
+                    onChange={(e) => {
+                      const minAmount = e.target.value
+                      setDataHandle((value) => ({ ...value, minAmount: minAmount }))
+                    }}
+                    aria-label="Amount (to the nearest dollar)"
+                  />
+                </CInputGroup>
+              </div>
+              <div className="width-dec10 margin-down-and-top">
+                <CDatePicker
+                  onDateChange={(date) => {
+                    setDataHandle((value) => ({ ...value, expiryDate: date }))
+                  }}
+                  label="Expiry Date :"
+                  locale="en-US"
+                />
+              </div>
+              <div className="width-dec10">
+                <CFormInput
+                  type="text"
+                  id="exampleFormControlInput2"
+                  label="Max Usage Limit :"
+                  placeholder="Max Limit"
+                  onChange={(e) => {
+                    const maxUage = e.target.value
+                    setDataHandle((value) => ({ ...value, maxUsageLimit: maxUage }))
+                  }}
+                  aria-describedby="exampleFormControlInputHelpInline"
+                />
+              </div>
+              <div className="width-dec10 margin-down-and-top d-flex justify-content-space-evenly">
+                <CButton color="danger" size="sm" variant="outline">
+                  Reset
+                </CButton>
+                <CButton color="primary" onClick={onSubmitCoupon} size="sm" variant="outline">
+                  Create
+                </CButton>
+              </div>
+            </CForm>
+          </div>
+        </CCol>
+        <CCol>
+          <div className="background-white-border-radious">
+            <div className="display-flex-justify-space-between-padding">
+              <div>
+                <p className="text-weight-1-3rem">All Coupons</p>
+              </div>
+              <div>
+                <CButton className="mx-3" color="success" variant="outline">
+                  <CIcon icon={cilPlus}></CIcon> Add Coupon
+                </CButton>
+                <CButton className="mx-3" color="warning" variant="outline">
+                  <CIcon icon={cilTrash}></CIcon> Delete Selected
+                </CButton>
+              </div>
+            </div>
+            <hr />
+            <div className="padding-20px-10px">
+              <CSmartTable
+                activePage={3}
+                cleaner
+                clickableRows
+                elementCover
+                columns={columns}
+                columnSorter
+                items={usersData}
+                itemsPerPageSelect
+                itemsPerPage={10}
+                pagination
+                scopedColumns={{
+                  show_details: (item) => {
+                    return (
+                      <td className="py-2">
+                        <CButton
+                          color="primary"
+                          variant="outline"
+                          shape="square"
+                          size="sm"
+                          onClick={() => {
+                            toggleDetails(item.id)
+                          }}
+                        >
+                          {details.includes(item.id) ? 'Hide' : 'Show'}
+                        </CButton>
+                      </td>
+                    )
+                  },
+                  details: (item) => {
+                    return (
+                      <CCollapse visible={details.includes(item.id)}>
+                        <CCardBody className="p-3">
+                          <h4>{item.username}</h4>
+                          <p className="text-muted">User since: {item.registered}</p>
+                          <CButton size="sm" color="info">
+                            User Settings
+                          </CButton>
+                          <CButton size="sm" color="danger" className="ml-1">
+                            Delete
+                          </CButton>
+                        </CCardBody>
+                      </CCollapse>
+                    )
+                  },
+                }}
+                selectable
+                sorterValue={{ column: 'User', state: 'asc' }}
+                tableFilter
+                tableFilterLabel="Search :"
+                tableFilterPlaceholder="Type.."
+                tableHeadProps={{
+                  color: 'success',
+                }}
+                tableProps={{
+                  striped: true,
+                  hover: true,
+                }}
+              />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+    </div>
+  )
+}
+
+export default Coupon
