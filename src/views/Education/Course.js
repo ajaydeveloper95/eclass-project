@@ -363,10 +363,13 @@ function Course() {
                           }}
                         >
                           <CCardLink course-id={key._id}>
-                            <CPopover content="Edit" placement="bottom" trigger="hover">
-                              <CIcon icon={cilPen} />
-                            </CPopover>
+                            <Link to={`/education/editcourse/${key._id}`}>
+                              <CPopover content="Edit" placement="bottom" trigger="hover">
+                                <CIcon icon={cilPen} />
+                              </CPopover>
+                            </Link>
                           </CCardLink>
+
                           <CCardLink
                             course-id={key._id}
                             style={{ cursor: 'pointer' }}

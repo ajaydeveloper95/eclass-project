@@ -108,3 +108,16 @@
 .div-class-btn-target button{
     text-align: start;
 }
+
+.margin-bottom-down-20px{
+    margin-bottom: 20px;
+}
+
+.Round-img{
+    border-radius: 72px;
+    position: static;
+    overflow: hidden;
+    margin-top: -83px;
+    height: 95px;
+    margin-left: 96px;
+}

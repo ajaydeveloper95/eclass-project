@@ -169,7 +169,7 @@ const routes = [
   { path: '/education/privatecourses', name: 'PrivateCourses', element: PrivateCourses },
   { path: '/education/bundle', name: 'BundleCourse', element: BundleCourse },
   { path: '/education/bundleform', name: 'BundleForm', element: BundleForm },
-  { path: '/education/editcourse', name: 'EditCourse', element: EditCourse },
+  { path: '/education/editcourse/:courseId', name: 'EditCourse', element: EditCourse },
 
   { path: '/education/ebookcategory', name: 'EbookCategory', element: EbookCategory },
   { path: '/education/ebooksreview', name: 'EbooksReview', element: EbooksReview },
