@@ -14,7 +14,7 @@ import {
   CForm,
   CFormInput,
   CFormSwitch,
-  CFormSelect,
+  CCard,
   CMultiSelect,
   CFormTextarea,
   CFormLabel,
@@ -26,12 +26,15 @@ function BundleCourse() {
   document.title = 'Eclass - Bundle Course'
   const [details, setDetails] = useState([])
   const [dataHandle, setDataHandle] = useState([])
+  const [courseDataArr, setCourseDataArr] = useState([])
   const [bundleCourseData, setBundleCourseData] = useState([])
   const [stateSubs, setStateSubs] = useState('true')
   const [statePaid, setStatePaid] = useState('true')
   const [stateExpireDur, setStateExpireDur] = useState('true')
   const [stateFeatured, setStateFeatured] = useState('true')
   const [stateStatus, setStateStatus] = useState('true')
+  const [visiblePaid, setVisiblePaid] = useState(true)
+  const [visibleDurationExpire, setVisibleDurationExpire] = useState(false)
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
@@ -47,9 +50,29 @@ function BundleCourse() {
       .catch((e) => {
         console.log('some error', e)
       })
+
+    let optionData = []
+    // get course data
+    axios
+      .get(`${adminUrl}getCourse`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        for (let item in mainCourseData) {
+          optionData[item] = {
+            text: mainCourseData[item].title,
+            value: mainCourseData[item]._id,
+          }
+        }
+        setCourseDataArr(optionData)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
   }, [])
 
-  console.log(bundleCourseData)
+  console.log(dataHandle)
 
   const columns = [
     {
@@ -163,7 +186,16 @@ function BundleCourse() {
   }
 
   const onSubmitBundle = () => {
-    console.log('good')
+    axios
+      .post(`${adminUrl}addBundle`, dataHandle, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('error')
+      })
   }
 
   const options = [
@@ -201,6 +233,7 @@ function BundleCourse() {
       ],
     },
   ]
+
   return (
     <div>
       <CRow>
@@ -227,15 +260,34 @@ function BundleCourse() {
                 </div>
                 <div className="width-dec10 margin-down-and-top">
                   <CMultiSelect
-                    options={options}
+                    options={courseDataArr}
                     label="Select Course :"
                     text="Please select Course."
+                    onChange={(e) => {
+                      let courseArr = e
+                      let OnlyGetId = []
+                      for (let i in courseArr) {
+                        OnlyGetId[i] = courseArr[i].value
+                      }
+                      const StringArray = OnlyGetId.toString()
+                      setDataHandle((value) => ({ ...value, courseId: StringArray }))
+                    }}
                   />
                 </div>
                 <div className="margin-down-and-top">
                   <CFormLabel>Thumbnail :</CFormLabel>
                   <div className="d-flex justify-content-space-evenly margin-down-and-top">
-                    <CFormInput className="width-dec10" type="file" size="sm" id="formFileLg" />
+                    <CFormInput
+                      className="width-dec10"
+                      type="file"
+                      size="sm"
+                      onChange={(e) => {
+                        let imgStore = e.target.files[0]
+                        const imgUrlString = URL.createObjectURL(imgStore)
+                        setDataHandle((value) => ({ ...value, image: imgUrlString }))
+                      }}
+                      id="formFileLg"
+                    />
                   </div>
                 </div>
                 <div className="width-dec10 margin-down-and-top">
@@ -282,13 +334,43 @@ function BundleCourse() {
                     onChange={(e) => {
                       if (statePaid === 'true') {
                         setStatePaid('false')
+                        setVisiblePaid(true)
                         setDataHandle((value) => ({ ...value, paid: statePaid }))
                       } else {
                         setStatePaid('true')
+                        setVisiblePaid(false)
                         setDataHandle((value) => ({ ...value, paid: statePaid }))
                       }
                     }}
                   />
+                  <div className="width-dec10 margin-down-and-top">
+                    <CCollapse visible={visiblePaid}>
+                      <CFormInput
+                        type="text"
+                        id="exampleFormControlInput2"
+                        label="Price :"
+                        placeholder="Set Price"
+                        onChange={(e) => {
+                          let title = e.target.value
+                          setDataHandle((value) => ({ ...value, price: title }))
+                        }}
+                        aria-describedby="exampleFormControlInputHelpInline"
+                      />
+                      <div className="margin-down-and-top">
+                        <CFormInput
+                          type="text"
+                          id="exampleFormControlInput2"
+                          label="Discount Price :"
+                          placeholder="Set Discount Price"
+                          onChange={(e) => {
+                            let title = e.target.value
+                            setDataHandle((value) => ({ ...value, discountPrice: title }))
+                          }}
+                          aria-describedby="exampleFormControlInputHelpInline"
+                        />
+                      </div>
+                    </CCollapse>
+                  </div>
                 </div>
                 <div className="width-dec10 margin-down-and-top">
                   <CFormSwitch
@@ -297,19 +379,36 @@ function BundleCourse() {
                     onChange={(e) => {
                       if (stateExpireDur === 'true') {
                         setStateExpireDur('false')
+                        setVisibleDurationExpire(true)
                         setDataHandle((value) => ({
                           ...value,
-                          bundleExpireDuration: stateExpireDur,
+                          duration: stateExpireDur,
                         }))
                       } else {
                         setStateExpireDur('true')
+                        setVisibleDurationExpire(false)
                         setDataHandle((value) => ({
                           ...value,
-                          bundleExpireDuration: stateExpireDur,
+                          duration: stateExpireDur,
                         }))
                       }
                     }}
                   />
+                  <div className="width-dec10 margin-down-and-top">
+                    <CCollapse visible={visibleDurationExpire}>
+                      <CFormInput
+                        type="text"
+                        id="exampleFormControlInput2"
+                        label="Expire Duration :"
+                        placeholder="Set Duration"
+                        onChange={(e) => {
+                          let title = e.target.value
+                          setDataHandle((value) => ({ ...value, bundleExpireDuration: title }))
+                        }}
+                        aria-describedby="exampleFormControlInputHelpInline"
+                      />
+                    </CCollapse>
+                  </div>
                 </div>
                 <div className="width-dec10 margin-down-and-top">
                   <CFormSwitch
