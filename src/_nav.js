@@ -119,7 +119,7 @@ const _nav = [
           {
             component: CNavItem,
             name: '- Request To Involve',
-            to: '/',
+            to: '/users/involvedincourse',
           },
           {
             component: CNavItem,
