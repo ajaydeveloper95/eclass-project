@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { adminUrl } from 'src/RouteDynamic'
+import axios from 'axios'
 
 import {
   CSmartTable,
@@ -14,21 +16,20 @@ import CIcon from '@coreui/icons-react'
 
 function Institute() {
   document.title = 'Eclass - Institutes'
-  const [details, setDetails] = useState([])
+  const [instuteData, setInstuteData] = useState([])
+  const [instuteDataRender, setInstuteDataRender] = useState([])
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
   const columns = [
     {
       key: 'Image',
       sorter: false,
-      _style: { width: '20%' },
+      _style: { width: '10%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'InstituteName', _style: { width: '20%' } },
-    { key: 'Details', sorter: false, _style: { width: '15%' } },
-    { key: 'Skills', _style: { width: '20%' } },
-    { key: 'Status', sorter: false, _style: { width: '15%' } },
-    { key: 'Verify', sorter: false, _style: { width: '15%' } },
+    { key: 'InstituteName', _style: { width: '25%' } },
+    { key: 'Details', sorter: false, _style: { width: '25%' } },
+    { key: 'Skills', _style: { width: '30%' } },
     {
       key: 'show_details',
       label: 'Action',
@@ -38,6 +39,35 @@ function Institute() {
       _props: { className: 'fw-semibold' },
     },
   ]
+
+  useEffect(() => {
+    axios
+      .get(`${adminUrl}getInstitute`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        setInstuteData(mainCourseData)
+        let coldata = []
+        for (let item in mainCourseData) {
+          coldata[item] = {
+            id: item,
+            InstituteName: mainCourseData[item].instituteName,
+            Details: {
+              Contact: mainCourseData[item].mobile,
+              About: mainCourseData[item].about,
+            },
+            Skills: mainCourseData[item].skills,
+            instuteId: mainCourseData[item]._id,
+            _props: { align: 'middle' },
+          }
+        }
+        setInstuteDataRender(coldata)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+  }, [])
   const usersData = [
     {
       id: 0,
@@ -45,8 +75,6 @@ function Institute() {
       InstituteName: 'good',
       Details: 'Guest',
       Skills: 'Learn Microsoft Excel Beginner',
-      Verify: 'true',
-      Status: 'false',
       _props: { align: 'middle' },
     },
     {
@@ -55,8 +83,6 @@ function Institute() {
       InstituteName: 'good',
       Details: 'Guest',
       Skills: 'Learn Microsoft Excel Beginner',
-      Verify: 'true',
-      Status: 'false',
       _props: { align: 'middle' },
     },
     {
@@ -65,8 +91,6 @@ function Institute() {
       InstituteName: 'good',
       Details: 'Guest',
       Skills: 'Learn Microsoft Excel Beginner',
-      Verify: 'true',
-      Status: 'false',
       _props: { align: 'middle' },
     },
     {
@@ -75,8 +99,6 @@ function Institute() {
       InstituteName: 'good',
       Details: 'Guest',
       Skills: 'Learn Microsoft Excel Beginner',
-      Verify: 'true',
-      Status: 'false',
       _props: { align: 'middle' },
     },
     {
@@ -166,28 +188,6 @@ function Institute() {
     console.log('delet on click handle')
   }
 
-  const ForStatus = (Status) => {
-    switch (Status) {
-      case 'true':
-        return 1
-      case 'false':
-        return 0
-      default:
-        return -1
-    }
-  }
-
-  const ForVerify = (Verify) => {
-    switch (Verify) {
-      case 'true':
-        return 1
-      case 'false':
-        return 0
-      default:
-        return -1
-    }
-  }
-
   return (
     <div className="background-white-border-radious">
       <div className="display-flex-justify-space-between-padding">
@@ -212,32 +212,20 @@ function Institute() {
           elementCover
           columns={columns}
           columnSorter
-          items={usersData}
+          items={instuteDataRender}
           itemsPerPageSelect
           itemsPerPage={10}
           pagination
           scopedColumns={{
             Image: (item) => (
               <td>
-                <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                <CImage rounded thumbnail src={item.Image} width={50} height={50} />
               </td>
             ),
-            Status: (item) => (
+            Details: (item) => (
               <td>
-                {ForStatus(item.Status) === 0 ? (
-                  <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                ) : (
-                  <CFormSwitch id="formSwitchCheckChecked" />
-                )}
-              </td>
-            ),
-            Verify: (item) => (
-              <td>
-                {ForVerify(item.Verify) === 0 ? (
-                  <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                ) : (
-                  <CFormSwitch id="formSwitchCheckChecked" />
-                )}
+                <p>Contact : {item.Details.Contact}</p>
+                <p>About : {item.Details.About}</p>
               </td>
             ),
             show_details: (item) => {

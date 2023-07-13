@@ -6,7 +6,6 @@ import { cilOptions, cilPlus, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { adminUrl } from 'src/RouteDynamic'
 import axios from 'axios'
-import { render } from '@testing-library/react'
 
 function Alumini() {
   const [details, setDetails] = useState([])
