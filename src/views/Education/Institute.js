@@ -5,11 +5,13 @@ import axios from 'axios'
 import {
   CSmartTable,
   CButton,
-  CCardBody,
-  CCollapse,
+  CModal,
+  CModalHeader,
   CPopover,
   CImage,
-  CFormSwitch,
+  CModalTitle,
+  CModalFooter,
+  CModalBody,
 } from '@coreui/react-pro'
 import { cilPlus, cilOptions, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
@@ -18,6 +20,8 @@ function Institute() {
   document.title = 'Eclass - Institutes'
   const [instuteData, setInstuteData] = useState([])
   const [instuteDataRender, setInstuteDataRender] = useState([])
+  const [instuteIdDelete, setInstuteDeleteId] = useState('')
+  const [visibleDelete, setVisibleDelete] = useState(false)
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
   const columns = [
@@ -185,7 +189,21 @@ function Institute() {
   }
 
   const onClickDeletLang = (e) => {
-    console.log('delet on click handle')
+    axios
+      .post(
+        `${adminUrl}deleteInstitute`,
+        { _id: instuteIdDelete },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((data) => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    setVisibleDelete(!visibleDelete)
   }
 
   return (
@@ -241,7 +259,7 @@ function Institute() {
                         }}
                       >
                         <CButton
-                          value-get={item.langId}
+                          value-get={item.instuteId}
                           onClick={onClickEditLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
@@ -249,8 +267,12 @@ function Institute() {
                           <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                         </CButton>
                         <CButton
-                          value-get={item.langId}
-                          onClick={onClickDeletLang}
+                          value-get={item.instuteId}
+                          onClick={(e) => {
+                            const instuteIdGet = e.target.getAttribute('value-get')
+                            setInstuteDeleteId(instuteIdGet)
+                            setVisibleDelete(!visibleDelete)
+                          }}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -281,6 +303,24 @@ function Institute() {
             hover: true,
           }}
         />
+      </div>
+      <div>
+        <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+          <CModalHeader onClose={() => setVisibleDelete(false)}>
+            <CModalTitle>Modal title</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+              No
+            </CButton>
+            <CButton onClick={onClickDeletLang} color="primary">
+              Yes
+            </CButton>
+          </CModalFooter>
+        </CModal>
       </div>
     </div>
   )
