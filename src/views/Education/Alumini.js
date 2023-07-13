@@ -1,11 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import ReactDOM from 'react-dom'
 
 import { CSmartTable, CButton, CCardBody, CCollapse, CBadge, CPopover } from '@coreui/react-pro'
 import { cilOptions, cilPlus, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { adminUrl } from 'src/RouteDynamic'
+import axios from 'axios'
+import { render } from '@testing-library/react'
 
 function Alumini() {
   const [details, setDetails] = useState([])
+  const [AluminiGet, setAluminiGet] = useState([])
+  const [allUserData, setAllUserData] = useState([])
+
   const columns = [
     {
       key: 'AlumniName',
@@ -28,73 +35,35 @@ function Alumini() {
       Action: 'Banned',
       _props: { align: 'middle' },
     },
-    // { id: 3, name: 'Chetan Mohamed', registered: '2022/02/07', InstructoreInfo: 'Admin', status: 'Inactive' },
-    // {
-    //   id: 4,
-    //   name: 'Derick Maximinus',
-    //   registered: '2022/03/19',
-    //   InstructoreInfo: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 5, name: 'Friderik Dávid', registered: '2022/01/21', InstructoreInfo: 'Staff', status: 'Active' },
-    // { id: 6, name: 'Yiorgos Avraamu', registered: '2022/01/01', InstructoreInfo: 'Member', status: 'Active' },
-    // {
-    //   id: 7,
-    //   name: 'Avram Tarasios',
-    //   registered: '2022/02/07',
-    //   InstructoreInfo: 'Staff',
-    //   status: 'Banned',
-    //   _props: { color: 'warning', align: 'middle' },
-    // },
-    // { id: 8, name: 'Quintin Ed', registered: '2022/02/07', InstructoreInfo: 'Admin', status: 'Inactive' },
-    // { id: 9, name: 'Enéas Kwadwo', registered: '2022/03/19', InstructoreInfo: 'Member', status: 'Pending' },
-    // { id: 10, name: 'Agapetus Tadeáš', registered: '2022/01/21', InstructoreInfo: 'Staff', status: 'Active' },
-    // { id: 11, name: 'Carwyn Fachtna', registered: '2022/01/01', InstructoreInfo: 'Member', status: 'Active' },
-    // {
-    //   id: 12,
-    //   name: 'Nehemiah Tatius',
-    //   registered: '2022/02/07',
-    //   InstructoreInfo: 'Staff',
-    //   status: 'Banned',
-    //   _selected: true,
-    // },
-    // { id: 13, name: 'Ebbe Gemariah', registered: '2022/02/07', InstructoreInfo: 'Admin', status: 'Inactive' },
-    // {
-    //   id: 14,
-    //   name: 'Eustorgios Amulius',
-    //   registered: '2022/03/19',
-    //   InstructoreInfo: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 15, name: 'Leopold Gáspár', registered: '2022/01/21', InstructoreInfo: 'Staff', status: 'Active' },
-    // { id: 16, name: 'Pompeius René', registered: '2022/01/01', InstructoreInfo: 'Member', status: 'Active' },
-    // { id: 17, name: 'Paĉjo Jadon', registered: '2022/02/07', InstructoreInfo: 'Staff', status: 'Banned' },
-    // {
-    //   id: 18,
-    //   name: 'Micheal Mercurius',
-    //   registered: '2022/02/07',
-    //   InstructoreInfo: 'Admin',
-    //   status: 'Inactive',
-    // },
-    // {
-    //   id: 19,
-    //   name: 'Ganesha Dubhghall',
-    //   registered: '2022/03/19',
-    //   InstructoreInfo: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 20, name: 'Hiroto Šimun', registered: '2022/01/21', InstructoreInfo: 'Staff', status: 'Active' },
-    // { id: 21, name: 'Vishnu Serghei', registered: '2022/01/01', InstructoreInfo: 'Member', status: 'Active' },
-    // { id: 22, name: 'Zbyněk Phoibos', registered: '2022/02/07', InstructoreInfo: 'Staff', status: 'Banned' },
-    // { id: 23, name: 'Aulus Agmundr', registered: '2022/01/01', InstructoreInfo: 'Member', status: 'Pending' },
-    // {
-    //   id: 42,
-    //   name: 'Ford Prefect',
-    //   registered: '2001/05/25',
-    //   InstructoreInfo: 'Alien',
-    //   status: "Don't panic!",
-    // },
   ]
+
+  useEffect(() => {
+    axios
+      .get(`${adminUrl}getAlumini`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        setAluminiGet(mainCourseData)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+
+    // all user api call
+    axios
+      .get(`${adminUrl}getUsers`)
+      .then((data) => {
+        const mainData = data.data.data
+        setAllUserData(mainData)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+  }, [])
+
+  console.log(allUserData)
+  console.log(AluminiGet)
 
   const onClickEditLang = (e) => {
     const clickEdit = e.currentTarget.getAttribute('value-get')
