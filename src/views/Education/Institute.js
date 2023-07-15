@@ -24,6 +24,7 @@ import {
 } from '@coreui/react-pro'
 import { cilPlus, cilOptions, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import { json } from 'react-router-dom'
 
 function Institute() {
   document.title = 'Eclass - Institutes'
@@ -422,6 +423,7 @@ function Institute() {
                       onChange={(e) => {
                         let obj = Object.assign({}, e)
                         let uploadSting = JSON.stringify(obj)
+                        console.log(typeof e.toString())
                         setInstuteDataGet((values) => ({
                           ...values,
                           skills: uploadSting,

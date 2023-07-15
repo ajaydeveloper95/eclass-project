@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
-import { CSmartTable, CButton, CCardBody, CCollapse, CBadge, CPopover } from '@coreui/react-pro'
+import {
+  CSmartTable,
+  CButton,
+  CModalBody,
+  CModalHeader,
+  CModalTitle,
+  CModal,
+  CPopover,
+  CModalFooter,
+  CFormLabel,
+  CBadge,
+  CFormInput,
+} from '@coreui/react-pro'
 import { cilOptions, cilPlus, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { adminUrl } from 'src/RouteDynamic'
@@ -9,8 +21,14 @@ import axios from 'axios'
 
 function Alumini() {
   const [details, setDetails] = useState([])
+  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [alumniEditId, setAlumniEditId] = useState('')
+  const [alumniDeleteId, setAlumniDeleteId] = useState('')
   const [AluminiGet, setAluminiGet] = useState([])
   const [allUserData, setAllUserData] = useState([])
+  const [AlumniInfoTable, setAlumniInfoTable] = useState([])
+  const [alumniUpdate, setAlumniUpdate] = useState([])
 
   const columns = [
     {
@@ -61,16 +79,62 @@ function Alumini() {
       })
   }, [])
 
-  console.log(allUserData)
-  console.log(AluminiGet)
+  // console.log(allUserData)
+  // console.log(AluminiGet)
+
+  let col = []
+  for (let item in AluminiGet) {
+    for (let i in allUserData) {
+      if (allUserData[i]._id === AluminiGet[item].userId) {
+        col[item] = {
+          id: item,
+          AlumniId: AluminiGet[item]._id,
+          AlumniName: `${allUserData[i].fName} ${allUserData[i].lName}`,
+          _props: { align: 'middle' },
+        }
+      }
+    }
+  }
+  console.log(col)
 
   const onClickEditLang = (e) => {
-    const clickEdit = e.currentTarget.getAttribute('value-get')
-    console.log(clickEdit)
+    let id = e.currentTarget.getAttribute('value-get')
+    setAlumniEditId(id)
+    setVisibleEdit(true)
+    for (let item in AluminiGet) {
+      if (id === AluminiGet[item]._id) {
+        let userIdAlumni = AluminiGet[item].userId
+        for (let u in allUserData) {
+          if (userIdAlumni === allUserData[u]._id) {
+            setAlumniUpdate(allUserData[u])
+          }
+        }
+      }
+    }
   }
 
-  const onClickDeletLang = (e) => {
-    console.log('delet on click handle')
+  const onClickEditPopUp = () => {
+    console.log('design after')
+  }
+
+  console.log(alumniUpdate)
+
+  const onClickDeletLang = () => {
+    axios
+      .post(
+        `${adminUrl}deleteAlumini`,
+        { _id: alumniDeleteId },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((data) => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    setVisibleDelete(false)
   }
 
   return (
@@ -98,7 +162,7 @@ function Alumini() {
           // columnFilter
           columnSorter
           // footer
-          items={usersData}
+          items={col}
           itemsPerPageSelect
           itemsPerPage={5}
           pagination
@@ -116,7 +180,7 @@ function Alumini() {
                         }}
                       >
                         <CButton
-                          value-get={item.langId}
+                          value-get={item.AlumniId}
                           onClick={onClickEditLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
@@ -124,8 +188,12 @@ function Alumini() {
                           <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                         </CButton>
                         <CButton
-                          value-get={item.langId}
-                          onClick={onClickDeletLang}
+                          value-get={item.AlumniId}
+                          onClick={(e) => {
+                            let id = e.currentTarget.getAttribute('value-get')
+                            setAlumniDeleteId(id)
+                            setVisibleDelete(true)
+                          }}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -154,6 +222,93 @@ function Alumini() {
             hover: true,
           }}
         />
+      </div>
+      <div>
+        {/* edit model  */}
+        <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+          <CModalHeader onClose={() => setVisibleEdit(false)}>
+            <CModalTitle>Edit</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <div>
+              <div className="my-2">
+                <CFormLabel>
+                  Institute Name:
+                  <CBadge
+                    color="transprent"
+                    textColor="danger"
+                    className="form-badget-class"
+                    shape="rounded"
+                  >
+                    *
+                  </CBadge>
+                </CFormLabel>
+                <CFormInput
+                  type="text"
+                  onChange={(e) => {
+                    // setdata((values) => ({ ...values, fname: e.target.value }))
+                    console.log('test')
+                  }}
+                  feedbackValid="Looks good!"
+                  id="validationCustom01"
+                  placeholder="Enter Institute Name"
+                  required
+                />
+              </div>
+              <div className="my-2">
+                <CFormLabel>
+                  Institute Name:
+                  <CBadge
+                    color="transprent"
+                    textColor="danger"
+                    className="form-badget-class"
+                    shape="rounded"
+                  >
+                    *
+                  </CBadge>
+                </CFormLabel>
+                <CFormInput
+                  type="text"
+                  onChange={(e) => {
+                    // setdata((values) => ({ ...values, fname: e.target.value }))
+                    console.log('test')
+                  }}
+                  feedbackValid="Looks good!"
+                  id="validationCustom01"
+                  placeholder="Enter Institute Name"
+                  required
+                />
+              </div>
+            </div>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+              No
+            </CButton>
+            <CButton color="primary" onClick={onClickEditPopUp}>
+              Update
+            </CButton>
+          </CModalFooter>
+        </CModal>
+      </div>
+      <div>
+        {/* delete model  */}
+        <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+          <CModalHeader onClose={() => setVisibleDelete(false)}>
+            <CModalTitle>Delete</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+              No
+            </CButton>
+            <CButton color="primary" onClick={onClickDeletLang}>
+              Yes
+            </CButton>
+          </CModalFooter>
+        </CModal>
       </div>
     </div>
   )

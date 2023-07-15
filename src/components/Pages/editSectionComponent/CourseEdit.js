@@ -9,9 +9,73 @@ import {
   CFormInput,
   CFormSwitch,
 } from '@coreui/react-pro'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import { adminUrl } from 'src/RouteDynamic'
 
-function CourseEdit() {
+function CourseEdit(props) {
+  const { CourseId } = props
+  const [courseGetData, setCourseGetData] = useState([])
+
+  useEffect(() => {
+    axios
+      .get(`${adminUrl}getCourse`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        for (let item in mainCourseData) {
+          if (mainCourseData[item]._id === CourseId) {
+            setCourseGetData(mainCourseData[item])
+          }
+        }
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    axios
+      .get(`${adminUrl}getCategory`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        console.log(mainCourseData)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    axios
+      .get(`${adminUrl}getCourse`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        for (let item in mainCourseData) {
+          if (mainCourseData[item]._id === CourseId) {
+            setCourseGetData(mainCourseData[item])
+          }
+        }
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    axios
+      .get(`${adminUrl}getCourse`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        for (let item in mainCourseData) {
+          if (mainCourseData[item]._id === CourseId) {
+            setCourseGetData(mainCourseData[item])
+          }
+        }
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+  }, [])
   const options = [
     {
       value: 0,
@@ -58,6 +122,7 @@ function CourseEdit() {
             <div>
               <CFormLabel>Category </CFormLabel>
               <CFormSelect
+                value={2}
                 aria-label="Default select example"
                 options={[
                   'Open this select menu',
@@ -482,6 +547,10 @@ function CourseEdit() {
       </div>
     </div>
   )
+}
+
+CourseEdit.propTypes = {
+  CourseId: PropTypes.string,
 }
 
 export default CourseEdit

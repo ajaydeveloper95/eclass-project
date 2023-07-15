@@ -1,5 +1,5 @@
 import { CCol, CRow, CButton, CCollapse } from '@coreui/react-pro'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import CourseEdit from './editSectionComponent/CourseEdit'
@@ -48,10 +48,13 @@ function EditCourse() {
   const [visibleQuizTopic, setvisibleQuizTopic] = useState(false)
   const [visibleAppointment, setvisibleAppointment] = useState(false)
   const [visiblePreviousPaper, setvisiblePreviousPaper] = useState(false)
+  const [PropsCourseId, setPropsCourseId] = useState('')
 
-  // get id from url
   const { courseId } = useParams()
-  console.log(courseId)
+  useEffect(() => {
+    // get id from url
+    setPropsCourseId(courseId)
+  }, [])
 
   const [allVisibleState, setAllVisibleState] = useState([
     setvisibleCourse,
@@ -256,7 +259,7 @@ function EditCourse() {
           <div>
             <CCollapse visible={visibleCourse}>
               {/* for Edit course section  */}
-              <CourseEdit />
+              <CourseEdit CourseId={PropsCourseId} />
             </CCollapse>
           </div>
           <div>
