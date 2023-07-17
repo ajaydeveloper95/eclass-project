@@ -112,9 +112,8 @@ function Alumini() {
       }
     }
   }
-
   const onClickEditPopUp = () => {
-    console.log('design after')
+    console.log(' data get successfully , but api issue')
   }
 
   console.log(alumniUpdate)
@@ -233,7 +232,7 @@ function Alumini() {
             <div>
               <div className="my-2">
                 <CFormLabel>
-                  Institute Name:
+                  Alumni First Name:
                   <CBadge
                     color="transprent"
                     textColor="danger"
@@ -245,19 +244,20 @@ function Alumini() {
                 </CFormLabel>
                 <CFormInput
                   type="text"
+                  value={alumniUpdate.fName}
                   onChange={(e) => {
-                    // setdata((values) => ({ ...values, fname: e.target.value }))
+                    setAlumniUpdate((values) => ({ ...values, fName: e.target.value }))
                     console.log('test')
                   }}
                   feedbackValid="Looks good!"
                   id="validationCustom01"
-                  placeholder="Enter Institute Name"
+                  placeholder="Enter First Name"
                   required
                 />
               </div>
               <div className="my-2">
                 <CFormLabel>
-                  Institute Name:
+                  Alumni Last Name:
                   <CBadge
                     color="transprent"
                     textColor="danger"
@@ -269,13 +269,13 @@ function Alumini() {
                 </CFormLabel>
                 <CFormInput
                   type="text"
+                  value={alumniUpdate.lName}
                   onChange={(e) => {
-                    // setdata((values) => ({ ...values, fname: e.target.value }))
-                    console.log('test')
+                    setAlumniUpdate((values) => ({ ...values, lName: e.target.value }))
                   }}
                   feedbackValid="Looks good!"
                   id="validationCustom01"
-                  placeholder="Enter Institute Name"
+                  placeholder="Enter Last Name"
                   required
                 />
               </div>
