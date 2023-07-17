@@ -126,3 +126,16 @@
     height: 95px;
     margin-left: 96px;
 }
+
+/* ANkit css Start*/
+
+input#exampleColorInput {
+    width: 410px;
+}
+
+.showing-data img{
+    height: 150px;
+    width: 150px;
+}
+
+/* ANkit css END*/
