@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { cilTrash, cilColorBorder, cilPen, cilPlus } from '@coreui/icons'
+import React, { useState } from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { CFormSelect, CFormInput } from '@coreui/react'
 import { CForm, CFormTextarea } from '@coreui/react-pro'
 
-import {
-  CSmartTable,
-  CButton,
-  CImage,
-  CFormSwitch,
-  CPopover,
-  CModal,
-  CModalHeader,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
-} from '@coreui/react-pro'
-import CIcon from '@coreui/icons-react'
+import { CButton, CFormSwitch } from '@coreui/react-pro'
 
 function Certificate() {
   document.title = 'Eclass - All Category'
@@ -185,7 +172,7 @@ function Certificate() {
 
   return (
     <>
-      <div className="background-color-and-padding">
+      <div className="background-color-and-padding mb-4">
         <div className="display-flex-justify-space-between-padding"></div>
         <CNav variant="pills" role="tablist">
           <CNavItem>
@@ -210,7 +197,7 @@ function Certificate() {
               <div className="row">
                 <hr />
                 <h4>Manage Certificate</h4>
-                <hr />
+                <hr className="mt-2" />
                 <div className="col-md-3">
                   <CNav variant="pills" className="flex-column">
                     <CNavItem>
@@ -256,14 +243,10 @@ function Certificate() {
                   </CNav>
                 </div>
                 <div className="col-md-9">
-                  <CTabContent activeTab={activeTab}>
+                  <CTabContent activetab={activeTab}>
                     <CTabPane visible={activeTab === 0}>
                       <div className="container">
                         <div className="row">
-                          <div className="col-12">
-                            <h3>Outer Border</h3>
-                          </div>
-                          <hr />
                           <div className="col-12">
                             <h6>Enable Outer Border:</h6>
                             <CFormSwitch size="xl" id="formSwitchCheckDefaultXL" />
@@ -304,10 +287,6 @@ function Certificate() {
                       <div className="container">
                         <div className="row">
                           <div className="col-12">
-                            <h3>Inner Border</h3>
-                          </div>
-                          <hr />
-                          <div className="col-12">
                             <h6> Enable Inner Border: </h6>
                             <CFormSwitch size="xl" id="formSwitchCheckDefaultXL" />
                           </div>
@@ -347,10 +326,6 @@ function Certificate() {
                       <div className="container">
                         <div className="row">
                           <div className="col-12">
-                            <h3>Background Image</h3>
-                          </div>
-                          <hr />
-                          <div className="col-12">
                             <h6>Background Image:</h6>
                             <CFormSwitch size="xl" id="formSwitchCheckDefaultXL" />
                           </div>
@@ -386,10 +361,6 @@ function Certificate() {
                     <CTabPane visible={activeTab === 3}>
                       <div className="container">
                         <div className="row">
-                          <div className="col-12">
-                            <h3>Content</h3>
-                          </div>
-                          <hr />
                           <div className="col-6">
                             <h6>Title: *</h6>
                             <CFormInput
@@ -553,10 +524,6 @@ function Certificate() {
                       <div className="container">
                         <div className="row">
                           <div className="col-12">
-                            <h3>Date</h3>
-                          </div>
-                          <hr />
-                          <div className="col-12">
                             <h6>Date Enable:</h6>
                             <CFormSwitch size="xl" id="formSwitchCheckDefaultXL" />
                           </div>
@@ -594,10 +561,6 @@ function Certificate() {
                     <CTabPane visible={activeTab === 6}>
                       <div className="container">
                         <div className="row">
-                          <div className="col-12">
-                            <h3>Signature</h3>
-                          </div>
-                          <hr />
                           <h6>Signature Image: *</h6>
                           <div className="col-6">
                             <div className="mb-3">
@@ -677,10 +640,6 @@ function Certificate() {
                     <CTabPane visible={activeTab === 7}>
                       <div className="conatiner">
                         <div className="row">
-                          <div className="col-12">
-                            <h3>Widget</h3>
-                          </div>
-                          <hr />
                           <div className="col-4">
                             <h6>Enable of Widget1</h6>
                             <CFormSelect
@@ -733,7 +692,7 @@ function Certificate() {
               <div className="row">
                 <hr />
                 <h4>Certificate Setting</h4>
-                <hr />
+                <hr className="mt-2" />
                 <div className="col-6">
                   <h6>Percentage :</h6>
                   <CFormInput
@@ -766,7 +725,7 @@ function Certificate() {
                   <h4>Certificate Verify</h4>
                 </div>
                 <div className="col-6">
-                  <div className="d-grid gap-2 d-md-block mt-4 float-end">
+                  <div className="d-grid gap-2 d-md-block float-end">
                     <CButton color="primary">Reset</CButton>
                   </div>
                 </div>
