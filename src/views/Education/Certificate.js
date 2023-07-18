@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { CFormSelect, CFormInput } from '@coreui/react'
 import { CForm, CFormTextarea } from '@coreui/react-pro'
-
 import { CButton, CFormSwitch } from '@coreui/react-pro'
 
 function Certificate() {
