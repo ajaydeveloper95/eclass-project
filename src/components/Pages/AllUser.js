@@ -105,9 +105,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="Alluser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -117,10 +117,10 @@ function AllUser() {
               className="margin-right"
               color="primary"
               active
-              uniqueAttriName="students"
+              uniqueattriname="students"
               variant="outline"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -131,9 +131,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="instructors"
+              uniqueattriname="instructors"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -143,9 +143,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="admins"
+              uniqueattriname="admins"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -279,9 +279,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="Alluser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -291,10 +291,10 @@ function AllUser() {
             <CButton
               className="margin-right"
               color="primary"
-              uniqueAttriName="students"
+              uniqueattriname="students"
               variant="outline"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -306,9 +306,9 @@ function AllUser() {
               color="primary"
               active
               variant="outline"
-              uniqueAttriName="instructors"
+              uniqueattriname="instructors"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -318,9 +318,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="admins"
+              uniqueattriname="admins"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -453,9 +453,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="Alluser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -465,10 +465,10 @@ function AllUser() {
             <CButton
               className="margin-right"
               color="primary"
-              uniqueAttriName="students"
+              uniqueattriname="students"
               variant="outline"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -479,9 +479,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="instructors"
+              uniqueattriname="instructors"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -492,9 +492,9 @@ function AllUser() {
               active
               color="primary"
               variant="outline"
-              uniqueAttriName="admins"
+              uniqueattriname="admins"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -625,9 +625,9 @@ function AllUser() {
               active
               color="primary"
               variant="outline"
-              uniqueAttriName="Alluser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -637,10 +637,10 @@ function AllUser() {
             <CButton
               className="margin-right"
               color="primary"
-              uniqueAttriName="students"
+              uniqueattriname="students"
               variant="outline"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -651,9 +651,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="instructors"
+              uniqueattriname="instructors"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -663,9 +663,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="admins"
+              uniqueattriname="admins"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -803,10 +803,10 @@ function AllUser() {
             <CButton
               className="margin-right"
               color="primary"
-              uniqueAttriName="students"
+              uniqueattriname="students"
               variant="outline"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
@@ -817,9 +817,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="instructors"
+              uniqueattriname="instructors"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -829,9 +829,9 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueAttriName="admins"
+              uniqueattriname="admins"
               onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueAttriName')
+                let val = e.currentTarget.getAttribute('uniqueattriname')
                 setSwitchSetup(val)
               }}
             >
@@ -969,7 +969,7 @@ function AllUser() {
   //       <CButton
   //         className="margin-right"
   //         color="primary"
-  //         uniqueAttriName="students"
+  //         uniqueattriname="students"
   //         variant="outline"
   //         onClick={(e) => {
   //           console.log(e.currentTarget.getAttribute('click'))
@@ -981,7 +981,7 @@ function AllUser() {
   //         className="margin-right"
   //         color="primary"
   //         variant="outline"
-  //         uniqueAttriName="instructors"
+  //         uniqueattriname="instructors"
   //       >
   //         Instructors
   //       </CButton>
@@ -989,7 +989,7 @@ function AllUser() {
   //         className="margin-right"
   //         color="primary"
   //         variant="outline"
-  //         uniqueAttriName="admins"
+  //         uniqueattriname="admins"
   //       >
   //         Admins
   //       </CButton>
