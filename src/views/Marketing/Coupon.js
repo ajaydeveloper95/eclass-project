@@ -24,15 +24,30 @@ function Coupon() {
   document.title = 'Eclass - Reported Courses'
   const [details, setDetails] = useState([])
   const [dataHandle, setDataHandle] = useState([])
+  const [couponData, setCouponData] = useState([])
   const [stateTrue, setStateTrue] = useState('true')
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/admin/getCoupon', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        setCouponData(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+  }, [])
+
   const columns = [
     {
       key: 'CouponCode',
-      _style: { width: '20%' },
+      _style: { width: '30%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'Amount', _style: { width: '20%' } },
-    { key: 'MaxUsage', _style: { width: '25%' } },
+    { key: 'Amount', _style: { width: '15%' } },
+    { key: 'MaxUsage', _style: { width: '20%' } },
     { key: 'Details', sorter: false, _style: { width: '20%' } },
     {
       key: 'show_details',
@@ -43,6 +58,19 @@ function Coupon() {
       _props: { className: 'fw-semibold' },
     },
   ]
+
+  let col = []
+  for (let item in couponData) {
+    col[item] = {
+      id: item,
+      CouponCode: couponData[item].couponCode,
+      Amount: couponData[item].amount,
+      MaxUsage: couponData[item].maxUsageLimit,
+      Details: couponData[item].discountType,
+      _props: { align: 'middle' },
+    }
+  }
+
   const usersData = [
     {
       id: 0,
@@ -264,7 +292,7 @@ function Coupon() {
                 elementCover
                 columns={columns}
                 columnSorter
-                items={usersData}
+                items={col}
                 itemsPerPageSelect
                 itemsPerPage={10}
                 pagination
