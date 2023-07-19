@@ -10,20 +10,16 @@ import {
   CForm,
   CRow,
   CCol,
-  CFormTextarea,
-  CFormSelect,
   CFormLabel,
   CPopover,
   CModal,
-  CModalHeader,
-  CModalTitle,
-  CModalBody,
-  CModalFooter,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { element } from 'prop-types'
 import axios from 'axios'
+import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
 import { adminUrl } from 'src/RouteDynamic'
+import { cilTrash } from '@coreui/icons'
 
 function QuizReview() {
   document.title = 'Eclass - Quiz Review'
@@ -314,17 +310,39 @@ function QuizReview() {
                   show_details: (item) => {
                     return (
                       <td className="py-2">
-                        <CButton
-                          color="primary"
-                          variant="outline"
-                          shape="square"
-                          size="sm"
-                          onClick={() => {
-                            toggleDetails(item.id)
-                          }}
+                        <CPopover
+                          content={
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'start',
+                              }}
+                            >
+                              <CButton
+                                value-get={item.langId}
+                                // onClick={onClickEditLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                // onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                              </CButton>
+                            </div>
+                          }
+                          placement="top"
                         >
-                          {details.includes(item.id) ? 'Hide' : 'Show'}
-                        </CButton>
+                          <CButton color="secondary">
+                            <CIcon icon={cilOptions}></CIcon>
+                          </CButton>
+                        </CPopover>
                       </td>
                     )
                   },

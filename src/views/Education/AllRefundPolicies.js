@@ -1,13 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { cilPlus, cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-
-import { CSmartTable, CButton, CCardBody, CCollapse, CFormSwitch } from '@coreui/react-pro'
+import axios from 'axios'
+import {
+  CSmartTable,
+  CButton,
+  CCardBody,
+  CCollapse,
+  CFormSwitch,
+  CPopover,
+} from '@coreui/react-pro'
+import { cilPen, cilOptions } from '@coreui/icons'
 
 function AllRefundPolicies() {
   document.title = 'Eclass - Refund Policies'
   const [details, setDetails] = useState([])
-  const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
+  const [refundPolicy, setRefundPolicy] = useState([])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/admin/getRefundPolicy', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        setRefundPolicy(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+  }, [])
+
+  // const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const columns = [
     {
       key: 'Name',
@@ -26,6 +49,19 @@ function AllRefundPolicies() {
       _props: { className: 'fw-semibold' },
     },
   ]
+
+  let col = []
+  for (let item in refundPolicy) {
+    col[item] = {
+      id: item,
+      Name: refundPolicy[item].name,
+      Days: refundPolicy[item].days,
+      Status: refundPolicy[item].isActive,
+      RefundPolicyId: refundPolicy[item]._id,
+      _props: { align: 'middle' },
+    }
+  }
+
   const usersData = [
     {
       id: 0,
@@ -46,76 +82,38 @@ function AllRefundPolicies() {
       Name: 'Cimg',
       Days: 'good',
       Status: 'false',
-      // _cellProps: { all: { className: 'fw-semibold' }, name: { color: 'info' } },
       _props: { align: 'middle' },
     },
-    // { id: 3, name: 'Chetan Mohamed', registered: '2022/02/07', role: 'Admin', status: 'Inactive' },
-    // {
-    //   id: 4,
-    //   name: 'Derick Maximinus',
-    //   registered: '2022/03/19',
-    //   role: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 5, name: 'Friderik Dávid', registered: '2022/01/21', role: 'Staff', status: 'Active' },
-    // { id: 6, name: 'Yiorgos Avraamu', registered: '2022/01/01', role: 'Member', status: 'Active' },
-    // {
-    //   id: 7,
-    //   name: 'Avram Tarasios',
-    //   registered: '2022/02/07',
-    //   role: 'Staff',
-    //   status: 'Banned',
-    //   _props: { color: 'warning', align: 'middle' },
-    // },
-    // { id: 8, name: 'Quintin Ed', registered: '2022/02/07', role: 'Admin', status: 'Inactive' },
-    // { id: 9, name: 'Enéas Kwadwo', registered: '2022/03/19', role: 'Member', status: 'Pending' },
-    // { id: 10, name: 'Agapetus Tadeáš', registered: '2022/01/21', role: 'Staff', status: 'Active' },
-    // { id: 11, name: 'Carwyn Fachtna', registered: '2022/01/01', role: 'Member', status: 'Active' },
-    // {
-    //   id: 12,
-    //   name: 'Nehemiah Tatius',
-    //   registered: '2022/02/07',
-    //   role: 'Staff',
-    //   status: 'Banned',
-    //   _selected: true,
-    // },
-    // { id: 13, name: 'Ebbe Gemariah', registered: '2022/02/07', role: 'Admin', status: 'Inactive' },
-    // {
-    //   id: 14,
-    //   name: 'Eustorgios Amulius',
-    //   registered: '2022/03/19',
-    //   role: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 15, name: 'Leopold Gáspár', registered: '2022/01/21', role: 'Staff', status: 'Active' },
-    // { id: 16, name: 'Pompeius René', registered: '2022/01/01', role: 'Member', status: 'Active' },
-    // { id: 17, name: 'Paĉjo Jadon', registered: '2022/02/07', role: 'Staff', status: 'Banned' },
-    // {
-    //   id: 18,
-    //   name: 'Micheal Mercurius',
-    //   registered: '2022/02/07',
-    //   role: 'Admin',
-    //   status: 'Inactive',
-    // },
-    // {
-    //   id: 19,
-    //   name: 'Ganesha Dubhghall',
-    //   registered: '2022/03/19',
-    //   role: 'Member',
-    //   status: 'Pending',
-    // },
-    // { id: 20, name: 'Hiroto Šimun', registered: '2022/01/21', role: 'Staff', status: 'Active' },
-    // { id: 21, name: 'Vishnu Serghei', registered: '2022/01/01', role: 'Member', status: 'Active' },
-    // { id: 22, name: 'Zbyněk Phoibos', registered: '2022/02/07', role: 'Staff', status: 'Banned' },
-    // { id: 23, name: 'Aulus Agmundr', registered: '2022/01/01', role: 'Member', status: 'Pending' },
-    // {
-    //   id: 42,
-    //   name: 'Ford Prefect',
-    //   registered: '2001/05/25',
-    //   role: 'Alien',
-    //   status: "Don't panic!",
-    // },
+    {
+      id: 3,
+      Name: 'Cimg',
+      Days: 'good',
+      Status: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 4,
+      Name: 'Cimg',
+      Days: 'good',
+      Status: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 5,
+      Name: 'Cimg',
+      Days: 'good',
+      Status: 'false',
+      _props: { align: 'middle' },
+    },
+    {
+      id: 6,
+      Name: 'Cimg',
+      Days: 'good',
+      Status: 'false',
+      _props: { align: 'middle' },
+    },
   ]
+
   const ForStatus = (Status) => {
     switch (Status) {
       case 'true':
@@ -137,6 +135,7 @@ function AllRefundPolicies() {
     }
     setDetails(newDetails)
   }
+
   return (
     <div className="background-white-border-radious">
       <div className="display-flex-justify-space-between-padding">
@@ -161,7 +160,7 @@ function AllRefundPolicies() {
           elementCover
           columns={columns}
           columnSorter
-          items={usersData}
+          items={col}
           itemsPerPageSelect
           itemsPerPage={10}
           pagination
@@ -178,17 +177,39 @@ function AllRefundPolicies() {
             show_details: (item) => {
               return (
                 <td className="py-2">
-                  <CButton
-                    color="primary"
-                    variant="outline"
-                    shape="square"
-                    size="sm"
-                    onClick={() => {
-                      toggleDetails(item.id)
-                    }}
+                  <CPopover
+                    content={
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'start',
+                        }}
+                      >
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickEditLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                        </CButton>
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickDeletLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                        </CButton>
+                      </div>
+                    }
+                    placement="top"
                   >
-                    {details.includes(item.id) ? 'Hide' : 'Show'}
-                  </CButton>
+                    <CButton color="secondary">
+                      <CIcon icon={cilOptions}></CIcon>
+                    </CButton>
+                  </CPopover>
                 </td>
               )
             },

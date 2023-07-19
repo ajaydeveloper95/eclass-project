@@ -1,8 +1,15 @@
 import React, { useState } from 'react'
 import { cilPlus, cilTrash } from '@coreui/icons'
-
-import { CSmartTable, CButton, CCardBody, CCollapse, CFormSwitch } from '@coreui/react-pro'
+import {
+  CSmartTable,
+  CButton,
+  CCardBody,
+  CCollapse,
+  CFormSwitch,
+  CPopover,
+} from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import { cilOptions, cilPen } from '@coreui/icons'
 
 function PrivateCourses() {
   document.title = 'Eclass - Private Course'
@@ -113,17 +120,39 @@ function PrivateCourses() {
             show_details: (item) => {
               return (
                 <td className="py-2">
-                  <CButton
-                    color="primary"
-                    variant="outline"
-                    shape="square"
-                    size="sm"
-                    onClick={() => {
-                      toggleDetails(item.id)
-                    }}
+                  <CPopover
+                    content={
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'start',
+                        }}
+                      >
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickEditLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                        </CButton>
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickDeletLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                        </CButton>
+                      </div>
+                    }
+                    placement="top"
                   >
-                    {details.includes(item.id) ? 'Hide' : 'Show'}
-                  </CButton>
+                    <CButton color="secondary">
+                      <CIcon icon={cilOptions}></CIcon>
+                    </CButton>
+                  </CPopover>
                 </td>
               )
             },

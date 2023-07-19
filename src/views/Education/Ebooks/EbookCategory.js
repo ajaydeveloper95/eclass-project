@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
-import { CSmartTable, CButton, CCardBody, CCollapse, CBadge } from '@coreui/react-pro'
+import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
+import { CSmartTable, CButton, CCardBody, CCollapse, CBadge, CPopover } from '@coreui/react-pro'
+import { cilTrash } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 
 function EbookCategory() {
   document.title = 'Eclass - Ebook Category'
@@ -154,17 +156,39 @@ function EbookCategory() {
         show_details: (item) => {
           return (
             <td className="py-2">
-              <CButton
-                color="primary"
-                variant="outline"
-                shape="square"
-                size="sm"
-                onClick={() => {
-                  toggleDetails(item.id)
-                }}
+              <CPopover
+                content={
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'start',
+                    }}
+                  >
+                    <CButton
+                      value-get={item.langId}
+                      // onClick={onClickEditLang}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                      color="link"
+                    >
+                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                    </CButton>
+                    <CButton
+                      value-get={item.langId}
+                      // onClick={onClickDeletLang}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                      color="link"
+                    >
+                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                    </CButton>
+                  </div>
+                }
+                placement="top"
               >
-                {details.includes(item.id) ? 'Hide' : 'Show'}
-              </CButton>
+                <CButton color="secondary">
+                  <CIcon icon={cilOptions}></CIcon>
+                </CButton>
+              </CPopover>
             </td>
           )
         },

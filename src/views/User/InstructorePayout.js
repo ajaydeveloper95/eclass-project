@@ -461,7 +461,7 @@ function InstructorePayout() {
                       <div className="container">
                         <div className="row">
                           <div className="col-12">
-                            <h6> Enable Inner Border: </h6>
+                            <h6>Enable Inner Border:</h6>
                             <CFormSwitch size="xl" id="formSwitchCheckDefaultXL" />
                           </div>
                           <div className="col-6 mt-3">

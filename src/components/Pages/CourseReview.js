@@ -1,6 +1,14 @@
 import React, { useState } from 'react'
-import { CCardBody, CCollapse, CButton, CImage, CFormSwitch, CSmartTable } from '@coreui/react-pro'
-import { cilPlus, cilTrash, cilOptions } from '@coreui/icons'
+import {
+  CCardBody,
+  CCollapse,
+  CButton,
+  CImage,
+  CFormSwitch,
+  CSmartTable,
+  CPopover,
+} from '@coreui/react-pro'
+import { cilPlus, cilTrash, cilOptions, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 function CourseReview() {
   document.title = 'Eclass - CourseReview'
@@ -208,15 +216,39 @@ function CourseReview() {
             show_details: (item) => {
               return (
                 <td className="py-2">
-                  <CButton
-                    color="dark"
-                    variant="outline"
-                    onClick={() => {
-                      toggleDetails(item.id)
-                    }}
+                  <CPopover
+                    content={
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'start',
+                        }}
+                      >
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickEditLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                        </CButton>
+                        <CButton
+                          value-get={item.langId}
+                          // onClick={onClickDeletLang}
+                          style={{ textDecoration: 'none', color: 'black' }}
+                          color="link"
+                        >
+                          <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                        </CButton>
+                      </div>
+                    }
+                    placement="top"
                   >
-                    <CIcon icon={cilOptions} />
-                  </CButton>
+                    <CButton color="secondary">
+                      <CIcon icon={cilOptions}></CIcon>
+                    </CButton>
+                  </CPopover>
                 </td>
               )
             },
