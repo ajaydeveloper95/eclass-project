@@ -206,7 +206,7 @@ function InstructorePayout() {
             <div className="container">
               <div className="row">
                 <hr />
-                <h4>Payout</h4>
+                <h4>Payout Setting</h4>
                 <hr className="mt-2" />
                 <div className="background-color-and-padding">
                   <CSmartTable
@@ -319,7 +319,7 @@ function InstructorePayout() {
             <div className="container">
               <div className="row">
                 <hr />
-                <h4>Payout Setting</h4>
+                <h4>Payout</h4>
                 <hr className="mt-2" />
                 <div className="col-md-3">
                   <CNav variant="pills" className="flex-column">
