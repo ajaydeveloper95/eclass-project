@@ -55,6 +55,8 @@ const EbookOrders = React.lazy(() => import('./views/Education/Ebooks/EbookOrder
 // MARKETING
 const Coupon = React.lazy(() => import('./views/Marketing/Coupon'))
 const FlashDeal = React.lazy(() => import('./views/Marketing/FlashDeal'))
+const AffiliateAndWallet = React.lazy(() => import('./views/Marketing/AffiliateAndWallet'))
+const Followers = React.lazy(() => import('./views/Marketing/Followers'))
 const PushNotification = React.lazy(() => import('./views/Marketing/PushNotification'))
 
 // FINANCIAL
@@ -177,6 +179,12 @@ const routes = [
 
   { path: '/marketing', name: 'marketing', element: Coupon, exact: true },
   { path: '/marketing/coupon', name: 'Coupon', element: Coupon },
+  { path: '/marketing/followers', name: 'Followers', element: Followers },
+  {
+    path: '/marketing/AffiliateAndWallet',
+    name: 'AffiliateAndWallet',
+    element: AffiliateAndWallet,
+  },
   { path: '/marketing/flashdeal', name: 'FlashDeal', element: FlashDeal },
   { path: '/marketing/pushnotification', name: 'PushNotification', element: PushNotification },
 

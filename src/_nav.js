@@ -14,9 +14,12 @@ import {
   cilPeople,
   cilVideo,
   cilLibraryBuilding,
-  cilBeaker,
-  cilInbox,
+  cilCommentBubble,
   cilCash,
+  cilUserFollow,
+  cilWallet,
+  cilBell,
+  cilBadge,
 } from '@coreui/icons'
 import { CNavGroup, CNavItem, CNavTitle } from '@coreui/react-pro'
 
@@ -117,20 +120,9 @@ const _nav = [
         to: '/users/involvedincourse',
       },
       {
-        component: CNavGroup,
-        name: 'Instructore Payout',
-        items: [
-          {
-            component: CNavItem,
-            name: '- Payout Setting',
-            to: '/',
-          },
-          {
-            component: CNavItem,
-            name: '- Payout',
-            to: '/users/instructorepayout',
-          },
-        ],
+        component: CNavItem,
+        name: '- Instructore Payout',
+        to: '/users/instructorepayout',
       },
     ],
   },
@@ -277,7 +269,7 @@ const _nav = [
     component: CNavItem,
     name: 'Certificate',
     to: '/education/certificate',
-    icon: <CIcon icon={cilBeaker} customClassName="nav-icon" />,
+    icon: <CIcon icon={cilBadge} customClassName="nav-icon" />,
   },
 
   // end Education sidenav
@@ -296,8 +288,26 @@ const _nav = [
   {
     component: CNavItem,
     name: 'Followers',
-    to: '/marketing/coupon',
-    icon: <CIcon icon={cilInbox} customClassName="nav-icon" />,
+    to: '/marketing/followers',
+    icon: <CIcon icon={cilUserFollow} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Affiliate & Wallet',
+    to: '/marketing/AffiliateAndWallet',
+    icon: <CIcon icon={cilWallet} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Push Notification',
+    to: '/marketing/pushnotification',
+    icon: <CIcon icon={cilCommentBubble} customClassName="nav-icon" />,
+  },
+  {
+    component: CNavItem,
+    name: 'Flash Deals',
+    to: '/marketing/flashdeal',
+    icon: <CIcon icon={cilBell} customClassName="nav-icon" />,
   },
 
   // end MARKETING sidenav
