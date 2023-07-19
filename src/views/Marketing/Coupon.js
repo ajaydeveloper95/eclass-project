@@ -31,9 +31,12 @@ function Coupon() {
   const [details, setDetails] = useState([])
   const [dataHandle, setDataHandle] = useState([])
   const [couponData, setCouponData] = useState([])
+  const [updateCoupon, setUpdateCoupon] = useState([])
+  const [selectedSetupState, setSelectedSetupState] = useState([])
   const [couponId, setCouponId] = useState('')
   const [stateTrue, setStateTrue] = useState('true')
   const [visibleDelete, setVisibleDelete] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
 
   useEffect(() => {
     axios
@@ -80,48 +83,6 @@ function Coupon() {
     }
   }
 
-  // const usersData = [
-  //   {
-  //     id: 0,
-  //     CouponCode: 'Cimg',
-  //     Amount: 'good',
-  //     MaxUsage: 'true',
-  //     Details: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 1,
-  //     CouponCode: 'Cimg',
-  //     Amount: 'good',
-  //     MaxUsage: 'true',
-  //     Details: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 2,
-  //     CouponCode: 'Cimg',
-  //     Amount: 'good',
-  //     MaxUsage: 'true',
-  //     Details: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 3,
-  //     CouponCode: 'Cimg',
-  //     Amount: 'good',
-  //     MaxUsage: 'true',
-  //     Details: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 4,
-  //     CouponCode: 'Cimg',
-  //     Amount: 'good',
-  //     MaxUsage: 'true',
-  //     Details: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  // ]
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -150,7 +111,22 @@ function Coupon() {
     setVisibleDelete(false)
   }
 
-  console.log(dataHandle)
+  const onClickEditPopUp = () => {
+    console.log('test')
+  }
+
+  const onClickEditShow = (e) => {
+    let couponId = e.target.getAttribute('value-get')
+    console.log(couponId)
+    for (let item in couponData) {
+      if (couponData[item]._id === couponId) {
+        setUpdateCoupon(couponData[item])
+        break
+      }
+    }
+    setVisibleEdit(true)
+  }
+
   const onSubmitCoupon = () => {
     axios
       .post('http://localhost:5000/admin/addCoupon', dataHandle, {
@@ -160,6 +136,23 @@ function Coupon() {
       .catch((e) => {
         console.log('some issue on Server', e)
       })
+  }
+
+  const DeletedSelectedOnClick = () => {
+    for (let item in selectedSetupState) {
+      axios
+        .post(
+          'http://localhost:5000/admin/deleteCoupon',
+          { _id: selectedSetupState[item].couponDataId },
+          {
+            headers: { access_token: localStorage.getItem('access_token') },
+          },
+        )
+        .then((result) => [console.log('successfully')])
+        .catch((e) => {
+          console.log('some issue on Server', e)
+        })
+    }
   }
 
   return (
@@ -304,7 +297,12 @@ function Coupon() {
                 <CButton className="mx-3" color="success" variant="outline">
                   <CIcon icon={cilPlus}></CIcon> Add Coupon
                 </CButton>
-                <CButton className="mx-3" color="warning" variant="outline">
+                <CButton
+                  className="mx-3"
+                  color="warning"
+                  onClick={DeletedSelectedOnClick}
+                  variant="outline"
+                >
                   <CIcon icon={cilTrash}></CIcon> Delete Selected
                 </CButton>
               </div>
@@ -316,6 +314,14 @@ function Coupon() {
                 cleaner
                 clickableRows
                 elementCover
+                onSelectedItemsChange={(items) => {
+                  // console.log(items)
+                  if (items.length !== 0) {
+                    setSelectedSetupState(items)
+                  } else {
+                    setSelectedSetupState([])
+                  }
+                }}
                 columns={columns}
                 columnSorter
                 items={col}
@@ -336,8 +342,8 @@ function Coupon() {
                               }}
                             >
                               <CButton
-                                value-get={item.langId}
-                                // onClick={onClickEditLang}
+                                value-get={item.couponDataId}
+                                onClick={onClickEditShow}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
                               >
@@ -385,23 +391,44 @@ function Coupon() {
         </CCol>
       </CRow>
       <div>
-        {/* delete model  */}
-        <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
-          <CModalHeader onClose={() => setVisibleDelete(false)}>
-            <CModalTitle>Delete</CModalTitle>
-          </CModalHeader>
-          <CModalBody>
-            <p>Do you really want to delete these records? This process cannot be undone.</p>
-          </CModalBody>
-          <CModalFooter>
-            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
-              No
-            </CButton>
-            <CButton color="primary" onClick={onClickDeletLang}>
-              Yes
-            </CButton>
-          </CModalFooter>
-        </CModal>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Coupon</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>hello</div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickEditPopUp}>
+                Update
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickDeletLang}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
       </div>
     </div>
   )
