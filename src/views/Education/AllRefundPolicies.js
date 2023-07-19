@@ -9,6 +9,11 @@ import {
   CCollapse,
   CFormSwitch,
   CPopover,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
 } from '@coreui/react-pro'
 import { cilPen, cilOptions } from '@coreui/icons'
 
@@ -16,6 +21,11 @@ function AllRefundPolicies() {
   document.title = 'Eclass - Refund Policies'
   const [details, setDetails] = useState([])
   const [refundPolicy, setRefundPolicy] = useState([])
+  const [updateRefundPolicy, setUpdateRefundPolicy] = useState([])
+  const [selectedSetupState, setSelectedSetupState] = useState([])
+  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [refundPolicyIdGet, SetRefundPolicyIdGet] = useState('')
 
   useEffect(() => {
     axios
@@ -62,57 +72,99 @@ function AllRefundPolicies() {
     }
   }
 
-  const usersData = [
-    {
-      id: 0,
-      Name: 'vijay',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 1,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 2,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 3,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 4,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 5,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 6,
-      Name: 'Cimg',
-      Days: 'good',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-  ]
+  // const usersData = [
+  //   {
+  //     id: 0,
+  //     Name: 'vijay',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 1,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 2,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 3,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 4,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 5,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 6,
+  //     Name: 'Cimg',
+  //     Days: 'good',
+  //     Status: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  // ]
+
+  const onClickEditPopUp = () => {
+    console.log('onClickEditPopUp')
+  }
+
+  const onClickDeletLang = () => {
+    axios
+      .post(
+        'http://localhost:5000/admin/deleteRefundPolicy',
+        { _id: refundPolicyIdGet },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((result) => [console.log('successfully')])
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setVisibleDelete(false)
+  }
+
+  const OnClickEditShow = (e) => {
+    let editID = e.target.getAttribute('value-get')
+    console.log(editID)
+    console.log('update refund policy', updateRefundPolicy)
+  }
+  const DeleteAllSelected = () => {
+    for (let item in selectedSetupState) {
+      axios
+        .post(
+          'http://localhost:5000/admin/deleteRefundPolicy',
+          { _id: selectedSetupState[item].RefundPolicyId },
+          {
+            headers: { access_token: localStorage.getItem('access_token') },
+          },
+        )
+        .then((result) => [console.log('successfully')])
+        .catch((e) => {
+          console.log('some issue on Server', e)
+        })
+    }
+  }
 
   const ForStatus = (Status) => {
     switch (Status) {
@@ -146,7 +198,7 @@ function AllRefundPolicies() {
           <CButton className="mx-3" color="success" variant="outline">
             <CIcon icon={cilPlus}></CIcon> Add Bundle
           </CButton>
-          <CButton className="mx-3" color="warning" variant="outline">
+          <CButton className="mx-3" color="warning" onClick={DeleteAllSelected} variant="outline">
             <CIcon icon={cilTrash}></CIcon> Delete Selected
           </CButton>
         </div>
@@ -160,6 +212,14 @@ function AllRefundPolicies() {
           elementCover
           columns={columns}
           columnSorter
+          onSelectedItemsChange={(items) => {
+            // console.log(items)
+            if (items.length !== 0) {
+              setSelectedSetupState(items)
+            } else {
+              setSelectedSetupState([])
+            }
+          }}
           items={col}
           itemsPerPageSelect
           itemsPerPage={10}
@@ -187,16 +247,20 @@ function AllRefundPolicies() {
                         }}
                       >
                         <CButton
-                          value-get={item.langId}
-                          // onClick={onClickEditLang}
+                          value-get={item.RefundPolicyId}
+                          onClick={OnClickEditShow}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
                           <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                         </CButton>
                         <CButton
-                          value-get={item.langId}
-                          // onClick={onClickDeletLang}
+                          value-get={item.RefundPolicyId}
+                          onClick={(e) => {
+                            let RefundPolicyId = e.target.getAttribute('value-get')
+                            SetRefundPolicyIdGet(RefundPolicyId)
+                            setVisibleDelete(true)
+                          }}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -243,6 +307,46 @@ function AllRefundPolicies() {
             hover: true,
           }}
         />
+      </div>
+      <div>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Coupon</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>hello</div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickEditPopUp}>
+                Update
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickDeletLang}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
       </div>
     </div>
   )
