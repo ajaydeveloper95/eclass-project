@@ -26,8 +26,8 @@ const MultipleInstructore = React.lazy(() => import('./views/User/MultipleInstru
 const InstructorePayout = React.lazy(() => import('./views/User/InstructorePayout'))
 const RoleAndPermission = React.lazy(() => import('./views/User/RoleAndPermission'))
 const RequestToInvolve = React.lazy(() => import('./views/User/RequestToInvolve'))
-const InvolvementRequest = React.lazy(() => import('./views/User/InvolvementRequest'))
-const InvolvedInCourse = React.lazy(() => import('./views/User/InvolvedInCourse'))
+// const InvolvementRequest = React.lazy(() => import('./views/User/InvolvementRequest'))
+// const InvolvedInCourse = React.lazy(() => import('./views/User/InvolvedInCourse'))
 
 // Education
 const Course = React.lazy(() => import('./views/Education/Course'))
@@ -146,8 +146,8 @@ const routes = [
   { path: '/users/multipleinstructore', name: 'MultipleInstructore', element: MultipleInstructore },
   { path: '/users/instructorepayout', name: 'InstructorePayout', element: InstructorePayout },
   { path: '/users/involvedincourse', name: 'InvolvedInCourse', element: RequestToInvolve },
-  { path: '/users/involvementrequest', name: 'InvolvementRequest', element: InvolvementRequest },
-  { path: '/users/involvementrequest', name: 'InvolvementRequest', element: InvolvedInCourse },
+  // { path: '/users/involvementrequest', name: 'InvolvementRequest', element: InvolvementRequest },
+  // { path: '/users/involvementrequest', name: 'InvolvementRequest', element: InvolvedInCourse },
 
   { path: '/education', name: 'education', element: Course, exact: true },
   { path: '/education/course', name: 'Course', element: Course },

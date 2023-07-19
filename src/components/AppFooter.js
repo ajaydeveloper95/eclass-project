@@ -5,7 +5,7 @@ const AppFooter = () => {
   return (
     <>
       <CFooter>
-        <div className="float-end">
+        <div className="float-end ms-auto">
           <a href="https://coreui.io" target="_blank" rel="noopener noreferrer">
             E-class
           </a>

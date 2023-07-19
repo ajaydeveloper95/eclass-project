@@ -112,26 +112,9 @@ const _nav = [
         to: '/users/instructoreplan',
       },
       {
-        component: CNavGroup,
-        name: 'Multiple Instructore',
-        to: '/users/multipleinstructore',
-        items: [
-          {
-            component: CNavItem,
-            name: '- Request To Involve',
-            to: '/users/involvedincourse',
-          },
-          {
-            component: CNavItem,
-            name: '- Involvement Requests',
-            to: '/',
-          },
-          {
-            component: CNavItem,
-            name: '- Involved In Course',
-            to: '/',
-          },
-        ],
+        component: CNavItem,
+        name: '- Multiple Instructore',
+        to: '/users/involvedincourse',
       },
       {
         component: CNavGroup,
