@@ -17,6 +17,11 @@ import {
   CInputGroup,
   CDatePicker,
   CPopover,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
@@ -26,7 +31,9 @@ function Coupon() {
   const [details, setDetails] = useState([])
   const [dataHandle, setDataHandle] = useState([])
   const [couponData, setCouponData] = useState([])
+  const [couponId, setCouponId] = useState('')
   const [stateTrue, setStateTrue] = useState('true')
+  const [visibleDelete, setVisibleDelete] = useState(false)
 
   useEffect(() => {
     axios
@@ -73,48 +80,48 @@ function Coupon() {
     }
   }
 
-  const usersData = [
-    {
-      id: 0,
-      CouponCode: 'Cimg',
-      Amount: 'good',
-      MaxUsage: 'true',
-      Details: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 1,
-      CouponCode: 'Cimg',
-      Amount: 'good',
-      MaxUsage: 'true',
-      Details: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 2,
-      CouponCode: 'Cimg',
-      Amount: 'good',
-      MaxUsage: 'true',
-      Details: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 3,
-      CouponCode: 'Cimg',
-      Amount: 'good',
-      MaxUsage: 'true',
-      Details: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 4,
-      CouponCode: 'Cimg',
-      Amount: 'good',
-      MaxUsage: 'true',
-      Details: 'false',
-      _props: { align: 'middle' },
-    },
-  ]
+  // const usersData = [
+  //   {
+  //     id: 0,
+  //     CouponCode: 'Cimg',
+  //     Amount: 'good',
+  //     MaxUsage: 'true',
+  //     Details: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 1,
+  //     CouponCode: 'Cimg',
+  //     Amount: 'good',
+  //     MaxUsage: 'true',
+  //     Details: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 2,
+  //     CouponCode: 'Cimg',
+  //     Amount: 'good',
+  //     MaxUsage: 'true',
+  //     Details: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 3,
+  //     CouponCode: 'Cimg',
+  //     Amount: 'good',
+  //     MaxUsage: 'true',
+  //     Details: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  //   {
+  //     id: 4,
+  //     CouponCode: 'Cimg',
+  //     Amount: 'good',
+  //     MaxUsage: 'true',
+  //     Details: 'false',
+  //     _props: { align: 'middle' },
+  //   },
+  // ]
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -124,6 +131,23 @@ function Coupon() {
       newDetails = [...details, index]
     }
     setDetails(newDetails)
+  }
+
+  const onClickDeletLang = () => {
+    console.log(couponId)
+    axios
+      .post(
+        'http://localhost:5000/admin/deleteCoupon',
+        { _id: couponId },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((result) => [console.log('successfully')])
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setVisibleDelete(false)
   }
 
   console.log(dataHandle)
@@ -320,8 +344,12 @@ function Coupon() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.langId}
-                                // onClick={onClickDeletLang}
+                                value-get={item.couponDataId}
+                                onClick={(e) => {
+                                  let CouponIdGet = e.target.getAttribute('value-get')
+                                  setCouponId(CouponIdGet)
+                                  setVisibleDelete(true)
+                                }}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
                               >
@@ -336,22 +364,6 @@ function Coupon() {
                           </CButton>
                         </CPopover>
                       </td>
-                    )
-                  },
-                  details: (item) => {
-                    return (
-                      <CCollapse visible={details.includes(item.id)}>
-                        <CCardBody className="p-3">
-                          <h4>{item.username}</h4>
-                          <p className="text-muted">User since: {item.registered}</p>
-                          <CButton size="sm" color="info">
-                            User Settings
-                          </CButton>
-                          <CButton size="sm" color="danger" className="ml-1">
-                            Delete
-                          </CButton>
-                        </CCardBody>
-                      </CCollapse>
                     )
                   },
                 }}
@@ -372,6 +384,25 @@ function Coupon() {
           </div>
         </CCol>
       </CRow>
+      <div>
+        {/* delete model  */}
+        <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+          <CModalHeader onClose={() => setVisibleDelete(false)}>
+            <CModalTitle>Delete</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+              No
+            </CButton>
+            <CButton color="primary" onClick={onClickDeletLang}>
+              Yes
+            </CButton>
+          </CModalFooter>
+        </CModal>
+      </div>
     </div>
   )
 }
