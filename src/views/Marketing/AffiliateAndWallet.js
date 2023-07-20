@@ -73,25 +73,25 @@ function AffiliateAndWallet() {
       Payment_Gateway: 'Razorpay',
       Details: 'Razorpay',
     },
-    {
-      id: 4,
-      Number: 4,
-      User: 'Jack',
-      Type: 'Credit',
-      Amount: 100,
-      Payment_Gateway: 'Razorpay',
-      Details: 'Razorpay',
-    },
-    {
-      id: 5,
-      Number: 5,
-      User: 'Jack',
-      Type: 'Credit',
-      Amount: 100,
-      Payment_Gateway: 'Razorpay',
-      Details: 'Razorpay',
-      Status: 'true',
-    },
+    // {
+    //   id: 4,
+    //   Number: 4,
+    //   User: 'Jack',
+    //   Type: 'Credit',
+    //   Amount: 100,
+    //   Payment_Gateway: 'Razorpay',
+    //   Details: 'Razorpay',
+    // },
+    // {
+    //   id: 5,
+    //   Number: 5,
+    //   User: 'Jack',
+    //   Type: 'Credit',
+    //   Amount: 100,
+    //   Payment_Gateway: 'Razorpay',
+    //   Details: 'Razorpay',
+    //   Status: 'true',
+    // },
   ]
 
   const ForStatus = (Status) => {
@@ -189,7 +189,7 @@ function AffiliateAndWallet() {
                 <div className="col-12">
                   <div className="text-editor">
                     <span>
-                      <h1> One </h1>
+                      <h1>One</h1>
                     </span>
                   </div>
                 </div>
@@ -323,7 +323,7 @@ function AffiliateAndWallet() {
                                       <CModalTitle>Modal title</CModalTitle>
                                     </CModalHeader>
                                     <CModalBody>
-                                      <p>ANkit</p>
+                                      <p>Ankit</p>
                                     </CModalBody>
                                     <CModalFooter>
                                       <CButton color="secondary" onClick={() => setVisible(false)}>
