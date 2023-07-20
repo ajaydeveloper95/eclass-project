@@ -161,5 +161,8 @@ input#exampleColorInput {
     height: 40px;
     border-radius: 11px;
 }
+.resetbtnone{
+    margin-right: 10px;
+}
 
 /* ANkit css END*/
