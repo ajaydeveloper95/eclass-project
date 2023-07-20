@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
-import { CFormSelect, CFormInput } from '@coreui/react'
-import { CForm, CFormTextarea } from '@coreui/react-pro'
+import { CFormInput } from '@coreui/react'
 import { CButton, CFormSwitch } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { CLoadingButton } from '@coreui/react-pro'
-import { cilTrash, cilColorBorder, cilPen, cilPlus } from '@coreui/icons'
+import { cilColorBorder } from '@coreui/icons'
 import {
   CSmartTable,
   CImage,
@@ -23,11 +22,6 @@ function AffiliateAndWallet() {
   const [StatusState, setStatusState] = useState('0')
   const [visible, setVisible] = useState(false)
   const [activeKey, setActiveKey] = useState(1)
-  const [selectedTab, setSelectedTab] = useState(0)
-  const [test, setTest] = useState('')
-  const [testOne, setTestOne] = useState('')
-  const [testTwo, setTestTwo] = useState('')
-  const [activeTab, setActiveTab] = useState(0)
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 

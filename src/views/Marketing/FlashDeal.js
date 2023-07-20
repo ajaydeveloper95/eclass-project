@@ -1,5 +1,4 @@
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
-
 import React, { useState, useEffect } from 'react'
 import { cilTrash, cilColorBorder, cilPen, cilPlus, cilOptions } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
@@ -25,6 +24,20 @@ function FlashDeal() {
   const [activeKey, setActiveKey] = useState(1)
   const [requestToInvolvement, setRequestToInvolvement] = useState([])
   const [requestToInvolvementNew, setRequestToInvolvementNew] = useState([])
+  const [Deal, setDeal] = useState([])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/admin/getFlashDeals', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        setDeal(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+  }, [])
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
@@ -49,96 +62,106 @@ function FlashDeal() {
     },
   ]
 
-  const usersData = [
-    {
-      id: 1,
-      Number: 1,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'Microsoft-excel',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 2,
-      Number: 2,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: '	Flutter',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 3,
-      Number: 3,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'React',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 4,
-      Number: 4,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: '	Flutter',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 5,
-      Number: 5,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'Microsoft-excel',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 6,
-      Number: 6,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'Flutter',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 7,
-      Number: 7,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'Flutter',
-      Status: 'true',
-      Featured: 'true',
-    },
-    {
-      id: 8,
-      Number: 8,
-      Image: Cimg,
-      Deal_Name: 'Christmas Sale',
-      Start_Date: '2023-05-02 06:08:00',
-      End_Date: '2023-05-02 06:08:00',
-      Slug: 'Microsoft-excel',
-      Status: 'true',
-      Featured: 'true',
-    },
-  ]
+  let col = []
+  for (let item in Deal) {
+    col[item] = {
+      id: item,
+      Number: item,
+      Image: Deal[item].backgroundImage,
+      Deal_Name: Deal[item].title,
+      Start_Date: Deal[item].startDate,
+      End_Date: Deal[item].endDate,
+      FlashDealId: Deal[item]._id,
+      // Slug: Deal[item],
+      // Status: 'true',
+      // Featured: 'true',
+    }
+  }
+
+  // const usersData = [
+  //   {
+  //     id: 1,
+  //     Number: 1,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //   },
+  //   {
+  //     id: 2,
+  //     Number: 2,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //   },
+  //   {
+  //     id: 3,
+  //     Number: 3,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: 'React',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  //   {
+  //     id: 4,
+  //     Number: 4,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: '	Flutter',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  //   {
+  //     id: 5,
+  //     Number: 5,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: 'Microsoft-excel',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  //   {
+  //     id: 6,
+  //     Number: 6,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: 'Flutter',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  //   {
+  //     id: 7,
+  //     Number: 7,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: 'Flutter',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  //   {
+  //     id: 8,
+  //     Number: 8,
+  //     Image: Cimg,
+  //     Deal_Name: 'Christmas Sale',
+  //     Start_Date: '2023-05-02 06:08:00',
+  //     End_Date: '2023-05-02 06:08:00',
+  //     Slug: 'Microsoft-excel',
+  //     Status: 'true',
+  //     Featured: 'true',
+  //   },
+  // ]
 
   const ForStatus = (Status) => {
     switch (Status) {
@@ -189,7 +212,7 @@ function FlashDeal() {
                   clickableRows
                   columns={columns}
                   columnSorter
-                  items={usersData}
+                  items={col}
                   itemsPerPageSelect
                   itemsPerPage={10}
                   pagination

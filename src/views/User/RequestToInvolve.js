@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { cilTrash, cilColorBorder, cilPen, cilPlus } from '@coreui/icons'
+import { cilColorBorder } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import {
   CSmartTable,
