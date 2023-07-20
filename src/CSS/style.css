@@ -138,4 +138,28 @@ input#exampleColorInput {
     width: 100px;
 }
 
+/* .text-editor span{
+    width: 100%;
+    background-color: red;
+} */
+
+.text-editor {
+    width: 100%;
+    background: red;
+    height: 350px;
+}
+
+.Onebtn{
+    width: 15%;
+    height: 40px;
+    border-radius: 11px;
+    margin-right: 10px;
+}
+
+.Twobtn{
+    width: 15%;
+    height: 40px;
+    border-radius: 11px;
+}
+
 /* ANkit css END*/

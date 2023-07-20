@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { cilTrash, cilColorBorder, cilPen, cilPlus } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
-
 import {
   CSmartTable,
   CButton,
@@ -15,6 +14,7 @@ import {
   CModalFooter,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import axios from 'axios'
 
 function RequestToInvolve() {
   document.title = 'Eclass - All Category'
@@ -22,8 +22,36 @@ function RequestToInvolve() {
   const [StatusState, setStatusState] = useState('0')
   const [visible, setVisible] = useState(false)
   const [activeKey, setActiveKey] = useState(1)
+  const [requestToInvolvement, setRequestToInvolvement] = useState([])
+  const [requestToInvolvementNew, setRequestToInvolvementNew] = useState([])
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:5000/admin/getRequestToInvolvement', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log(result.data.data, 'Ankittt resquest')
+        setRequestToInvolvement(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+
+    axios
+      .get('http://localhost:5000/admin/getRequestsToBecomeAnInstructor', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log(result.data.data, 'Ankittt resquest')
+        setRequestToInvolvementNew(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+  }, [])
 
   const columns = [
     { key: 'Number', _style: { width: '10%' } },
@@ -121,6 +149,30 @@ function RequestToInvolve() {
       Featured: 'true',
     },
   ]
+
+  let col = []
+  for (let item in requestToInvolvement) {
+    col[item] = {
+      id: item,
+      Name: requestToInvolvement[item].name,
+      Days: requestToInvolvement[item].days,
+      Status: requestToInvolvement[item].isActive,
+      requestToInvolvementId: requestToInvolvement[item]._id,
+      _props: { align: 'middle' },
+    }
+  }
+
+  let colnew = []
+  for (let item in requestToInvolvementNew) {
+    col[item] = {
+      id: item,
+      Name: requestToInvolvementNew[item].name,
+      Days: requestToInvolvementNew[item].days,
+      Status: requestToInvolvement[item].isActive,
+      requestToInvolvementNewId: requestToInvolvementNew[item]._id,
+      _props: { align: 'middle' },
+    }
+  }
 
   const ForStatus = (Status) => {
     switch (Status) {
