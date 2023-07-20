@@ -156,7 +156,7 @@ function FlashDeal() {
   }
 
   const onClickDeletCate = (e) => {
-    console.log('t')
+    console.log('test')
   }
 
   const ForFeatured = (Featured) => {

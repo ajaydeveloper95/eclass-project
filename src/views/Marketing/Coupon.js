@@ -113,7 +113,7 @@ function Coupon() {
   }
 
   const onClickEditPopUp = () => {
-    console.log('test')
+    console.log('test all up')
   }
 
   const onClickEditShow = (e) => {
