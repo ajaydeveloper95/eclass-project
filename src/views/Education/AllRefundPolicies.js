@@ -16,6 +16,7 @@ import {
   CModalFooter,
 } from '@coreui/react-pro'
 import { cilPen, cilOptions } from '@coreui/icons'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function AllRefundPolicies() {
   document.title = 'Eclass - Refund Policies'
@@ -190,6 +191,7 @@ function AllRefundPolicies() {
 
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">All Bundles</p>

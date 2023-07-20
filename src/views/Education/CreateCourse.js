@@ -12,6 +12,7 @@ import {
   CButton,
 } from '@coreui/react-pro'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function CreateCourse() {
   document.title = 'Eclass - Create Course'
@@ -196,6 +197,7 @@ function CreateCourse() {
 
   return (
     <div>
+      <AuthFun />
       <CForm>
         <CRow>
           <CCol xs={3}>

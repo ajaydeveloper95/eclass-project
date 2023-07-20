@@ -3,6 +3,7 @@ import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
 import { CSmartTable, CButton, CCardBody, CCollapse, CBadge, CPopover } from '@coreui/react-pro'
 import { cilTrash } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function EbookCategory() {
   document.title = 'Eclass - Ebook Category'
@@ -135,91 +136,94 @@ function EbookCategory() {
     setDetails(newDetails)
   }
   return (
-    <CSmartTable
-      activePage={3}
-      cleaner
-      clickableRows
-      columns={columns}
-      columnFilter
-      columnSorter
-      footer
-      items={usersData}
-      itemsPerPageSelect
-      itemsPerPage={5}
-      pagination
-      scopedColumns={{
-        status: (item) => (
-          <td>
-            <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-          </td>
-        ),
-        show_details: (item) => {
-          return (
-            <td className="py-2">
-              <CPopover
-                content={
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'start',
-                    }}
-                  >
-                    <CButton
-                      value-get={item.langId}
-                      // onClick={onClickEditLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
-                    >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                    </CButton>
-                    <CButton
-                      value-get={item.langId}
-                      // onClick={onClickDeletLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
-                    >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                    </CButton>
-                  </div>
-                }
-                placement="top"
-              >
-                <CButton color="secondary">
-                  <CIcon icon={cilOptions}></CIcon>
-                </CButton>
-              </CPopover>
+    <>
+      <AuthFun />
+      <CSmartTable
+        activePage={3}
+        cleaner
+        clickableRows
+        columns={columns}
+        columnFilter
+        columnSorter
+        footer
+        items={usersData}
+        itemsPerPageSelect
+        itemsPerPage={5}
+        pagination
+        scopedColumns={{
+          status: (item) => (
+            <td>
+              <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
             </td>
-          )
-        },
-        details: (item) => {
-          return (
-            <CCollapse visible={details.includes(item.id)}>
-              <CCardBody className="p-3">
-                <h4>{item.username}</h4>
-                <p className="text-muted">User since: {item.registered}</p>
-                <CButton size="sm" color="info">
-                  User Settings
-                </CButton>
-                <CButton size="sm" color="danger" className="ml-1">
-                  Delete
-                </CButton>
-              </CCardBody>
-            </CCollapse>
-          )
-        },
-      }}
-      selectable
-      sorterValue={{ column: 'name', state: 'asc' }}
-      tableFilter
-      tableHeadProps={{
-        color: 'danger',
-      }}
-      tableProps={{
-        striped: true,
-        hover: true,
-      }}
-    />
+          ),
+          show_details: (item) => {
+            return (
+              <td className="py-2">
+                <CPopover
+                  content={
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                      }}
+                    >
+                      <CButton
+                        value-get={item.langId}
+                        // onClick={onClickEditLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                      </CButton>
+                      <CButton
+                        value-get={item.langId}
+                        // onClick={onClickDeletLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                      </CButton>
+                    </div>
+                  }
+                  placement="top"
+                >
+                  <CButton color="secondary">
+                    <CIcon icon={cilOptions}></CIcon>
+                  </CButton>
+                </CPopover>
+              </td>
+            )
+          },
+          details: (item) => {
+            return (
+              <CCollapse visible={details.includes(item.id)}>
+                <CCardBody className="p-3">
+                  <h4>{item.username}</h4>
+                  <p className="text-muted">User since: {item.registered}</p>
+                  <CButton size="sm" color="info">
+                    User Settings
+                  </CButton>
+                  <CButton size="sm" color="danger" className="ml-1">
+                    Delete
+                  </CButton>
+                </CCardBody>
+              </CCollapse>
+            )
+          },
+        }}
+        selectable
+        sorterValue={{ column: 'name', state: 'asc' }}
+        tableFilter
+        tableHeadProps={{
+          color: 'danger',
+        }}
+        tableProps={{
+          striped: true,
+          hover: true,
+        }}
+      />
+    </>
   )
 }
 

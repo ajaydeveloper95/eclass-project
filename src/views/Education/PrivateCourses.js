@@ -10,6 +10,7 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { cilOptions, cilPen } from '@coreui/icons'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function PrivateCourses() {
   document.title = 'Eclass - Private Course'
@@ -81,6 +82,7 @@ function PrivateCourses() {
   }
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">All Batches</p>

@@ -5,6 +5,7 @@ import { cilPlus, cilTrash, cilStar } from '@coreui/icons'
 import { useEffect } from 'react'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+import AuthFun from './AuthFunction/AuthFun'
 
 function Testmonials() {
   document.title = 'Eclass - Testmonials'
@@ -142,6 +143,7 @@ function Testmonials() {
 
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <p className="text-weight-1-3rem">All Testimonials</p>
         <div>

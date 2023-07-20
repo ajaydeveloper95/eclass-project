@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { CButton, CCardBody, CCollapse, CSmartTable } from '@coreui/react-pro'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function VerifyUser() {
   document.title = 'Eclass - User Verify'
@@ -121,88 +122,100 @@ function VerifyUser() {
   console.log(updatedData)
 
   return (
-    <CSmartTable
-      activePage={3}
-      cleaner
-      clickableRows
-      columns={columns}
-      //   columnFilter
-      columnSorter
-      //   footer
-      items={updatedData}
-      itemsPerPageSelect
-      itemsPerPage={5}
-      pagination
-      scopedColumns={{
-        Blocked: (item) => (
-          <td>
-            <CButton value-get={item.userid} onClick={onBlockedBtn} color={getBadge(item.Blocked)}>
-              Blocked
-            </CButton>
-          </td>
-        ),
-
-        verified: (item) => (
-          <td>
-            <CButton
-              value-get={item.userid}
-              onClick={onVerifiedBtn}
-              color={getVerified(item.verified)}
-            >
-              verified
-            </CButton>
-          </td>
-        ),
-
-        show_details: (item) => {
-          return (
-            <td className="py-2">
+    <>
+      <AuthFun />
+      <CSmartTable
+        activePage={3}
+        cleaner
+        clickableRows
+        columns={columns}
+        //   columnFilter
+        columnSorter
+        //   footer
+        items={updatedData}
+        itemsPerPageSelect
+        itemsPerPage={5}
+        pagination
+        scopedColumns={{
+          Blocked: (item) => (
+            <td>
               <CButton
-                color="primary"
-                variant="outline"
-                shape="square"
-                size="sm"
-                onClick={() => {
-                  toggleDetails(item.id)
-                }}
+                value-get={item.userid}
+                onClick={onBlockedBtn}
+                color={getBadge(item.Blocked)}
               >
-                {details.includes(item.id) ? 'Hide' : 'Status'}
+                Blocked
               </CButton>
             </td>
-          )
-        },
-        details: (item) => {
-          return (
-            <CCollapse visible={details.includes(item.id)}>
-              <CCardBody className="p-3" style={{ color: 'black' }}>
-                <h4>{item.username}</h4>
-                <p className="text-muted">Email: {item.email}</p>
-                <p className="text-muted">Mobile No: {item.mobileNumber}</p>
-                <p className="text-muted">User Role: {item.Role}</p>
-                <div>
-                  <CButton style={{ margin: '0px 20px' }} size="sm" color="info">
-                    Verify User
-                  </CButton>
-                  <CButton style={{ margin: '0px 20px' }} size="sm" color="danger" className="ml-1">
-                    Blocked
-                  </CButton>
-                </div>
-              </CCardBody>
-            </CCollapse>
-          )
-        },
-      }}
-      selectable
-      sorterValue={{ column: 'name', state: 'asc' }}
-      tableFilter
-      tableHeadProps={{
-        color: 'success',
-      }}
-      tableProps={{
-        striped: true,
-        hover: true,
-      }}
-    />
+          ),
+
+          verified: (item) => (
+            <td>
+              <CButton
+                value-get={item.userid}
+                onClick={onVerifiedBtn}
+                color={getVerified(item.verified)}
+              >
+                verified
+              </CButton>
+            </td>
+          ),
+
+          show_details: (item) => {
+            return (
+              <td className="py-2">
+                <CButton
+                  color="primary"
+                  variant="outline"
+                  shape="square"
+                  size="sm"
+                  onClick={() => {
+                    toggleDetails(item.id)
+                  }}
+                >
+                  {details.includes(item.id) ? 'Hide' : 'Status'}
+                </CButton>
+              </td>
+            )
+          },
+          details: (item) => {
+            return (
+              <CCollapse visible={details.includes(item.id)}>
+                <CCardBody className="p-3" style={{ color: 'black' }}>
+                  <h4>{item.username}</h4>
+                  <p className="text-muted">Email: {item.email}</p>
+                  <p className="text-muted">Mobile No: {item.mobileNumber}</p>
+                  <p className="text-muted">User Role: {item.Role}</p>
+                  <div>
+                    <CButton style={{ margin: '0px 20px' }} size="sm" color="info">
+                      Verify User
+                    </CButton>
+                    <CButton
+                      style={{ margin: '0px 20px' }}
+                      size="sm"
+                      color="danger"
+                      className="ml-1"
+                    >
+                      Blocked
+                    </CButton>
+                  </div>
+                </CCardBody>
+              </CCollapse>
+            )
+          },
+        }}
+        selectable
+        sorterValue={{ column: 'name', state: 'asc' }}
+        tableFilter
+        tableHeadProps={{
+          color: 'success',
+        }}
+        tableProps={{
+          striped: true,
+          hover: true,
+        }}
+      />
+    </>
   )
 }
 

@@ -19,6 +19,7 @@ import CIcon from '@coreui/icons-react'
 import { cilClone, cilPen, cilTrash, cilCopy, cilScreenSmartphone, cilMenu } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 const ReactImg = 'https://miro.medium.com/v2/resize:fit:0/1*y6C4nSvy2Woe0m7bWEn4BA.png'
 
@@ -115,6 +116,7 @@ function Course() {
 
   return (
     <div>
+      <AuthFun />
       <div>
         <CContainer style={{ backgroundColor: 'white', padding: '20px' }}>
           <CRow className="justify-content-between">

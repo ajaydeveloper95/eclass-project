@@ -19,6 +19,7 @@ import {
 import { cilClone, cilPen, cilTrash, cilCopy, cilScreenSmartphone, cilMenu } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 const ReactImg = 'https://miro.medium.com/v2/resize:fit:0/1*y6C4nSvy2Woe0m7bWEn4BA.png'
 const ReactImgone =
@@ -113,6 +114,7 @@ function Ebooks() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-white-border-radious mb-3">
         <div className="display-flex-justify-space-between-padding">
           <div className=".text-weight-1-3rem">

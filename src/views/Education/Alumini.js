@@ -18,6 +18,7 @@ import { cilOptions, cilPlus, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { adminUrl } from 'src/RouteDynamic'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function Alumini() {
   const [details, setDetails] = useState([])
@@ -138,6 +139,7 @@ function Alumini() {
 
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">All Alumni</p>

@@ -13,6 +13,7 @@ import {
   cilGroup,
 } from '@coreui/icons'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function MarketingDashboard() {
   document.title = 'Eclass - Marketing Dashboard'
@@ -72,6 +73,7 @@ function MarketingDashboard() {
   ]
   return (
     <div>
+      <AuthFun />
       <div>
         <CRow>
           <CCol xs={3}>

@@ -16,6 +16,7 @@ import {
   CModalFooter,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function Order() {
   const [activeKeyOne, setActiveKeyOne] = useState(1)
@@ -145,6 +146,7 @@ function Order() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-white-border-radious">
         <div className="display-flex-justify-space-between-padding">
           <div>

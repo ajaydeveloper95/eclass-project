@@ -1,10 +1,14 @@
 import React from 'react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function InstructorePlan() {
   return (
-    <div>
-      <h1>instructore plan</h1>
-    </div>
+    <>
+      <AuthFun />
+      <div>
+        <h1>instructore plan</h1>
+      </div>
+    </>
   )
 }
 
