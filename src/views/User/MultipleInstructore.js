@@ -1,10 +1,14 @@
 import React from 'react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function MultipleInstructore() {
   return (
-    <div>
-      <h1>multiple instructor</h1>
-    </div>
+    <>
+      <AuthFun />
+      <div>
+        <h1>multiple instructor</h1>
+      </div>
+    </>
   )
 }
 

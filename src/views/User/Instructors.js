@@ -4,6 +4,7 @@ import axios from 'axios'
 import { CSmartTable, CButton, CBadge, CPopover } from '@coreui/react-pro'
 import { cilOptions, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 function Instructors() {
   const [instState, setinstState] = useState([])
   useEffect(() => {
@@ -157,80 +158,83 @@ function Instructors() {
   }
 
   return (
-    <CSmartTable
-      activePage={3}
-      cleaner
-      // clickableRows
-      columns={columns}
-      // columnFilter
-      columnSorter
-      // footer
-      items={col}
-      itemsPerPageSelect
-      itemsPerPage={5}
-      pagination
-      scopedColumns={{
-        InstructoreEmail: (item) => (
-          <td>
-            <p>E-mail : {item.InstructoreEmail}</p> <p>Mobile No: {item.mobileNumber}</p>
-          </td>
-        ),
-        status: (item) => (
-          <td>
-            <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
-          </td>
-        ),
-        show_details: (item) => {
-          return (
-            <td className="py-2">
-              <CPopover
-                content={
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'start',
-                    }}
-                  >
-                    <CButton
-                      value-get={item.langId}
-                      onClick={onClickEditLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
-                    >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                    </CButton>
-                    <CButton
-                      value-get={item.langId}
-                      onClick={onClickDeletLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
-                    >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                    </CButton>
-                  </div>
-                }
-                placement="top"
-              >
-                <CButton color="secondary">
-                  <CIcon icon={cilOptions}></CIcon>
-                </CButton>
-              </CPopover>
+    <>
+      <AuthFun />
+      <CSmartTable
+        activePage={3}
+        cleaner
+        // clickableRows
+        columns={columns}
+        // columnFilter
+        columnSorter
+        // footer
+        items={col}
+        itemsPerPageSelect
+        itemsPerPage={5}
+        pagination
+        scopedColumns={{
+          InstructoreEmail: (item) => (
+            <td>
+              <p>E-mail : {item.InstructoreEmail}</p> <p>Mobile No: {item.mobileNumber}</p>
             </td>
-          )
-        },
-      }}
-      selectable
-      sorterValue={{ column: 'name', state: 'asc' }}
-      tableFilter
-      tableHeadProps={{
-        color: 'success',
-      }}
-      tableProps={{
-        striped: true,
-        hover: true,
-      }}
-    />
+          ),
+          status: (item) => (
+            <td>
+              <CBadge color={getBadge(item.status)}>{item.status}</CBadge>
+            </td>
+          ),
+          show_details: (item) => {
+            return (
+              <td className="py-2">
+                <CPopover
+                  content={
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                      }}
+                    >
+                      <CButton
+                        value-get={item.langId}
+                        onClick={onClickEditLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                      </CButton>
+                      <CButton
+                        value-get={item.langId}
+                        onClick={onClickDeletLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                      </CButton>
+                    </div>
+                  }
+                  placement="top"
+                >
+                  <CButton color="secondary">
+                    <CIcon icon={cilOptions}></CIcon>
+                  </CButton>
+                </CPopover>
+              </td>
+            )
+          },
+        }}
+        selectable
+        sorterValue={{ column: 'name', state: 'asc' }}
+        tableFilter
+        tableHeadProps={{
+          color: 'success',
+        }}
+        tableProps={{
+          striped: true,
+          hover: true,
+        }}
+      />
+    </>
   )
 }
 

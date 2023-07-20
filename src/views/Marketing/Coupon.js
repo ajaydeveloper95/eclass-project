@@ -25,6 +25,7 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function Coupon() {
   document.title = 'Eclass - Reported Courses'
@@ -157,6 +158,7 @@ function Coupon() {
 
   return (
     <div className="margin-down-and-top">
+      <AuthFun />
       <CRow>
         <CCol xs={4}>
           <div className="background-white-border-radious padding-20px-10px ">

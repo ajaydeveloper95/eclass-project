@@ -10,6 +10,7 @@ import {
 } from '@coreui/react-pro'
 import { cilPlus, cilTrash, cilOptions, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
+import AuthFun from './AuthFunction/AuthFun'
 function CourseReview() {
   document.title = 'Eclass - CourseReview'
   const [details, setDetails] = useState([])
@@ -163,6 +164,7 @@ function CourseReview() {
   }
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">All Coupons</p>

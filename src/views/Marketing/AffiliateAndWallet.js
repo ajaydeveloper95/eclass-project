@@ -16,6 +16,7 @@ import {
   CModalBody,
   CModalFooter,
 } from '@coreui/react-pro'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function AffiliateAndWallet() {
   const [details, setDetails] = useState([])
@@ -143,6 +144,7 @@ function AffiliateAndWallet() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-color-and-padding mb-4">
         <div className="display-flex-justify-space-between-padding"></div>
         <CNav variant="pills" role="tablist">

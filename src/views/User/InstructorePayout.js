@@ -9,6 +9,7 @@ import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { CFormSelect, CFormInput } from '@coreui/react'
 import { CForm, CFormTextarea } from '@coreui/react-pro'
 import { CFormSwitch } from '@coreui/react-pro'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function InstructorePayout() {
   const [details, setDetails] = useState([])
@@ -187,6 +188,7 @@ function InstructorePayout() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-color-and-padding mb-4">
         <div className="display-flex-justify-space-between-padding"></div>
         <CNav variant="pills" role="tablist">

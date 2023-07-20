@@ -1,9 +1,11 @@
 import React from 'react'
 import { CFormSwitch, CFormLabel, CForm, CFormInput, CRow, CCol, CButton } from '@coreui/react-pro'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function InstructoreSuscription() {
   return (
     <div>
+      <AuthFun />
       <div style={{ backgroundColor: 'white', padding: '20px 10px' }}>
         <div>
           <p>Instructors Subscription Settings :</p>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { cilTrash, cilOptions, cilPen } from '@coreui/icons'
+import AuthFun from './AuthFunction/AuthFun'
 
 import {
   CSmartTable,
@@ -10,8 +11,6 @@ import {
   CForm,
   CRow,
   CCol,
-  CFormTextarea,
-  CFormSelect,
   CFormLabel,
   CPopover,
   CModal,
@@ -206,6 +205,7 @@ function AllCategory() {
 
   return (
     <div className="margin-down-and-top">
+      <AuthFun />
       <CRow>
         <CCol xs={4}>
           <div className="background-white-border-radious padding-20px-10px ">

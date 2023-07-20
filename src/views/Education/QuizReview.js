@@ -20,6 +20,7 @@ import axios from 'axios'
 import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
 import { adminUrl } from 'src/RouteDynamic'
 import { cilTrash } from '@coreui/icons'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function QuizReview() {
   document.title = 'Eclass - Quiz Review'
@@ -154,6 +155,7 @@ function QuizReview() {
 
   return (
     <div>
+      <AuthFun />
       <CRow>
         <CCol xs={4}>
           <div className="background-white-border-radious padding-20px-10px mb-4">

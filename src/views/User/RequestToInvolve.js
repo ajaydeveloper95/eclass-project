@@ -15,6 +15,7 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function RequestToInvolve() {
   document.title = 'Eclass - All Category'
@@ -224,6 +225,7 @@ function RequestToInvolve() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-color-and-padding">
         <div className="display-flex-justify-space-between-padding">
           <div>

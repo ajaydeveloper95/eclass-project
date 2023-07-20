@@ -25,6 +25,7 @@ import {
 import { cilPlus, cilOptions, cilTrash, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { json } from 'react-router-dom'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function Institute() {
   document.title = 'Eclass - Institutes'
@@ -272,6 +273,7 @@ function Institute() {
 
   return (
     <div className="margin-bottom-down-20px">
+      <AuthFun />
       <CRow>
         <CCol xs={3}>
           <div className="background-white-border-radious padding-20px-10px">

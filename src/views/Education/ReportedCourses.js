@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { cilTrash, cilOptions, cilPen } from '@coreui/icons'
 import { CSmartTable, CButton, CCardBody, CCollapse, CPopover } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function ReportedCourses() {
   document.title = 'Eclass - Reported Courses'
@@ -84,6 +85,7 @@ function ReportedCourses() {
   }
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">Reported Courses</p>

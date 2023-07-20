@@ -10,6 +10,7 @@ import {
   CPopover,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function EbooksReview() {
   document.title = 'Eclass - Ebook Review'
@@ -98,6 +99,7 @@ function EbooksReview() {
   }
   return (
     <div className="background-white-border-radious">
+      <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
           <p className="text-weight-1-3rem">Ebook Review</p>

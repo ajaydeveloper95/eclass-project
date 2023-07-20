@@ -4,6 +4,7 @@ import { CSmartTable, CFormSwitch, CPopover, CButton } from '@coreui/react-pro'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 import { cilOptions, cilPen, cilTrash } from '@coreui/icons'
+import AuthFun from './AuthFunction/AuthFun'
 
 function CourseLanguage() {
   document.title = 'Eclass - CourseLanguage'
@@ -55,68 +56,73 @@ function CourseLanguage() {
   }
 
   return (
-    <CSmartTable
-      items={col}
-      //   columnFilter
-      columnSorter
-      scopedColumns={{
-        Status: (item) => (
-          <td>
-            {StatusCheck(item.Status) === 0 ? (
-              <CFormSwitch
-                onChange={(e) => {
-                  console.log('1 ')
-                }}
-                id="formSwitchCheckChecked"
-                defaultChecked
-              />
-            ) : (
-              <CFormSwitch
-                onChange={(e) => {
-                  console.log(e.target.value)
-                }}
-                id="formSwitchCheckChecked"
-              />
-            )}
-          </td>
-        ),
-        Action: (item) => (
-          <td>
-            <CPopover
-              content={
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}>
-                  <CButton
-                    value-get={item.langId}
-                    onClick={onClickEditLang}
-                    style={{ textDecoration: 'none', color: 'black' }}
-                    color="link"
+    <>
+      <AuthFun />
+      <CSmartTable
+        items={col}
+        //   columnFilter
+        columnSorter
+        scopedColumns={{
+          Status: (item) => (
+            <td>
+              {StatusCheck(item.Status) === 0 ? (
+                <CFormSwitch
+                  onChange={(e) => {
+                    console.log('1 ')
+                  }}
+                  id="formSwitchCheckChecked"
+                  defaultChecked
+                />
+              ) : (
+                <CFormSwitch
+                  onChange={(e) => {
+                    console.log(e.target.value)
+                  }}
+                  id="formSwitchCheckChecked"
+                />
+              )}
+            </td>
+          ),
+          Action: (item) => (
+            <td>
+              <CPopover
+                content={
+                  <div
+                    style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
                   >
-                    <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                  </CButton>
-                  <CButton
-                    value-get={item.langId}
-                    onClick={onClickDeletLang}
-                    style={{ textDecoration: 'none', color: 'black' }}
-                    color="link"
-                  >
-                    <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                  </CButton>
-                </div>
-              }
-              placement="top"
-            >
-              <CButton color="secondary">
-                <CIcon icon={cilOptions}></CIcon>
-              </CButton>
-            </CPopover>
-          </td>
-        ),
-      }}
-      pagination
-      tableProps={{
-        hover: true,
-      }}
-    />
+                    <CButton
+                      value-get={item.langId}
+                      onClick={onClickEditLang}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                      color="link"
+                    >
+                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                    </CButton>
+                    <CButton
+                      value-get={item.langId}
+                      onClick={onClickDeletLang}
+                      style={{ textDecoration: 'none', color: 'black' }}
+                      color="link"
+                    >
+                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                    </CButton>
+                  </div>
+                }
+                placement="top"
+              >
+                <CButton color="secondary">
+                  <CIcon icon={cilOptions}></CIcon>
+                </CButton>
+              </CPopover>
+            </td>
+          ),
+        }}
+        pagination
+        tableProps={{
+          hover: true,
+        }}
+      />
+    </>
   )
 }
 

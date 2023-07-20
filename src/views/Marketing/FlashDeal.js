@@ -1,3 +1,5 @@
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+
 import React, { useState, useEffect } from 'react'
 import { cilTrash, cilColorBorder, cilPen, cilPlus, cilOptions } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
@@ -170,6 +172,7 @@ function FlashDeal() {
 
   return (
     <>
+      <AuthFun />
       <div className="background-white-border-radious">
         <div className="container">
           <div className="row">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { cilTrash, cilPlus, cibSonos } from '@coreui/icons'
 import React, { useState, useEffect } from 'react'
 import { cilOptions, cilPen } from '@coreui/icons'
@@ -27,6 +28,10 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
+=======
+import React from 'react'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+>>>>>>> 50ca5d6c3b548dad69561e1e5a60f3879f895665
 
 function PushNotification() {
   const [details, setDetails] = useState([])
@@ -60,6 +65,7 @@ function PushNotification() {
 
   return (
     <>
+<<<<<<< HEAD
       <div className="margin-down-and-top">
         <CRow>
           <CCol>
@@ -182,6 +188,11 @@ function PushNotification() {
             </div>
           </CCol>
         </CRow>
+=======
+      <AuthFun />
+      <div>
+        <h1>push notifications</h1>
+>>>>>>> 50ca5d6c3b548dad69561e1e5a60f3879f895665
       </div>
     </>
   )

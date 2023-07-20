@@ -18,6 +18,7 @@ import CIcon from '@coreui/icons-react'
 import { element } from 'prop-types'
 import axios from 'axios'
 import { adminUrl } from 'src/RouteDynamic'
+import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function Assignments() {
   document.title = 'Eclass - Assignments'
@@ -88,6 +89,7 @@ function Assignments() {
 
   return (
     <div>
+      <AuthFun />
       <CRow>
         <CCol xs={4}>
           <div className="background-white-border-radious padding-20px-10px mb-4">

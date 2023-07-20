@@ -33,6 +33,7 @@ import ReviewReport from './editSectionComponent/ReviewReport'
 import QuizTopic from './editSectionComponent/QuizTopic'
 import Appointment from './editSectionComponent/Appointment'
 import PreviousPaper from './editSectionComponent/PreviousPaper'
+import AuthFun from './AuthFunction/AuthFun'
 
 function EditCourse() {
   const [visibleCourse, setvisibleCourse] = useState(true)
@@ -129,6 +130,7 @@ function EditCourse() {
   }
   return (
     <div className="margin-bottom-down-20px">
+      <AuthFun />
       <CRow>
         <CCol xs={2} className="background-color-and-padding mx-3">
           <div>
