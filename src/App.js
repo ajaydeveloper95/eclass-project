@@ -2,6 +2,7 @@ import React, { Component, Suspense } from 'react'
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import './scss/style.scss'
 import Profile from './components/Profile'
+// import '../src/assets/js/New'
 // import AddUser from './components/Pages/AddUser'
 
 const loading = (

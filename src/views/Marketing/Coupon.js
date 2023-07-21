@@ -113,7 +113,20 @@ function Coupon() {
   }
 
   const onClickEditPopUp = () => {
-    console.log('test all up')
+    // axios
+    //   .post(
+    //     'http://localhost:5000/admin/updateCoupon',
+    //     updateCoupon,
+    //     {
+    //       headers: { access_token: localStorage.getItem('access_token') },
+    //     },
+    //   )
+    //   .then((result) => [console.log('successfully')])
+    //   .catch((e) => {
+    //     console.log('some issue on Server', e)
+    //   })
+    console.log(updateCoupon)
+    // setVisibleEdit(false)
   }
 
   const onClickEditShow = (e) => {
@@ -400,7 +413,56 @@ function Coupon() {
               <CModalTitle>Edit Coupon</CModalTitle>
             </CModalHeader>
             <CModalBody>
-              <div>hello</div>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateCoupon.couponCode}
+                    onChange={(e) => {
+                      setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
+                    }}
+                    label="Coupon Code"
+                    placeholder="Coupon Code"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateCoupon.amount}
+                    onChange={(e) => {
+                      setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                    }}
+                    label="Amount"
+                    placeholder="Enter Amount"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateCoupon.maxUsageLimit}
+                    onChange={(e) => {
+                      setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
+                    }}
+                    label="Max-Usage"
+                    placeholder="Enter Max Usage"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateCoupon.discountType}
+                    onChange={(e) => {
+                      setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
+                    }}
+                    label="Details"
+                    placeholder="Enter Details"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+              </div>
             </CModalBody>
             <CModalFooter>
               <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
