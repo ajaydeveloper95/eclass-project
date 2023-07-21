@@ -1,7 +1,6 @@
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 import React, { useState, useEffect } from 'react'
-import { cilTrash, cilColorBorder, cilPen, cilPlus, cilOptions } from '@coreui/icons'
-import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
+import { cilTrash, cilPen, cilOptions } from '@coreui/icons'
 import {
   CSmartTable,
   CButton,
@@ -13,18 +12,20 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CFormInput,
+  CDatePicker,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 
 function FlashDeal() {
-  const [details, setDetails] = useState([])
   const [StatusState, setStatusState] = useState('0')
-  const [visible, setVisible] = useState(false)
-  const [activeKey, setActiveKey] = useState(1)
-  const [requestToInvolvement, setRequestToInvolvement] = useState([])
-  const [requestToInvolvementNew, setRequestToInvolvementNew] = useState([])
   const [Deal, setDeal] = useState([])
+  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [UpdateDeal, setUpdateDeal] = useState([])
+  const [dataHandle, setDataHandle] = useState([])
+  const [Deleteflaseid, setDeleteflaseid] = useState('')
 
   useEffect(() => {
     axios
@@ -74,91 +75,7 @@ function FlashDeal() {
       FlashDealId: Deal[item]._id,
     }
   }
-
-  // const usersData = [
-  //   {
-  //     id: 1,
-  //     Number: 1,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //   },
-  //   {
-  //     id: 2,
-  //     Number: 2,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //   },
-  //   {
-  //     id: 3,
-  //     Number: 3,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: 'React',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 4,
-  //     Number: 4,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: '	Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 5,
-  //     Number: 5,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: 'Microsoft-excel',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 6,
-  //     Number: 6,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: 'Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 7,
-  //     Number: 7,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: 'Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 8,
-  //     Number: 8,
-  //     Image: Cimg,
-  //     Deal_Name: 'Christmas Sale',
-  //     Start_Date: '2023-05-02 06:08:00',
-  //     End_Date: '2023-05-02 06:08:00',
-  //     Slug: 'Microsoft-excel',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  // ]
+  console.log(Deal, 'show data')
 
   const ForStatus = (Status) => {
     switch (Status) {
@@ -171,14 +88,6 @@ function FlashDeal() {
     }
   }
 
-  const onClickEditCate = (e) => {
-    let EditId = e.target.getAttribute('value-get')
-  }
-
-  const onClickDeletCate = (e) => {
-    console.log('test')
-  }
-
   const ForFeatured = (Featured) => {
     switch (Featured) {
       case 'true':
@@ -188,6 +97,27 @@ function FlashDeal() {
       default:
         return -1
     }
+  }
+
+  const Deletonpopuphandal = () => {
+    console.log(Deleteflaseid)
+  }
+
+  const onClickEditCate = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    for (let item in Deal) {
+      if (Deal[item]._id === EditId) {
+        setUpdateDeal(Deal[item])
+        break
+      }
+    }
+    setVisibleEdit(true)
+  }
+
+  const onClickDeletCate = (e) => {
+    let flashDealId = e.target.getAttribute('value-get')
+    setDeleteflaseid(flashDealId)
+    setVisibleDelete(true)
   }
 
   return (
@@ -269,7 +199,7 @@ function FlashDeal() {
                                   }}
                                 >
                                   <CButton
-                                    value-get={item.elementId}
+                                    value-get={item.FlashDealId}
                                     onClick={onClickEditCate}
                                     style={{ textDecoration: 'none', color: 'black' }}
                                     color="link"
@@ -277,7 +207,7 @@ function FlashDeal() {
                                     <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                                   </CButton>
                                   <CButton
-                                    value-get={item.elementId}
+                                    value-get={item.FlashDealId}
                                     onClick={onClickDeletCate}
                                     style={{ textDecoration: 'none', color: 'black' }}
                                     color="link"
@@ -314,6 +244,96 @@ function FlashDeal() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Coupon</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={UpdateDeal.title}
+                    onChange={(e) => {
+                      setUpdateDeal((value) => ({ ...value, title: e.target.value }))
+                    }}
+                    label="Deal Name"
+                    placeholder="Enter Deal Name"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>Start Date</h6>
+                  <CDatePicker
+                    date="2023/03/15 02:22:13 PM"
+                    locale="en-US"
+                    timepicker
+                    value={UpdateDeal.startDate}
+                    onChange={(e) => {
+                      setUpdateDeal((value) => ({ ...value, startDate: e.target.value }))
+                    }}
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>End Date</h6>
+                  <CDatePicker
+                    date="2023/03/15 02:22:13 PM"
+                    locale="en-US"
+                    timepicker
+                    value={UpdateDeal.endDate}
+                    onChange={(e) => {
+                      setUpdateDeal((value) => ({ ...value, endDate: e.target.value }))
+                    }}
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <div className="mb-3">
+                    <CFormInput
+                      type="file"
+                      id="formFile"
+                      label="Upload Image"
+                      placeholder="Image"
+                      // value={UpdateDeal.backgroundImage}
+                      // onChange={(e) => {
+                      //   setUpdateDeal((value) => ({ ...value, backgroundImage: e.target.value }))
+                      // }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary">Update</CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={Deletonpopuphandal}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
         </div>
       </div>
     </>

@@ -5,6 +5,8 @@ import { CButton, CFormSwitch } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { CLoadingButton } from '@coreui/react-pro'
 import { cilColorBorder } from '@coreui/icons'
+// import '../../layout/Tinymce.min.js'
+
 import {
   CSmartTable,
   CImage,
@@ -186,6 +188,7 @@ function AffiliateAndWallet() {
                       <h1>One</h1>
                     </span>
                   </div>
+                  {/* <textarea id="editornew"></textarea> */}
                 </div>
                 <div className="col-6">
                   <h6 className="mt-2">Status:</h6>
