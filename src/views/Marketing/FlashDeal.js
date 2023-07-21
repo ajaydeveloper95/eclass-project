@@ -72,9 +72,6 @@ function FlashDeal() {
       Start_Date: Deal[item].startDate,
       End_Date: Deal[item].endDate,
       FlashDealId: Deal[item]._id,
-      // Slug: Deal[item],
-      // Status: 'true',
-      // Featured: 'true',
     }
   }
 

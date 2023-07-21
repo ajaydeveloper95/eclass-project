@@ -239,17 +239,17 @@ const _nav = [
       {
         component: CNavItem,
         name: '- Jitsi Meeting',
-        to: '/login',
+        to: '/',
       },
       {
         component: CNavItem,
         name: '- Google ClassRoom',
-        to: '/login',
+        to: '/',
       },
       {
         component: CNavItem,
         name: '- Meeting Recoding',
-        to: '/login',
+        to: '/',
       },
     ],
   },

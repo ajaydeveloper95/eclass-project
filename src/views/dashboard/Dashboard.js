@@ -17,26 +17,30 @@ import {
 import CIcon from '@coreui/icons-react'
 import {
   cilUser,
-  cilChartPie,
+  cilPeople,
   cilVoiceOverRecord,
+  cilChildFriendly,
   cilSpreadsheet,
+  cilDisabled,
   cilStream,
   cilTouchApp,
   cilCommentBubble,
   cilCommentSquare,
+  cilZoom,
+  cilNotes,
+  cilTag,
 } from '@coreui/icons'
 import axios from 'axios'
 
 const Dashboard = () => {
   document.title = 'Eclass - Dashboard'
   const navigate = useNavigate()
-  console.log(adminUrl)
 
   // for set state for the button next or prev
   const [userdataGet, setuserdataGet] = useState([])
   const [userBtn, setuserBtn] = useState({ name: '', email: '' })
-  const [instructorBtn, setinstructorBtn] = useState('')
-  const [courseBtn, setcourseBtn] = useState('')
+  const [instructorBtn, setinstructorBtn] = useState({ name: '', email: '' })
+  const [courseBtn, setcourseBtn] = useState({ title: '', category: '' })
   const [orderBtn, setorderBtn] = useState('')
 
   // Set The state of the All Varible
@@ -88,28 +92,23 @@ const Dashboard = () => {
 
   // onCilck handle end
 
+  // code for API
   useEffect(() => {
     if (!localStorage.getItem('access_token')) {
       navigate('/login')
     }
-  }, [])
 
-  // for startup useeffect info
-  const startUp = () => {
-    console.log(userdataGet)
-    // setuserBtn({ name: 'name', email: 'good' })
-  }
-
-  // code for API
-  useEffect(() => {
     axios
       .get(`${adminUrl}/getUsers`)
       .then((alluser) => {
         setUser(alluser.data.data.length)
         setuserdataGet(alluser.data.data)
-        const name = userdataGet[userdataGet.length - 1].fName
-        console.log(name)
-        setuserBtn({ name: `${userdataGet[userdataGet.length - 1].fName}`, email: 'email' })
+        let userA = alluser.data.data.length - 1
+        setuserBtn((value) => ({
+          ...value,
+          name: alluser.data.data[userA].fName,
+          email: alluser.data.data[userA].email,
+        }))
       })
       .catch((err) => {
         console.log('some error are accured ', err)
@@ -120,8 +119,13 @@ const Dashboard = () => {
         headers: { access_token: localStorage.getItem('access_token') },
       })
       .then((allInstructor) => {
-        console.log(allInstructor)
         setInstructors(allInstructor.data.data.length)
+        let userA = allInstructor.data.data.length - 1
+        setinstructorBtn((value) => ({
+          ...value,
+          name: allInstructor.data.data[userA].fName,
+          email: allInstructor.data.data[userA].email,
+        }))
       })
       .catch((err) => {
         console.log('some error are accured ', err)
@@ -210,13 +214,16 @@ const Dashboard = () => {
       })
       .then((courcesget) => {
         setCourses(courcesget.data.data.length)
+        let courseA = courcesget.data.data.length - 1
+        setcourseBtn((value) => ({
+          ...value,
+          title: courcesget.data.data[courseA].title,
+          category: courcesget.data.data[courseA].shortDetail,
+        }))
       })
       .catch((err) => {
         console.log('some error are accured ', err)
       })
-
-    // function call
-    startUp()
   }, [])
   // API call end
 
@@ -288,8 +295,8 @@ const Dashboard = () => {
             <CWidgetStatsF
               className="mb-3"
               icon={
-                <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                <Link to={'/education/reportedquestions'}>
+                  <CIcon icon={cilZoom} height={36} />
                 </Link>
               }
               title="Faq's"
@@ -301,7 +308,7 @@ const Dashboard = () => {
               className="mb-3"
               icon={
                 <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                  <CIcon icon={cilNotes} height={36} />
                 </Link>
               }
               title="Pages"
@@ -336,8 +343,8 @@ const Dashboard = () => {
             <CWidgetStatsF
               className="mb-3"
               icon={
-                <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                <Link to={'/marketing/coupon'}>
+                  <CIcon icon={cilTag} height={36} />
                 </Link>
               }
               title="Coupons"
@@ -349,7 +356,7 @@ const Dashboard = () => {
               className="mb-3"
               icon={
                 <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                  <CIcon icon={cilChildFriendly} height={36} />
                 </Link>
               }
               title="Orders"
@@ -360,8 +367,8 @@ const Dashboard = () => {
             <CWidgetStatsF
               className="mb-3"
               icon={
-                <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                <Link to={'/education/allrefundpolicies'}>
+                  <CIcon icon={cilDisabled} height={36} />
                 </Link>
               }
               title="Refund Orders"
@@ -372,8 +379,8 @@ const Dashboard = () => {
             <CWidgetStatsF
               className="mb-3"
               icon={
-                <Link to={'/user'}>
-                  <CIcon icon={cilChartPie} height={36} />
+                <Link to={'/marketing/followers'}>
+                  <CIcon icon={cilPeople} height={36} />
                 </Link>
               }
               title="Followers"
@@ -476,8 +483,8 @@ const Dashboard = () => {
             </div>
           </div>
           <CCardBody>
-            <CCardTitle>{courseBtn.name}</CCardTitle>
-            <CCardText>{courseBtn.cat}</CCardText>
+            <CCardTitle>{courseBtn.title}</CCardTitle>
+            <CCardText>{courseBtn.category}</CCardText>
           </CCardBody>
         </CCard>
         <CCard style={{ width: '15rem', textAlign: 'center', marginTop: '20px' }}>

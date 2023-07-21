@@ -90,35 +90,35 @@
     background-color: rgba(12, 61, 238, 0.1);
 }
 
-.background-grey-form{
+.background-grey-form {
     background-color: rgba(12, 61, 238, 0.1);
 
 }
 
-.Font-bold{
+.Font-bold {
     font-weight: bold;
 }
 
-.text-alignment{
+.text-alignment {
     color: black !important;
     font-size: 1.4rem;
     text-align: start !important;
 }
 
-.onhover-CNavItem:hover{
+.onhover-CNavItem:hover {
     background-color: rgb(223, 204, 240);
     border-radius: 10px;
 }
 
-.div-class-btn-target button{
+.div-class-btn-target button {
     text-align: start;
 }
 
-.margin-bottom-down-20px{
+.margin-bottom-down-20px {
     margin-bottom: 20px;
 }
 
-.Round-img{
+.Round-img {
     border-radius: 72px;
     position: static;
     overflow: hidden;
@@ -133,7 +133,7 @@ input#exampleColorInput {
     width: 410px;
 }
 
-.showing-data img{
+.showing-data img {
     height: 100px;
     width: 100px;
 }
@@ -149,19 +149,20 @@ input#exampleColorInput {
     height: 350px;
 }
 
-.Onebtn{
+.Onebtn {
     width: 15%;
     height: 40px;
     border-radius: 11px;
     margin-right: 10px;
 }
 
-.Twobtn{
+.Twobtn {
     width: 15%;
     height: 40px;
     border-radius: 11px;
 }
-.resetbtnone{
+
+.resetbtnone {
     margin-right: 10px;
 }
 
