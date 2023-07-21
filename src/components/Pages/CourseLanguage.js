@@ -5,10 +5,23 @@ import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 import { cilOptions, cilPen, cilTrash } from '@coreui/icons'
 import AuthFun from './AuthFunction/AuthFun'
+import {
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CFormInput,
+  CModalFooter,
+} from '@coreui/react'
 
 function CourseLanguage() {
   document.title = 'Eclass - CourseLanguage'
   const [courseLang, setcourseLang] = useState([])
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [updateCource, setUpdateCource] = useState([])
+  const [courceid, setCourceId] = useState([])
+
   useEffect(() => {
     axios
       .get(`${adminUrl}getCourseLanguage`, {
@@ -22,6 +35,16 @@ function CourseLanguage() {
       })
   }, [])
 
+  const columns = [
+    {
+      key: 'name',
+      _style: { width: '40%' },
+      _props: { className: 'fw-semibold' },
+    },
+    { key: 'Status', _style: { width: '25%' } },
+    { key: 'Action', _style: { width: '25%' } },
+  ]
+
   let col = []
 
   for (let key in courseLang) {
@@ -30,7 +53,7 @@ function CourseLanguage() {
       name: `${courseLang[key].name}`,
       Status: `${courseLang[key].isActive}`,
       Action: `${courseLang[key].designation}`,
-      // langId: courseLang[key]._id,
+      langId: courseLang[key]._id,
     }
   }
 
@@ -47,81 +70,159 @@ function CourseLanguage() {
   }
 
   const onClickEditLang = (e) => {
-    const clickEdit = e.currentTarget.getAttribute('value-get')
-    console.log(clickEdit)
+    let clickEdit = e.target.getAttribute('value-get')
+    for (let item in courseLang) {
+      if (courseLang[item]._id === clickEdit) {
+        setUpdateCource(courseLang[item])
+        break
+      }
+    }
+    setVisibleEdit(true)
   }
 
   const onClickDeletLang = (e) => {
-    console.log('delet on click handle')
+    let CourcedeletelId = e.target.getAttribute('value-get')
+    setCourceId(CourcedeletelId)
+    console.log(courceid, 'cource_id')
+
+    setVisibleDelete(true)
   }
+
+  const onClickEditPopUp = (e) => {}
 
   return (
     <>
-      <AuthFun />
-      <CSmartTable
-        items={col}
-        //   columnFilter
-        columnSorter
-        scopedColumns={{
-          Status: (item) => (
-            <td>
-              {StatusCheck(item.Status) === 0 ? (
-                <CFormSwitch
-                  onChange={(e) => {
-                    console.log('1 ')
-                  }}
-                  id="formSwitchCheckChecked"
-                  defaultChecked
-                />
-              ) : (
-                <CFormSwitch
-                  onChange={(e) => {
-                    console.log(e.target.value)
-                  }}
-                  id="formSwitchCheckChecked"
-                />
-              )}
-            </td>
-          ),
-          Action: (item) => (
-            <td>
-              <CPopover
-                content={
-                  <div
-                    style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
-                  >
-                    <CButton
-                      value-get={item.langId}
-                      onClick={onClickEditLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
+      <div className="margin-down-and-top background-white-border-radious padding-20px-10px">
+        <AuthFun />
+        <CSmartTable
+          columns={columns}
+          items={col}
+          columnSorter
+          scopedColumns={{
+            Status: (item) => (
+              <td>
+                {StatusCheck(item.Status) === 0 ? (
+                  <CFormSwitch
+                    onChange={(e) => {
+                      console.log('1 ')
+                    }}
+                    id="formSwitchCheckChecked"
+                    defaultChecked
+                  />
+                ) : (
+                  <CFormSwitch
+                    onChange={(e) => {
+                      console.log(e.target.value)
+                    }}
+                    id="formSwitchCheckChecked"
+                  />
+                )}
+              </td>
+            ),
+            Action: (item) => (
+              <td>
+                <CPopover
+                  content={
+                    <div
+                      style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
                     >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                    </CButton>
-                    <CButton
-                      value-get={item.langId}
-                      onClick={onClickDeletLang}
-                      style={{ textDecoration: 'none', color: 'black' }}
-                      color="link"
-                    >
-                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                    </CButton>
-                  </div>
-                }
-                placement="top"
-              >
-                <CButton color="secondary">
-                  <CIcon icon={cilOptions}></CIcon>
-                </CButton>
-              </CPopover>
-            </td>
-          ),
-        }}
-        pagination
-        tableProps={{
-          hover: true,
-        }}
-      />
+                      <CButton
+                        value-get={item.langId}
+                        onClick={onClickEditLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                      </CButton>
+                      <CButton
+                        value-get={item.langId}
+                        onClick={onClickDeletLang}
+                        style={{ textDecoration: 'none', color: 'black' }}
+                        color="link"
+                      >
+                        <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                      </CButton>
+                    </div>
+                  }
+                  placement="top"
+                >
+                  <CButton color="secondary">
+                    <CIcon icon={cilOptions}></CIcon>
+                  </CButton>
+                </CPopover>
+              </td>
+            ),
+          }}
+          pagination
+          tableProps={{
+            hover: true,
+          }}
+        />
+      </div>
+      <div>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Coupon</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateCource.name}
+                    onChange={(e) => {
+                      setUpdateCource((value) => ({ ...value, name: e.target.value }))
+                    }}
+                    label="Name"
+                    placeholder="Enter Name"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>Status</h6>
+                  <CFormSwitch
+                    label="Status"
+                    id="formSwitchCheckDefault"
+                    value={updateCource.isActive}
+                    onChange={(e) => {
+                      setUpdateCource((value) => ({ ...value, isActive: e.target.value }))
+                    }}
+                  />
+                </div>
+              </div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickEditPopUp}>
+                Update
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickDeletLang}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+      </div>
     </>
   )
 }

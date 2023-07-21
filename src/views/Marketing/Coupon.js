@@ -174,7 +174,7 @@ function Coupon() {
       <AuthFun />
       <CRow>
         <CCol xs={4}>
-          <div className="background-white-border-radious padding-20px-10px ">
+          <div className="background-white-border-radious padding-20px-10px">
             <div>
               <p className="text-weight-1-3rem">Add New Coupon</p>
             </div>

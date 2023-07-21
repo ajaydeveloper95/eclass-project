@@ -75,7 +75,6 @@ function FlashDeal() {
       FlashDealId: Deal[item]._id,
     }
   }
-  console.log(Deal, 'show data')
 
   const ForStatus = (Status) => {
     switch (Status) {
@@ -99,9 +98,7 @@ function FlashDeal() {
     }
   }
 
-  const Deletonpopuphandal = () => {
-    console.log(Deleteflaseid)
-  }
+  const Deletonpopuphandal = () => {}
 
   const onClickEditCate = (e) => {
     let EditId = e.target.getAttribute('value-get')
