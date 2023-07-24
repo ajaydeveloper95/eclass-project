@@ -10,6 +10,7 @@ function AllUser() {
   const [userState, setUserState] = useState([])
   const [SwitchSetup, setSwitchSetup] = useState('Alluser')
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
+
   useEffect(() => {
     axios
       .get(`${adminUrl}getUsers`)
@@ -615,6 +616,183 @@ function AllUser() {
               }}
             >
               All Users
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              uniqueattriname="students"
+              variant="outline"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Students
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="instructors"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Instructors
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="admins"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Admins
+            </CButton>
+          </div>
+          <hr />
+          <div>
+            <div className="display-flex-justify-space-between-padding">
+              <p>All Users</p>
+              <div>
+                <CButton className="margin-right" color="info" variant="outline">
+                  Add User
+                </CButton>
+                <CButton className="margin-right" color="warning" variant="outline">
+                  Delete Selected
+                </CButton>
+                <CButton className="margin-right" color="success" variant="outline">
+                  Import
+                </CButton>
+              </div>
+            </div>
+            <div className="padding-20px-10px">
+              <CSmartTable
+                activePage={3}
+                cleaner
+                clickableRows
+                columns={columns}
+                columnSorter
+                items={col}
+                itemsPerPageSelect
+                itemsPerPage={5}
+                pagination
+                scopedColumns={{
+                  ProfilePhoto: (item) => (
+                    <td>
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                    </td>
+                  ),
+                  UserDetails: (item) => (
+                    <td>
+                      <p>Name :{item.UserDetails}</p>
+                      <p>Email :{item.UserEmail}</p>
+                      <p>Mobile :{item.UserEmail}</p>
+                    </td>
+                  ),
+                  status: (item) => (
+                    <td>
+                      {getBadge(item.status) === 0 ? (
+                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      ) : (
+                        <CFormSwitch id="formSwitchCheckChecked" />
+                      )}
+                    </td>
+                  ),
+                  LoginAsUser: (item) => (
+                    <td>
+                      <CButton color="link">
+                        <CIcon icon={cilLockLocked} size="xxl" />
+                      </CButton>
+                    </td>
+                  ),
+                  show_details: (item) => {
+                    return (
+                      <td className="py-2">
+                        <CPopover
+                          content={
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'start',
+                              }}
+                            >
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickEditLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
+                              </CButton>
+                            </div>
+                          }
+                          placement="top"
+                        >
+                          <CButton color="secondary">
+                            <CIcon icon={cilOptions}></CIcon>
+                          </CButton>
+                        </CPopover>
+                      </td>
+                    )
+                  },
+                }}
+                selectable
+                sorterValue={{ column: 'Role', state: 'asc' }}
+                tableFilter
+                tableFilterLabel="Search : "
+                tableFilterPlaceholder=""
+                tableHeadProps={{
+                  color: 'success',
+                }}
+                tableProps={{
+                  striped: true,
+                  hover: true,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    case 'Verifyuser':
+      return (
+        <div className="background-white-border-radious">
+          <div className="padding-20px-10px">
+            <CButton
+              className="margin-right"
+              active
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verifyuser"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Verifyuser
             </CButton>
             <CButton
               className="margin-right"

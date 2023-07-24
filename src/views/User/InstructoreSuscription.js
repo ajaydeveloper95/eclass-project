@@ -1,14 +1,21 @@
 import React from 'react'
 import { CFormSwitch, CFormLabel, CForm, CFormInput, CRow, CCol, CButton } from '@coreui/react-pro'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import { cilOptions, cilPlus, cilPen, cilArrowLeft } from '@coreui/icons'
+import CIcon from '@coreui/icons-react'
 
 function InstructoreSuscription() {
   return (
     <div>
       <AuthFun />
       <div style={{ backgroundColor: 'white', padding: '20px 10px' }}>
-        <div>
-          <p>Instructors Subscription Settings :</p>
+        <div className="display-flex-justify-space-between-padding">
+          <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
+            </CButton>
+          </div>
         </div>
         <hr></hr>
         <div className="d-flex">

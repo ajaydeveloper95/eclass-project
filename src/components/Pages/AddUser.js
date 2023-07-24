@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { commonUrl } from '../../RouteDynamic'
+// import cilArrowLeft from '@coreui/icons-react'
+import { cilOptions, cilPlus, cilPen, cilArrowLeft } from '@coreui/icons'
+
 import {
   CButton,
   CCol,
@@ -85,7 +88,14 @@ function AddUser() {
           onSubmit={handleSubmit}
         >
           <CRow className="background-grey-form-border-radious-padding">
-            <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+            <div className="display-flex-justify-space-between-padding">
+              <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+              <div>
+                <CButton color="primary" type="submit" variant="outline">
+                  <CIcon icon={cilArrowLeft} /> Back
+                </CButton>
+              </div>
+            </div>
             <CCol md={3} className="my-2">
               <CFormLabel>
                 First Name
@@ -224,7 +234,7 @@ function AddUser() {
               </CFormLabel>
               <CFormInput
                 type="password"
-                text="Password Should Be Minimum 6 Characters"
+                text="Password Should Be Minimum 8 Characters"
                 placeholder="Enter Your Password"
                 onChange={(e) => {
                   setdata((values) => ({ ...values, password: e.target.value }))
@@ -233,7 +243,7 @@ function AddUser() {
                 required
               />
             </CCol>
-            <CCol md={3} className="my-2">
+            {/* <CCol md={3} className="my-2">
               <CFormLabel>
                 Conform Password
                 <CBadge
@@ -251,11 +261,11 @@ function AddUser() {
                 feedbackValid="Looks good!"
                 required
               />
-            </CCol>
+            </CCol> */}
             <CCol xs={12} className="my-2">
               <CFormTextarea
                 id="exampleFormControlTextarea1"
-                label="Example textarea"
+                label="Example Textarea"
                 placeholder="Enter Details About You..."
                 rows={7}
                 text="Must be 8-20 words long."
@@ -327,7 +337,7 @@ function AddUser() {
               />
             </CCol>
             <CCol xs={3} className="my-2">
-              <CFormLabel>Avater Upload :</CFormLabel>
+              <CFormLabel>Avatar Upload :</CFormLabel>
               <CInputGroup className="mb-3">
                 <CFormInput
                   type="file"

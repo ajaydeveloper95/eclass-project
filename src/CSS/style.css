@@ -167,3 +167,11 @@ input#exampleColorInput {
 }
 
 /* ANkit css END*/
+
+.justity-content-flex-end{
+    justify-content: flex-end;
+}
+
+.positin-ablsoute-set{
+    position: absolute;
+}
