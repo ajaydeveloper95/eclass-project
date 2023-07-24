@@ -166,8 +166,6 @@ input#exampleColorInput {
     margin-right: 10px;
 }
 
-/* ANkit css END*/
-
 .justity-content-flex-end{
     justify-content: flex-end;
 }
@@ -175,3 +173,13 @@ input#exampleColorInput {
 .positin-ablsoute-set{
     position: absolute;
 }
+.new-right{
+    right: 60px;
+}
+
+.font-blod{
+    font-weight: bold
+}
+
+/* ANkit css END*/
+

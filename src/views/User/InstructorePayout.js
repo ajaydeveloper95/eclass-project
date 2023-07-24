@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { CSmartTable, CButton, CCollapse, CCardBody, CAvatar } from '@coreui/react-pro'
 import {} from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
-import { cilOptions } from '@coreui/icons'
+import { cilOptions, cilArrowLeft } from '@coreui/icons'
 import { CPopover } from '@coreui/react-pro'
 import { cilTrash, cilPen, cilZoom } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
@@ -152,31 +152,6 @@ function InstructorePayout() {
     setActiveTab(index)
   }
 
-  // const getBadge = (status) => {
-  //   switch (status) {
-  //     case 'Active':
-  //       return 'success'
-  //     case 'Inactive':
-  //       return 'secondary'
-  //     case 'Pending':
-  //       return 'warning'
-  //     case 'Banned':
-  //       return 'danger'
-  //     default:
-  //       return 'primary'
-  //   }
-  // }
-  // const toggleDetails = (index) => {
-  //   const position = details.indexOf(index)
-  //   let newDetails = details.slice()
-  //   if (position !== -1) {
-  //     newDetails.splice(position, 1)
-  //   } else {
-  //     newDetails = [...details, index]
-  //   }
-  //   setDetails(newDetails)
-  // }
-
   const onClickEditLang = (e) => {
     const clickEdit = e.currentTarget.getAttribute('value-get')
     console.log(clickEdit)
@@ -190,19 +165,25 @@ function InstructorePayout() {
     <>
       <AuthFun />
       <div className="background-color-and-padding mb-4">
-        <div className="display-flex-justify-space-between-padding"></div>
-        <CNav variant="pills" role="tablist">
-          <CNavItem>
-            <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
-              Payout Setting
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
-              Payout
-            </CNavLink>
-          </CNavItem>
-        </CNav>
+        <div className="display-flex-justify-space-between-padding">
+          <CNav variant="pills" role="tablist">
+            <CNavItem>
+              <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
+                Payout Setting
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
+                Payout
+              </CNavLink>
+            </CNavItem>
+          </CNav>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
+            </CButton>
+          </div>
+        </div>
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">

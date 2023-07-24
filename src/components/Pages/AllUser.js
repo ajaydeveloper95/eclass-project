@@ -134,6 +134,30 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
@@ -167,9 +191,18 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        {' '}
+                        <span className="font-blod">Name :</span> {item.UserDetails}
+                      </p>
+                      <p>
+                        {' '}
+                        <span className="font-blod">Email :</span> {item.UserEmail}
+                      </p>
+                      <p>
+                        {' '}
+                        <span className="font-blod">Mobile :</span> {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (
@@ -309,6 +342,30 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
@@ -342,9 +399,18 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        <span className="font-blod">Name :</span>
+                        {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (
@@ -483,6 +549,30 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
@@ -513,9 +603,17 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        <span className="font-blod">Name :</span> {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (
@@ -654,6 +752,30 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
@@ -690,9 +812,18 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        <span className="font-blod">Name :</span>
+                        {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (
@@ -776,7 +907,7 @@ function AllUser() {
           </div>
         </div>
       )
-    case 'Verifyuser':
+    case 'Verify':
       return (
         <div className="background-white-border-radious">
           <div className="padding-20px-10px">
@@ -831,11 +962,35 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
-              <p>All Users</p>
+              <p>Verify Users</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add User
@@ -867,9 +1022,228 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        <span className="font-blod">Name :</span>
+                        {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
+                    </td>
+                  ),
+                  status: (item) => (
+                    <td>
+                      {getBadge(item.status) === 0 ? (
+                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      ) : (
+                        <CFormSwitch id="formSwitchCheckChecked" />
+                      )}
+                    </td>
+                  ),
+                  LoginAsUser: (item) => (
+                    <td>
+                      <CButton color="link">
+                        <CIcon icon={cilLockLocked} size="xxl" />
+                      </CButton>
+                    </td>
+                  ),
+                  show_details: (item) => {
+                    return (
+                      <td className="py-2">
+                        <CPopover
+                          content={
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'start',
+                              }}
+                            >
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickEditLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
+                              </CButton>
+                            </div>
+                          }
+                          placement="top"
+                        >
+                          <CButton color="secondary">
+                            <CIcon icon={cilOptions}></CIcon>
+                          </CButton>
+                        </CPopover>
+                      </td>
+                    )
+                  },
+                }}
+                selectable
+                sorterValue={{ column: 'Role', state: 'asc' }}
+                tableFilter
+                tableFilterLabel="Search : "
+                tableFilterPlaceholder=""
+                tableHeadProps={{
+                  color: 'success',
+                }}
+                tableProps={{
+                  striped: true,
+                  hover: true,
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      )
+    case 'Blocked':
+      return (
+        <div className="background-white-border-radious">
+          <div className="padding-20px-10px">
+            <CButton
+              className="margin-right"
+              active
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verifyuser"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Verifyuser
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              uniqueattriname="students"
+              variant="outline"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Students
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="instructors"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Instructors
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="admins"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Admins
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
+          </div>
+          <hr />
+          <div>
+            <div className="display-flex-justify-space-between-padding">
+              <p>Blocked Users</p>
+              <div>
+                <CButton className="margin-right" color="info" variant="outline">
+                  Add User
+                </CButton>
+                <CButton className="margin-right" color="warning" variant="outline">
+                  Delete Selected
+                </CButton>
+                <CButton className="margin-right" color="success" variant="outline">
+                  Import
+                </CButton>
+              </div>
+            </div>
+            <div className="padding-20px-10px">
+              <CSmartTable
+                activePage={3}
+                cleaner
+                clickableRows
+                columns={columns}
+                columnSorter
+                items={col}
+                itemsPerPageSelect
+                itemsPerPage={5}
+                pagination
+                scopedColumns={{
+                  ProfilePhoto: (item) => (
+                    <td>
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                    </td>
+                  ),
+                  UserDetails: (item) => (
+                    <td>
+                      <p>
+                        <span className="font-blod">Name :</span>
+                        {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (
@@ -997,6 +1371,30 @@ function AllUser() {
             >
               Admins
             </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
           </div>
           <hr />
           <div>
@@ -1033,9 +1431,18 @@ function AllUser() {
                   ),
                   UserDetails: (item) => (
                     <td>
-                      <p>Name :{item.UserDetails}</p>
-                      <p>Email :{item.UserEmail}</p>
-                      <p>Mobile :{item.UserEmail}</p>
+                      <p>
+                        <span className="font-blod">Name :</span>
+                        {item.UserDetails}
+                      </p>
+                      <p>
+                        <span className="font-blod">Email :</span>
+                        {item.UserEmail}
+                      </p>
+                      <p>
+                        <span className="font-blod">Mobile :</span>
+                        {item.UserEmail}
+                      </p>
                     </td>
                   ),
                   status: (item) => (

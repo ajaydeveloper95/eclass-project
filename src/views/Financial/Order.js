@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
-import { cilTrash, cilOptions, cilPen, cilPlus } from '@coreui/icons'
-import { CSmartTable, CButton, CImage, CFormSwitch, CPopover, CDatePicker } from '@coreui/react-pro'
+import { cilTrash, cilOptions, cilPen, cilPlus, cilArrowLeft } from '@coreui/icons'
+import { CSmartTable, CButton, CImage, CFormSwitch, CPopover } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 import {
@@ -175,18 +175,25 @@ function Order() {
           </div>
         </div>
         <hr />
-        <CNav variant="pills" role="tablist">
-          <CNavItem>
-            <CNavLink active={activeKeyOne === 1} onClick={() => setActiveKeyOne(1)}>
-              Orders
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKeyOne === 2} onClick={() => setActiveKeyOne(2)}>
-              Refund Orders
-            </CNavLink>
-          </CNavItem>
-        </CNav>
+        <div className="display-flex-justify-space-between-padding">
+          <CNav variant="pills" role="tablist">
+            <CNavItem>
+              <CNavLink active={activeKeyOne === 1} onClick={() => setActiveKeyOne(1)}>
+                Orders
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKeyOne === 2} onClick={() => setActiveKeyOne(2)}>
+                Refund Orders
+              </CNavLink>
+            </CNavItem>
+          </CNav>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
+            </CButton>
+          </div>
+        </div>
         <CTabContent>
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKeyOne === 1}>
             <div className="container">

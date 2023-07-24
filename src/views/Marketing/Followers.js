@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {} from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
-import { cilTrash, cilColorBorder } from '@coreui/icons'
+import { cilTrash, cilColorBorder, cilArrowLeft } from '@coreui/icons'
 import {
   CSmartTable,
   CButton,
@@ -124,19 +124,25 @@ function Followers() {
     <>
       <AuthFun />
       <div className="background-color-and-padding mb-4">
-        <div className="display-flex-justify-space-between-padding"></div>
-        <CNav variant="pills" role="tablist">
-          <CNavItem>
-            <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
-              Followers
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
-              Followings
-            </CNavLink>
-          </CNavItem>
-        </CNav>
+        <div className="display-flex-justify-space-between-padding">
+          <CNav variant="pills" role="tablist">
+            <CNavItem>
+              <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
+                Followers
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
+                Followings
+              </CNavLink>
+            </CNavItem>
+          </CNav>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
+            </CButton>
+          </div>
+        </div>
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">

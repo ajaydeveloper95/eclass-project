@@ -4,6 +4,8 @@ import { CFormSelect, CFormInput } from '@coreui/react'
 import { CForm, CFormTextarea } from '@coreui/react-pro'
 import { CButton, CFormSwitch } from '@coreui/react-pro'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import CIcon from '@coreui/icons-react'
+import { cilOptions, cilArrowLeft } from '@coreui/icons'
 
 function Certificate() {
   document.title = 'Eclass - All Category'
@@ -19,152 +21,6 @@ function Certificate() {
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
-  // const columns = [
-  //   { key: 'Number', _style: { width: '10%' } },
-  //   {
-  //     key: 'Image',
-  //     sorter: false,
-  //     _style: { width: '15%' },
-  //     _props: { className: 'fw-semibold' },
-  //   },
-  //   { key: 'Title', _style: { width: '35%' } },
-  //   { key: 'Slug', _style: { width: '15%' } },
-  //   { key: 'Featured', sorter: false, _style: { width: '15%' } },
-  //   { key: 'Status', sorter: false, _style: { width: '15%' } },
-  //   {
-  //     key: 'show_details',
-  //     label: 'Action',
-  //     _style: { width: '1%' },
-  //     filter: false,
-  //     sorter: false,
-  //     _props: { className: 'fw-semibold' },
-  //   },
-  // ]
-
-  // const usersData = [
-  //   {
-  //     id: 1,
-  //     Number: 1,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'Microsoft-excel',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 2,
-  //     Number: 2,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: '	Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 3,
-  //     Number: 3,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'React',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 4,
-  //     Number: 4,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: '	Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 5,
-  //     Number: 5,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'Microsoft-excel',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 6,
-  //     Number: 6,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 7,
-  //     Number: 7,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'Flutter',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  //   {
-  //     id: 8,
-  //     Number: 8,
-  //     Image: Cimg,
-  //     Title: 'Learn Microsoft Excel from A-Z: Beginner To Expert Course',
-  //     Slug: 'Microsoft-excel',
-  //     Status: 'true',
-  //     Featured: 'true',
-  //   },
-  // ]
-
-  // const ForStatus = (Status) => {
-  //   switch (Status) {
-  //     case 'true':
-  //       return 1
-  //     case 'false':
-  //       return 0
-  //     default:
-  //       return -1
-  //   }
-  // }
-
-  // const onClickEditCate = (e) => {
-  //   let EditId = e.target.getAttribute('value-get')
-  // }
-
-  // const onClickDeletCate = (e) => {
-  //   console.log('t')
-  // }
-
-  // const ForFeatured = (Featured) => {
-  //   switch (Featured) {
-  //     case 'true':
-  //       return 1
-  //     case 'false':
-  //       return 0
-  //     default:
-  //       return -1
-  //   }
-  // }
-
-  // const toggleDetails = (index) => {
-  //   const position = details.indexOf(index)
-  //   let newDetails = details.slice()
-  //   if (position !== -1) {
-  //     newDetails.splice(position, 1)
-  //   } else {
-  //     newDetails = [...details, index]
-  //   }
-  //   setDetails(newDetails)
-  // }
-
-  // const deleteSelectedOnChange = () => {
-  //   console.log('t')
-  // }
-
-  // const CategoryFormSubmit = () => {
-  //   console.log('t')
-  // }
-
   const handleTabClick = (index) => {
     setActiveTab(index)
   }
@@ -173,24 +29,28 @@ function Certificate() {
     <>
       <AuthFun />
       <div className="background-color-and-padding mb-4">
-        <div className="display-flex-justify-space-between-padding"></div>
-        <CNav variant="pills" role="tablist">
-          <CNavItem>
-            <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
-              Manage Certificate
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
-              Certificate Setting
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 3} onClick={() => setActiveKey(3)}>
-              Certificate Verify
-            </CNavLink>
-          </CNavItem>
-        </CNav>
+        <div className="display-flex-justify-space-between-padding">
+          <CNav variant="pills" role="tablist">
+            <CNavItem>
+              <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
+                Manage Certificate
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
+                Certificate Setting
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 3} onClick={() => setActiveKey(3)}>
+                Certificate Verify
+              </CNavLink>
+            </CNavItem>
+          </CNav>
+          <CButton color="primary" type="submit" variant="outline">
+            <CIcon icon={cilArrowLeft} /> Back
+          </CButton>
+        </div>
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">

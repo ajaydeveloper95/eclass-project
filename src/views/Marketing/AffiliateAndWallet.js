@@ -4,7 +4,7 @@ import { CFormInput } from '@coreui/react'
 import { CButton, CFormSwitch } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { CLoadingButton } from '@coreui/react-pro'
-import { cilColorBorder } from '@coreui/icons'
+import { cilColorBorder, cilArrowLeft } from '@coreui/icons'
 // import '../../layout/Tinymce.min.js'
 
 import {
@@ -69,25 +69,6 @@ function AffiliateAndWallet() {
       Payment_Gateway: 'Razorpay',
       Details: 'Razorpay',
     },
-    // {
-    //   id: 4,
-    //   Number: 4,
-    //   User: 'Jack',
-    //   Type: 'Credit',
-    //   Amount: 100,
-    //   Payment_Gateway: 'Razorpay',
-    //   Details: 'Razorpay',
-    // },
-    // {
-    //   id: 5,
-    //   Number: 5,
-    //   User: 'Jack',
-    //   Type: 'Credit',
-    //   Amount: 100,
-    //   Payment_Gateway: 'Razorpay',
-    //   Details: 'Razorpay',
-    //   Status: 'true',
-    // },
   ]
 
   const ForStatus = (Status) => {
@@ -142,24 +123,30 @@ function AffiliateAndWallet() {
     <>
       <AuthFun />
       <div className="background-color-and-padding mb-4">
-        <div className="display-flex-justify-space-between-padding"></div>
-        <CNav variant="pills" role="tablist">
-          <CNavItem>
-            <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
-              Affiliate
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
-              Wallet Settings
-            </CNavLink>
-          </CNavItem>
-          <CNavItem>
-            <CNavLink active={activeKey === 3} onClick={() => setActiveKey(3)}>
-              Wallet Transactions
-            </CNavLink>
-          </CNavItem>
-        </CNav>
+        <div className="display-flex-justify-space-between-padding">
+          <CNav variant="pills" role="tablist">
+            <CNavItem>
+              <CNavLink active={activeKey === 1} onClick={() => setActiveKey(1)}>
+                Affiliate
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 2} onClick={() => setActiveKey(2)}>
+                Wallet Settings
+              </CNavLink>
+            </CNavItem>
+            <CNavItem>
+              <CNavLink active={activeKey === 3} onClick={() => setActiveKey(3)}>
+                Wallet Transactions
+              </CNavLink>
+            </CNavItem>
+          </CNav>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
+            </CButton>
+          </div>
+        </div>
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">

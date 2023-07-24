@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { CSmartTable, CButton, CBadge, CPopover } from '@coreui/react-pro'
+import { CSmartTable, CButton, CBadge, CPopover, CAvatar } from '@coreui/react-pro'
 import { cilOptions, cilTrash, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
@@ -22,6 +22,8 @@ function Instructors() {
 
   let col = []
 
+  const ImgAdd = 'https://cdn.pixabay.com/photo/2017/01/24/03/53/plant-2004483_1280.jpg'
+
   for (let key in instState) {
     col[key] = {
       id: key,
@@ -30,6 +32,7 @@ function Instructors() {
       role: `${instState[key].role}`,
       status: instState[key].isActive ? 'Approved' : 'Denied',
       mobileNumber: instState[key].mobileNumber,
+      Image: ImgAdd,
     }
   }
 
@@ -37,6 +40,11 @@ function Instructors() {
   console.log(instState)
 
   const columns = [
+    {
+      key: 'Image',
+      _style: { width: '20%' },
+      _props: { className: 'fw-semibold' },
+    },
     {
       key: 'name',
       _style: { width: '30%' },
@@ -97,9 +105,20 @@ function Instructors() {
           itemsPerPage={5}
           pagination
           scopedColumns={{
+            Image: (item) => (
+              <td>
+                <img src={item.Image} style={{ width: '100px' }} />
+              </td>
+            ),
             InstructoreEmail: (item) => (
               <td>
-                <p>E-mail : {item.InstructoreEmail}</p> <p>Mobile No: {item.mobileNumber}</p>
+                <p>
+                  {' '}
+                  <span className="font-blod">E-mail :</span> {item.InstructoreEmail}
+                </p>{' '}
+                <p>
+                  <span className="font-blod">Mobile No:</span> {item.mobileNumber}
+                </p>
               </td>
             ),
             status: (item) => (

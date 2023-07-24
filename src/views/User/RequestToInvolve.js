@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { cilColorBorder } from '@coreui/icons'
+import { cilColorBorder, cilArrowLeft } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import {
   CSmartTable,
@@ -249,6 +249,13 @@ function RequestToInvolve() {
               Involved in course
             </CNavLink>
           </CNavItem>
+          <div className="d-flex justity-content-flex-end">
+            <div className="positin-ablsoute-set new-right">
+              <CButton color="primary" type="submit" variant="outline">
+                <CIcon icon={cilArrowLeft} /> Back
+              </CButton>
+            </div>
+          </div>
         </CNav>
         <CTabContent>
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>

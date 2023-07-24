@@ -1,6 +1,6 @@
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 import React, { useState, useEffect } from 'react'
-import { cilTrash, cilPen, cilOptions } from '@coreui/icons'
+import { cilTrash, cilPen, cilOptions, cilArrowLeft } from '@coreui/icons'
 import {
   CSmartTable,
   CButton,
@@ -128,7 +128,15 @@ function FlashDeal() {
           <hr />
           <div className="margin-down-and-top">
             <div className="background-white-border-radious">
-              <div className="display-flex-justify-space-between-padding"></div>
+              <div>
+                <div className="d-flex justity-content-flex-end">
+                  <div className="positin-ablsoute-set mt-4">
+                    <CButton color="primary" type="submit" variant="outline">
+                      <CIcon icon={cilArrowLeft} /> Back
+                    </CButton>
+                  </div>
+                </div>
+              </div>
               <div className="padding-20px-10px">
                 <CSmartTable
                   activePage={3}
