@@ -4,6 +4,8 @@ import { CSmartTable, CButton, CImage, CFormSwitch, CPopover } from '@coreui/rea
 import { cilLockLocked, cilOptions, cilTrash, cilPen, cilZoom } from '@coreui/icons'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+import VerifyUserComponent from 'src/views/Education/VerifyUserComponent'
+import BlockUserComponent from 'src/views/Education/BlockUserComponent'
 
 function AllUser() {
   document.title = 'Eclass - All User'
@@ -1237,7 +1239,11 @@ function AllUser() {
                         {item.UserEmail}
                       </p>
                       <p>
+<<<<<<< HEAD
                         <span className="font-blod">Mobile : </span>
+=======
+                        <span className="font-blod">Mobile :</span>
+>>>>>>> 9e675eac4aed66a54afea21fdbc33069c0716c95
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1319,6 +1325,213 @@ function AllUser() {
                   hover: true,
                 }}
               />
+<<<<<<< HEAD
+=======
+            </div>
+          </div>
+        </div>
+      )
+    case 'Verify':
+      return (
+        <div className="background-white-border-radious">
+          <div className="padding-20px-10px">
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Alluser"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              All Users
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              uniqueattriname="students"
+              variant="outline"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Students
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="instructors"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Instructors
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="admins"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Admins
+            </CButton>
+            <CButton
+              className="margin-right"
+              active
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
+          </div>
+          <hr />
+          <div>
+            <div className="display-flex-justify-space-between-padding">
+              <p>Verify Users</p>
+              <div>
+                <CButton className="margin-right" color="info" variant="outline">
+                  Add User
+                </CButton>
+                <CButton className="margin-right" color="warning" variant="outline">
+                  Delete Selected
+                </CButton>
+                <CButton className="margin-right" color="success" variant="outline">
+                  Import
+                </CButton>
+              </div>
+            </div>
+            <div className="padding-20px-10px">
+              <VerifyUserComponent />
+            </div>
+          </div>
+        </div>
+      )
+    case 'Blocked':
+      return (
+        <div className="background-white-border-radious">
+          <div className="padding-20px-10px">
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verifyuser"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Verifyuser
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              uniqueattriname="students"
+              variant="outline"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                console.log(val)
+                setSwitchSetup(val)
+              }}
+            >
+              Students
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="instructors"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Instructors
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="admins"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Admins
+            </CButton>
+            <CButton
+              className="margin-right"
+              color="primary"
+              variant="outline"
+              uniqueattriname="Verify"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Verify User
+            </CButton>
+            <CButton
+              className="margin-right"
+              active
+              color="primary"
+              variant="outline"
+              uniqueattriname="Blocked"
+              onClick={(e) => {
+                let val = e.currentTarget.getAttribute('uniqueattriname')
+                setSwitchSetup(val)
+              }}
+            >
+              Blocked User
+            </CButton>
+          </div>
+          <hr />
+          <div>
+            <div className="display-flex-justify-space-between-padding">
+              <p>Blocked Users</p>
+              <div>
+                <CButton className="margin-right" color="info" variant="outline">
+                  Add User
+                </CButton>
+                <CButton className="margin-right" color="warning" variant="outline">
+                  Delete Selected
+                </CButton>
+                <CButton className="margin-right" color="success" variant="outline">
+                  Import
+                </CButton>
+              </div>
+            </div>
+            <div className="padding-20px-10px">
+              <BlockUserComponent />
+>>>>>>> 9e675eac4aed66a54afea21fdbc33069c0716c95
             </div>
           </div>
         </div>
