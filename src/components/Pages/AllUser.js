@@ -28,7 +28,8 @@ function AllUser() {
   for (let key in userState) {
     col[key] = {
       id: key,
-      ProfilePhoto: Cimg,
+      Image: Cimg,
+      Profile: `One`,
       UserDetails: `${userState[key].fName} ${userState[key].lName} `,
       UserEmail: `${userState[key].email}`,
       UserMobile: `${userState[key].mobileNumber}`,
@@ -40,12 +41,13 @@ function AllUser() {
   }
 
   const columns = [
+    { key: 'Profile', _style: { width: '10%' } },
     {
-      key: 'ProfilePhoto',
+      key: 'Image',
       _style: { width: '15%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'UserDetails', _style: { width: '40%' } },
+    { key: 'UserDetails', _style: { width: '35%' } },
     { key: 'role', _style: { width: '15%' } },
     { key: 'LoginAsUser', filter: false, sorter: false, _style: { width: '15%' } },
     { key: 'status', filter: false, sorter: false, _style: { width: '20%' } },
@@ -184,24 +186,24 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
                         {' '}
-                        <span className="font-blod">Name :</span> {item.UserDetails}
+                        <span className="font-blod">Name : </span> {item.UserDetails}
                       </p>
                       <p>
                         {' '}
-                        <span className="font-blod">Email :</span> {item.UserEmail}
+                        <span className="font-blod">Email : </span> {item.UserEmail}
                       </p>
                       <p>
                         {' '}
-                        <span className="font-blod">Mobile :</span> {item.UserEmail}
+                        <span className="font-blod">Mobile : </span> {item.UserEmail}
                       </p>
                     </td>
                   ),
@@ -392,24 +394,21 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
-                        {item.UserDetails}
+                        <span className="font-blod">Name : </span> {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
-                        {item.UserEmail}
+                        <span className="font-blod">Email : </span> {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
-                        {item.UserEmail}
+                        <span className="font-blod">Mobile : </span> {item.UserEmail}
                       </p>
                     </td>
                   ),
@@ -596,22 +595,22 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span> {item.UserDetails}
+                        <span className="font-blod">Name : </span> {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -805,23 +804,23 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1015,23 +1014,23 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1225,23 +1224,23 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1424,23 +1423,23 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  ProfilePhoto: (item) => (
+                  Image: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>

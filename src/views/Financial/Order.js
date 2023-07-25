@@ -154,7 +154,6 @@ function Order() {
   return (
     <>
       <AuthFun />
-
       <div className="background-white-border-radious">
         <div className="display-flex-justify-space-between-padding">
           <div>
