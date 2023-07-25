@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { cilTrash } from '@coreui/icons'
 import { CSmartTable, CButton, CCardBody, CCollapse, CPopover } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
+import { cilOptions, cilArrowLeft, cilPen } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function ReportedQuestions() {
@@ -94,11 +94,13 @@ function ReportedQuestions() {
       <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
-          <p className="text-weight-1-3rem">Reported Courses</p>
-        </div>
-        <div>
           <CButton className="mx-3" color="warning" variant="outline">
             <CIcon icon={cilTrash}></CIcon> Delete Selected
+          </CButton>
+        </div>
+        <div>
+          <CButton color="primary" type="submit" variant="outline">
+            <CIcon icon={cilArrowLeft} /> Back
           </CButton>
         </div>
       </div>

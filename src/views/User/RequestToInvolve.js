@@ -261,10 +261,6 @@ function RequestToInvolve() {
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">
               <hr />
-              <div className="row">
-                <h6 className="mt-4">Request To Involve</h6>
-              </div>
-              <hr />
               <div className="margin-down-and-top">
                 <div className="background-white-border-radious">
                   <div className="display-flex-justify-space-between-padding"></div>
@@ -371,10 +367,6 @@ function RequestToInvolve() {
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="Refund-tab" visible={activeKey === 2}>
             <div className="container">
-              <hr />
-              <div className="row">
-                <h6 className="mt-4">Involve Request</h6>
-              </div>
               <hr />
               <div className="margin-down-and-top">
                 <div className="background-white-border-radious">
@@ -488,10 +480,6 @@ function RequestToInvolve() {
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="Refundtwo-tab" visible={activeKey === 3}>
             <div className="container">
-              <hr />
-              <div className="row">
-                <h6 className="mt-4">Involved in course</h6>
-              </div>
               <hr />
             </div>
           </CTabPane>

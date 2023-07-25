@@ -186,114 +186,40 @@ function InstructorePayout() {
         </div>
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
-            <div className="container">
-              <div className="row">
-                <hr />
-                <h4>Payout Setting</h4>
-                <hr className="mt-2" />
-                <div className="background-color-and-padding">
-                  <CSmartTable
-                    activePage={2}
-                    cleaner
-                    clickableRows
-                    columns={columns}
-                    columnSorter
-                    footer
-                    items={usersData}
-                    itemsPerPageSelect
-                    itemsPerPage={5}
-                    pagination
-                    onFilteredItemsChange={(items) => {
-                      console.log(items)
-                    }}
-                    onSelectedItemsChange={(items) => {
-                      console.log(items)
-                    }}
-                    scopedColumns={{
-                      avatar: (item) => (
-                        <td>
-                          <CAvatar src={`/images/avatars/${item.avatar}`} />
-                        </td>
-                      ),
-                      show_details: (item) => {
-                        return (
-                          <td>
-                            <CPopover
-                              content={
-                                <div
-                                  style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    justifyContent: 'start',
-                                  }}
-                                >
-                                  <CButton
-                                    value-get={item.langId}
-                                    onClick={onClickEditLang}
-                                    style={{ textDecoration: 'none', color: 'black' }}
-                                    color="link"
-                                  >
-                                    <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                                  </CButton>
-                                  <CButton
-                                    value-get={item.langId}
-                                    onClick={onClickDeletLang}
-                                    style={{ textDecoration: 'none', color: 'black' }}
-                                    color="link"
-                                  >
-                                    <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>
-                                    Delete
-                                  </CButton>
-                                  <CButton
-                                    value-get={item.langId}
-                                    onClick={onClickDeletLang}
-                                    style={{ textDecoration: 'none', color: 'black' }}
-                                    color="link"
-                                  >
-                                    <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>
-                                    View
-                                  </CButton>
-                                </div>
-                              }
-                              placement="top"
-                            >
-                              <CButton color="secondary">
-                                <CIcon icon={cilOptions}></CIcon>
-                              </CButton>
-                            </CPopover>
-                          </td>
-                        )
-                      },
-                      details: (item) => {
-                        return (
-                          <CCollapse visible={details.includes(item.id)}>
-                            <CCardBody className="p-3">
-                              <h4>{item.username}</h4>
-                              <p className="text-muted">User since: {item.registered}</p>
-                              <CButton size="sm" color="info">
-                                User Settings
-                              </CButton>
-                              <CButton size="sm" color="danger" className="ml-1">
-                                Delete
-                              </CButton>
-                            </CCardBody>
-                          </CCollapse>
-                        )
-                      },
-                    }}
-                    selectable
-                    sorterValue={{ column: 'status', state: 'asc' }}
-                    tableFilter
-                    tableProps={{
-                      className: 'add-this-class',
-                      responsive: true,
-                      striped: true,
-                      hover: true,
-                    }}
-                    tableBodyProps={{
-                      className: 'align-middle',
-                    }}
-                  />
+            <div className="background-color-and-padding">
+              <div className="container">
+                <div className="row">
+                  <hr />
+                  <div className="col-3">
+                    <h6>Instructor Revenue in %</h6>
+                    <CFormInput
+                      type="number"
+                      placeholder="Default input"
+                      aria-label="default input example"
+                    />
+                  </div>
+                  <div className="col-3">
+                    <h6>Instructor Revenue in %</h6>
+                    <CFormInput
+                      type="number"
+                      placeholder="Default input"
+                      aria-label="default input example"
+                    />
+                  </div>
+                  <div className="col-2">
+                    <h6>Paytm Enable:</h6>
+                    <CFormSwitch size="xl" label="" id="formSwitchCheckDefaultXL" />
+                  </div>
+                  <div className="col-2">
+                    <h6>PayPal Enable:</h6>
+                    <CFormSwitch size="xl" label="" id="formSwitchCheckDefaultXL" />
+                  </div>
+                  <div className="col-2">
+                    <h6>Bank Transfer Enable:</h6>
+                    <CFormSwitch size="xl" label="" id="formSwitchCheckDefaultXL" />
+                  </div>
+
+                  <div className="col-12"></div>
                 </div>
               </div>
             </div>
@@ -302,8 +228,6 @@ function InstructorePayout() {
             <div className="container">
               <div className="row">
                 <hr />
-                <h4>Payout</h4>
-                <hr className="mt-2" />
                 <div className="col-md-3">
                   <CNav variant="pills" className="flex-column">
                     <CNavItem>
@@ -323,7 +247,7 @@ function InstructorePayout() {
                     <CTabPane visible={activeTab === 0}>
                       <div className="container">
                         <div className="row">
-                          <div className="background-color-and-padding">
+                          <div className="">
                             <CSmartTable
                               activePage={2}
                               cleaner

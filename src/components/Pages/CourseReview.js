@@ -16,7 +16,7 @@ import {
   CFormInput,
   CModalFooter,
 } from '@coreui/react'
-import { cilPlus, cilTrash, cilOptions, cilPen } from '@coreui/icons'
+import { cilPlus, cilTrash, cilOptions, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from './AuthFunction/AuthFun'
 
@@ -125,14 +125,16 @@ function CourseReview() {
         <AuthFun />
         <div className="display-flex-justify-space-between-padding">
           <div>
-            <p className="text-weight-1-3rem">All Coupons</p>
-          </div>
-          <div>
             <CButton className="mx-3" color="success" variant="outline">
               <CIcon icon={cilPlus}></CIcon> Add Coupon
             </CButton>
             <CButton className="mx-3" color="warning" variant="outline">
               <CIcon icon={cilTrash}></CIcon> Delete Selected
+            </CButton>
+          </div>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
             </CButton>
           </div>
         </div>

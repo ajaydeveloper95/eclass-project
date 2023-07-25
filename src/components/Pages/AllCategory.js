@@ -183,11 +183,6 @@ function AllCategory() {
     setDeleteCateId(DataId)
   }
 
-  // console.log(deleteCateId)
-
-  // console.log(dataSetup)
-  // console.log(dataSetup)
-
   const CategoryFormSubmit = () => {
     axios
       .post(`${adminUrl}addCategory`, dataSetup, {

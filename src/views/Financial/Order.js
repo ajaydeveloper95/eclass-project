@@ -157,9 +157,6 @@ function Order() {
       <div className="background-white-border-radious">
         <div className="display-flex-justify-space-between-padding">
           <div>
-            <p className="text-weight-1-3rem">Orders</p>
-          </div>
-          <div>
             <CButton
               className="mx-3"
               href="/education/bundleform"
@@ -170,6 +167,11 @@ function Order() {
             </CButton>
             <CButton className="mx-3" color="primary" variant="outline">
               <CIcon icon={cilPlus}></CIcon> Export Offline Payments
+            </CButton>
+          </div>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
             </CButton>
           </div>
         </div>
@@ -187,24 +189,15 @@ function Order() {
               </CNavLink>
             </CNavItem>
           </CNav>
-          <div>
-            <CButton color="primary" type="submit" variant="outline">
-              <CIcon icon={cilArrowLeft} /> Back
-            </CButton>
-          </div>
         </div>
         <CTabContent>
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKeyOne === 1}>
             <div className="container">
               <hr />
-              <div className="row">
-                <h6 className="mt-4">All Orders</h6>
-              </div>
-              <hr />
               <div className="margin-down-and-top">
                 <div className="background-white-border-radious">
                   <div className="display-flex-justify-space-between-padding"></div>
-                  <div className="padding-20px-10px">
+                  <div>
                     <CSmartTable
                       activePage={3}
                       cleaner
@@ -320,14 +313,10 @@ function Order() {
           <CTabPane role="tabpanel" aria-labelledby="Refund-tab" visible={activeKeyOne === 2}>
             <div className="container">
               <hr />
-              <div className="row">
-                <h6 className="mt-4">All Refund Order</h6>
-              </div>
-              <hr />
               <div className="margin-down-and-top">
                 <div className="background-white-border-radious">
                   <div className="display-flex-justify-space-between-padding"></div>
-                  <div className="padding-20px-10px">
+                  <div>
                     <CSmartTable
                       activePage={3}
                       cleaner

@@ -3,7 +3,7 @@ import { adminUrl } from '../../RouteDynamic'
 import { CSmartTable, CFormSwitch, CPopover, CButton } from '@coreui/react-pro'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
-import { cilOptions, cilPen, cilTrash } from '@coreui/icons'
+import { cilOptions, cilPen, cilTrash, cilArrowLeft } from '@coreui/icons'
 import AuthFun from './AuthFunction/AuthFun'
 import {
   CModal,
@@ -93,6 +93,20 @@ function CourseLanguage() {
   return (
     <>
       <div className="margin-down-and-top background-white-border-radious padding-20px-10px">
+        <div className="container">
+          <div className="row">
+            <div className="col-6"></div>
+            <div className="col-6">
+              <div className="display-flex-justify-space-between-padding text-right-new">
+                <div>
+                  <CButton color="primary" type="submit" variant="outline">
+                    <CIcon icon={cilArrowLeft} /> Back
+                  </CButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <AuthFun />
         <CSmartTable
           columns={columns}

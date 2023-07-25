@@ -192,3 +192,6 @@ input#exampleColorInput {
 .width-40-percent {
     width: 40%;
 }
+.text-right-new{
+    float: right;
+}

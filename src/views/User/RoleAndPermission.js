@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CSmartTable, CButton, CCardBody, CCollapse, CBadge, CPopover } from '@coreui/react-pro'
-import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
+import { cilOptions, cilPlus, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { cilTrash } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
@@ -56,9 +56,6 @@ function RoleAndPermission() {
         <AuthFun />
         <div className="display-flex-justify-space-between-padding">
           <div>
-            <p className="text-weight-1-3rem">Roles</p>
-          </div>
-          <div>
             <CButton
               className="mx-3"
               href="/education/bundleform"
@@ -66,6 +63,11 @@ function RoleAndPermission() {
               variant="outline"
             >
               <CIcon icon={cilPlus} /> Create A New Role
+            </CButton>
+          </div>
+          <div>
+            <CButton color="primary" type="submit" variant="outline">
+              <CIcon icon={cilArrowLeft} /> Back
             </CButton>
           </div>
         </div>

@@ -146,16 +146,12 @@ function Followers() {
         <CTabContent className="mt-4">
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">
-              <hr />
               <div className="row">
-                <div className="col-12">
-                  <h5>All Followers</h5>
-                </div>
                 <hr />
                 <div className="margin-down-and-top">
                   <div className="background-white-border-radious">
                     <div className="display-flex-justify-space-between-padding"></div>
-                    <div className="padding-20px-10px">
+                    <div>
                       <CSmartTable
                         activePage={3}
                         cleaner
@@ -262,17 +258,12 @@ function Followers() {
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="Refund-tab" visible={activeKey === 2}>
             <div className="container">
-              <hr />
               <div className="row">
-                <div className="col-12">
-                  <h5>All Followings</h5>
-                </div>
                 <hr />
-
                 <div className="margin-down-and-top">
                   <div className="background-white-border-radious">
                     <div className="display-flex-justify-space-between-padding"></div>
-                    <div className="padding-20px-10px">
+                    <div>
                       <CSmartTable
                         activePage={3}
                         cleaner
