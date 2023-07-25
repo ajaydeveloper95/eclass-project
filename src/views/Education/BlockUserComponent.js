@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { CButton, CCardBody, CCollapse, CSmartTable } from '@coreui/react-pro'
 import axios from 'axios'
-import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
-function VerifyUser() {
-  document.title = 'Eclass - User Verify'
+function BlockUserComponent() {
   const [details, setDetails] = useState([])
   const [allUser, setAllUser] = useState([])
   const [updatedData, setupdatedData] = useState([])
@@ -31,12 +29,6 @@ function VerifyUser() {
       })
   }
 
-  const onVerifiedBtn = (e) => {
-    let getData = e.currentTarget.getAttribute('value-get')
-    console.log(getData)
-    UserVerifyAndBlocked(getData, true)
-  }
-
   const onBlockedBtn = (e) => {
     let getDataBlocked = e.currentTarget.getAttribute('value-get')
     console.log(getDataBlocked)
@@ -56,7 +48,6 @@ function VerifyUser() {
             id: item,
             name: `${AllUserData[item].fName} ${AllUserData[item].lName}`,
             Role: AllUserData[item].role,
-            verified: AllUserData[item].isVerified,
             Blocked: !AllUserData[item].isVerified ? true : false,
             email: AllUserData[item].email,
             userid: AllUserData[item]._id,
@@ -76,13 +67,16 @@ function VerifyUser() {
       _style: { width: '30%' },
       _props: { className: 'fw-semibold' },
     },
-    'Role',
-    { key: 'verified', _style: { width: '20%' } },
-    { key: 'Blocked', _style: { width: '20%' } },
+    {
+      key: 'Role',
+      _style: { width: '30%' },
+      _props: { className: 'fw-semibold' },
+    },
+    { key: 'Blocked', _style: { width: '30%' } },
     {
       key: 'show_details',
       label: '',
-      _style: { width: '1%' },
+      _style: { width: '10%' },
       _props: { className: 'fw-semibold' },
     },
   ]
@@ -98,16 +92,6 @@ function VerifyUser() {
     }
   }
 
-  const getVerified = (verified) => {
-    switch (verified) {
-      case true:
-        return 'success'
-      case false:
-        return 'light'
-      default:
-        return 'primary'
-    }
-  }
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -123,7 +107,6 @@ function VerifyUser() {
 
   return (
     <>
-      <AuthFun />
       <div>
         <CSmartTable
           activePage={3}
@@ -146,18 +129,6 @@ function VerifyUser() {
                   color={getBadge(item.Blocked)}
                 >
                   Blocked
-                </CButton>
-              </td>
-            ),
-
-            verified: (item) => (
-              <td>
-                <CButton
-                  value-get={item.userid}
-                  onClick={onVerifiedBtn}
-                  color={getVerified(item.verified)}
-                >
-                  verified
                 </CButton>
               </td>
             ),
@@ -221,4 +192,4 @@ function VerifyUser() {
   )
 }
 
-export default VerifyUser
+export default BlockUserComponent

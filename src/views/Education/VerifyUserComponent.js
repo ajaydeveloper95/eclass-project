@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { CButton, CCardBody, CCollapse, CSmartTable } from '@coreui/react-pro'
 import axios from 'axios'
-import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
-function VerifyUser() {
-  document.title = 'Eclass - User Verify'
+function VerifyUserComponent() {
   const [details, setDetails] = useState([])
   const [allUser, setAllUser] = useState([])
   const [updatedData, setupdatedData] = useState([])
@@ -37,12 +35,6 @@ function VerifyUser() {
     UserVerifyAndBlocked(getData, true)
   }
 
-  const onBlockedBtn = (e) => {
-    let getDataBlocked = e.currentTarget.getAttribute('value-get')
-    console.log(getDataBlocked)
-    UserVerifyAndBlocked(getDataBlocked, false)
-  }
-
   // useeffect and get data
   useEffect(() => {
     axios
@@ -57,7 +49,6 @@ function VerifyUser() {
             name: `${AllUserData[item].fName} ${AllUserData[item].lName}`,
             Role: AllUserData[item].role,
             verified: AllUserData[item].isVerified,
-            Blocked: !AllUserData[item].isVerified ? true : false,
             email: AllUserData[item].email,
             userid: AllUserData[item]._id,
             mobileNumber: AllUserData[item].mobileNumber,
@@ -76,13 +67,16 @@ function VerifyUser() {
       _style: { width: '30%' },
       _props: { className: 'fw-semibold' },
     },
-    'Role',
-    { key: 'verified', _style: { width: '20%' } },
-    { key: 'Blocked', _style: { width: '20%' } },
+    {
+      key: 'Role',
+      _style: { width: '30%' },
+      _props: { className: 'fw-semibold' },
+    },
+    { key: 'verified', _style: { width: '30%' } },
     {
       key: 'show_details',
       label: '',
-      _style: { width: '1%' },
+      _style: { width: '10%' },
       _props: { className: 'fw-semibold' },
     },
   ]
@@ -123,7 +117,6 @@ function VerifyUser() {
 
   return (
     <>
-      <AuthFun />
       <div>
         <CSmartTable
           activePage={3}
@@ -138,18 +131,6 @@ function VerifyUser() {
           itemsPerPage={5}
           pagination
           scopedColumns={{
-            Blocked: (item) => (
-              <td>
-                <CButton
-                  value-get={item.userid}
-                  onClick={onBlockedBtn}
-                  color={getBadge(item.Blocked)}
-                >
-                  Blocked
-                </CButton>
-              </td>
-            ),
-
             verified: (item) => (
               <td>
                 <CButton
@@ -221,4 +202,4 @@ function VerifyUser() {
   )
 }
 
-export default VerifyUser
+export default VerifyUserComponent

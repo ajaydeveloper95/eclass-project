@@ -4,6 +4,8 @@ import { CSmartTable, CButton, CImage, CFormSwitch, CPopover } from '@coreui/rea
 import { cilLockLocked, cilOptions, cilTrash, cilPen, cilZoom } from '@coreui/icons'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
+import VerifyUserComponent from 'src/views/Education/VerifyUserComponent'
+import BlockUserComponent from 'src/views/Education/BlockUserComponent'
 
 function AllUser() {
   document.title = 'Eclass - All User'
@@ -914,17 +916,16 @@ function AllUser() {
           <div className="padding-20px-10px">
             <CButton
               className="margin-right"
-              active
               color="primary"
               variant="outline"
-              uniqueattriname="Verifyuser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
                 let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
             >
-              Verifyuser
+              All Users
             </CButton>
             <CButton
               className="margin-right"
@@ -965,6 +966,7 @@ function AllUser() {
             </CButton>
             <CButton
               className="margin-right"
+              active
               color="primary"
               variant="outline"
               uniqueattriname="Verify"
@@ -1005,115 +1007,7 @@ function AllUser() {
               </div>
             </div>
             <div className="padding-20px-10px">
-              <CSmartTable
-                activePage={3}
-                cleaner
-                clickableRows
-                columns={columns}
-                columnSorter
-                items={col}
-                itemsPerPageSelect
-                itemsPerPage={5}
-                pagination
-                scopedColumns={{
-                  ProfilePhoto: (item) => (
-                    <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
-                    </td>
-                  ),
-                  UserDetails: (item) => (
-                    <td>
-                      <p>
-                        <span className="font-blod">Name :</span>
-                        {item.UserDetails}
-                      </p>
-                      <p>
-                        <span className="font-blod">Email :</span>
-                        {item.UserEmail}
-                      </p>
-                      <p>
-                        <span className="font-blod">Mobile :</span>
-                        {item.UserEmail}
-                      </p>
-                    </td>
-                  ),
-                  status: (item) => (
-                    <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                      ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
-                      )}
-                    </td>
-                  ),
-                  LoginAsUser: (item) => (
-                    <td>
-                      <CButton color="link">
-                        <CIcon icon={cilLockLocked} size="xxl" />
-                      </CButton>
-                    </td>
-                  ),
-                  show_details: (item) => {
-                    return (
-                      <td className="py-2">
-                        <CPopover
-                          content={
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'start',
-                              }}
-                            >
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickEditLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
-                              </CButton>
-                            </div>
-                          }
-                          placement="top"
-                        >
-                          <CButton color="secondary">
-                            <CIcon icon={cilOptions}></CIcon>
-                          </CButton>
-                        </CPopover>
-                      </td>
-                    )
-                  },
-                }}
-                selectable
-                sorterValue={{ column: 'Role', state: 'asc' }}
-                tableFilter
-                tableFilterLabel="Search : "
-                tableFilterPlaceholder=""
-                tableHeadProps={{
-                  color: 'success',
-                }}
-                tableProps={{
-                  striped: true,
-                  hover: true,
-                }}
-              />
+              <VerifyUserComponent />
             </div>
           </div>
         </div>
@@ -1124,7 +1018,6 @@ function AllUser() {
           <div className="padding-20px-10px">
             <CButton
               className="margin-right"
-              active
               color="primary"
               variant="outline"
               uniqueattriname="Verifyuser"
@@ -1187,6 +1080,7 @@ function AllUser() {
             </CButton>
             <CButton
               className="margin-right"
+              active
               color="primary"
               variant="outline"
               uniqueattriname="Blocked"
@@ -1215,115 +1109,7 @@ function AllUser() {
               </div>
             </div>
             <div className="padding-20px-10px">
-              <CSmartTable
-                activePage={3}
-                cleaner
-                clickableRows
-                columns={columns}
-                columnSorter
-                items={col}
-                itemsPerPageSelect
-                itemsPerPage={5}
-                pagination
-                scopedColumns={{
-                  ProfilePhoto: (item) => (
-                    <td>
-                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
-                    </td>
-                  ),
-                  UserDetails: (item) => (
-                    <td>
-                      <p>
-                        <span className="font-blod">Name :</span>
-                        {item.UserDetails}
-                      </p>
-                      <p>
-                        <span className="font-blod">Email :</span>
-                        {item.UserEmail}
-                      </p>
-                      <p>
-                        <span className="font-blod">Mobile :</span>
-                        {item.UserEmail}
-                      </p>
-                    </td>
-                  ),
-                  status: (item) => (
-                    <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                      ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
-                      )}
-                    </td>
-                  ),
-                  LoginAsUser: (item) => (
-                    <td>
-                      <CButton color="link">
-                        <CIcon icon={cilLockLocked} size="xxl" />
-                      </CButton>
-                    </td>
-                  ),
-                  show_details: (item) => {
-                    return (
-                      <td className="py-2">
-                        <CPopover
-                          content={
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'start',
-                              }}
-                            >
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickEditLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
-                              </CButton>
-                            </div>
-                          }
-                          placement="top"
-                        >
-                          <CButton color="secondary">
-                            <CIcon icon={cilOptions}></CIcon>
-                          </CButton>
-                        </CPopover>
-                      </td>
-                    )
-                  },
-                }}
-                selectable
-                sorterValue={{ column: 'Role', state: 'asc' }}
-                tableFilter
-                tableFilterLabel="Search : "
-                tableFilterPlaceholder=""
-                tableHeadProps={{
-                  color: 'success',
-                }}
-                tableProps={{
-                  striped: true,
-                  hover: true,
-                }}
-              />
+              <BlockUserComponent />
             </div>
           </div>
         </div>
