@@ -30,7 +30,7 @@ function AllUser() {
       id: key,
       Image: Cimg,
       Profile: `One`,
-      UserDetails: `${userState[key].fName} ${userState[key].lName} `,
+      UserDetails: `${userState[key].fName} ${userState[key].lName}`,
       UserEmail: `${userState[key].email}`,
       UserMobile: `${userState[key].mobileNumber}`,
       role: `${userState[key].role}`,
