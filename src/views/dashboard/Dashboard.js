@@ -58,14 +58,31 @@ const Dashboard = () => {
   const [refundOrders, setRefundOrders] = useState(0)
   const [followers, setFollowers] = useState(0)
 
+  const [userInc, setUserInc] = useState(1)
+
   // onclick handle
-  const recentUsersPrevBtn = () => {
-    console.log(userdataGet)
-    console.log(userBtn)
+  const recentUsersPrevBtn = (e) => {
+    let da = userInc
+    if (da > 0 && da <= getuser) {
+      setuserBtn((value) => ({
+        ...value,
+        name: userdataGet[getuser - da].fName,
+        email: userdataGet[getuser - da].email,
+      }))
+      setUserInc(da + 1)
+    }
   }
 
   const recentUsersNextBtn = () => {
-    console.log('recentUsersNextBtn')
+    let da = userInc
+    if (da > 0 && da <= getuser) {
+      setuserBtn((value) => ({
+        ...value,
+        name: userdataGet[getuser - da].fName,
+        email: userdataGet[getuser - da].email,
+      }))
+      setUserInc(da + 1)
+    }
   }
 
   const recentInstructorsPrevBtn = () => {

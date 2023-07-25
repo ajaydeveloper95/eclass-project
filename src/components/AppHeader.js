@@ -48,6 +48,9 @@ const AppHeader = () => {
         >
           <CIcon icon={cilMenu} size="lg" />
         </CHeaderToggler>
+        <div>
+          <AppBreadcrumb />
+        </div>
         <CHeaderBrand className="mx-auto d-md-none" to="/">
           <CIcon icon={logo} height={48} alt="Logo" />
         </CHeaderBrand>
@@ -90,10 +93,10 @@ const AppHeader = () => {
           <CIcon icon={cilApplicationsSettings} size="lg" />
         </CHeaderToggler> */}
       </CContainer>
-      <CHeaderDivider />
+      {/* <CHeaderDivider />
       <CContainer fluid>
         <AppBreadcrumb />
-      </CContainer>
+      </CContainer> */}
     </CHeader>
   )
 }

@@ -17,7 +17,7 @@ import {
   CDropdownToggle,
   CDropdownMenu,
   CCollapse,
-  CCardBody,
+  CAvatar,
   CBadge,
   CCard,
   CDropdownItem,
@@ -354,8 +354,8 @@ function AddUser() {
             <p className="text-weight-1-3rem Font-bold">Social Profile Link:</p>
             <CCol md={12} className="my-2">
               <CDropdown>
-                <CDropdownToggle href="#" color="secondary">
-                  Add Social Link
+                <CDropdownToggle href="#" color="primary">
+                  +
                 </CDropdownToggle>
                 <CDropdownMenu>
                   <CDropdownItem
@@ -386,11 +386,14 @@ function AddUser() {
               </CDropdown>
 
               <div>
-                <div className="width-30-percent">
+                <div className="width-40-percent">
                   <CCollapse visible={visibleFacebook}>
-                    <CCard className="mt-3">
+                    <CCard className="mt-3 background-color-transprent">
                       <CRow>
-                        <CCol xs={9}>
+                        <CCol>
+                          <CAvatar src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" />
+                        </CCol>
+                        <CCol xs={8}>
                           <CFormInput
                             type="text"
                             onChange={(e) => {
@@ -420,11 +423,14 @@ function AddUser() {
                     </CCard>
                   </CCollapse>
                 </div>
-                <div className="width-30-percent">
+                <div className="width-40-percent">
                   <CCollapse visible={visibleLinkedIn}>
-                    <CCard className="mt-3">
+                    <CCard className="mt-3 background-color-transprent">
                       <CRow>
-                        <CCol xs={9}>
+                        <CCol>
+                          <CAvatar src="https://freelogopng.com/images/all_img/1656994883linkedin-logo-transparent.png" />
+                        </CCol>
+                        <CCol xs={8}>
                           <CFormInput
                             type="text"
                             onChange={(e) => {
@@ -454,12 +460,15 @@ function AddUser() {
                     </CCard>
                   </CCollapse>
                 </div>
-                <div className="width-30-percent">
+                <div className="width-40-percent">
                   <CCollapse visible={visibleTwitter}>
-                    <CCard className="mt-3">
+                    <CCard className="mt-3 background-color-transprent">
                       {/* <CCardBody> */}
                       <CRow>
-                        <CCol xs={9}>
+                        <CCol>
+                          <CAvatar src="https://www.freeiconspng.com/thumbs/logo-twitter-png/blue-logo-twitter-birds-emblem-3.png" />
+                        </CCol>
+                        <CCol xs={8}>
                           <CFormInput
                             type="text"
                             onChange={(e) => {

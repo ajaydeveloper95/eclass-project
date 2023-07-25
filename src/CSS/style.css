@@ -166,20 +166,29 @@ input#exampleColorInput {
     margin-right: 10px;
 }
 
-.justity-content-flex-end{
+.justity-content-flex-end {
     justify-content: flex-end;
 }
 
-.positin-ablsoute-set{
+.positin-ablsoute-set {
     position: absolute;
 }
-.new-right{
+
+.new-right {
     right: 60px;
 }
 
-.font-blod{
+.font-blod {
     font-weight: bold
 }
 
 /* ANkit css END*/
 
+.background-color-transprent {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.width-40-percent {
+    width: 40%;
+}
