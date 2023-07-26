@@ -131,6 +131,7 @@ function PrivateCourses() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'start',
+                          alignItems: 'start',
                         }}
                       >
                         <CButton

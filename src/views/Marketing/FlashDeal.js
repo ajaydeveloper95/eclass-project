@@ -197,6 +197,7 @@ function FlashDeal() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'start',
+                                    alignItems: 'start',
                                   }}
                                 >
                                   <CButton

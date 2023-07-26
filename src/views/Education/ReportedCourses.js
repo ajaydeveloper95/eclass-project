@@ -122,6 +122,7 @@ function ReportedCourses() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'start',
+                          alignItems: 'start',
                         }}
                       >
                         <CButton

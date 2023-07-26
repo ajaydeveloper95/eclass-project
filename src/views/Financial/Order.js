@@ -260,6 +260,7 @@ function Order() {
                                       display: 'flex',
                                       flexDirection: 'column',
                                       justifyContent: 'start',
+                                      alignItems: 'start',
                                     }}
                                   >
                                     <CButton
@@ -379,6 +380,7 @@ function Order() {
                                       display: 'flex',
                                       flexDirection: 'column',
                                       justifyContent: 'start',
+                                      alignItems: 'start',
                                     }}
                                   >
                                     <CButton

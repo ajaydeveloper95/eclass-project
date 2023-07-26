@@ -30,9 +30,8 @@ function AllUser() {
   for (let key in userState) {
     col[key] = {
       id: key,
-      Image: Cimg,
-      Profile: `One`,
-      UserDetails: `${userState[key].fName} ${userState[key].lName}`,
+      ProfilePhoto: Cimg,
+      UserDetails: `${userState[key].fName} ${userState[key].lName} `,
       UserEmail: `${userState[key].email}`,
       UserMobile: `${userState[key].mobileNumber}`,
       role: `${userState[key].role}`,
@@ -43,13 +42,12 @@ function AllUser() {
   }
 
   const columns = [
-    { key: 'Profile', _style: { width: '10%' } },
     {
-      key: 'Image',
+      key: 'ProfilePhoto',
       _style: { width: '15%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'UserDetails', _style: { width: '35%' } },
+    { key: 'UserDetails', _style: { width: '40%' } },
     { key: 'role', _style: { width: '15%' } },
     { key: 'LoginAsUser', filter: false, sorter: false, _style: { width: '15%' } },
     { key: 'status', filter: false, sorter: false, _style: { width: '20%' } },
@@ -166,6 +164,7 @@ function AllUser() {
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
+              <p>All Students</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add Students
@@ -187,9 +186,9 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  Image: (item) => (
+                  ProfilePhoto: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
@@ -374,6 +373,7 @@ function AllUser() {
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
+              <p>All Instructors</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add Instructors
@@ -395,21 +395,24 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  Image: (item) => (
+                  ProfilePhoto: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name : </span> {item.UserDetails}
+                        <span className="font-blod">Name : </span>
+                        {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email : </span> {item.UserEmail}
+                        <span className="font-blod">Email : </span>
+                        {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile : </span> {item.UserEmail}
+                        <span className="font-blod">Mobile : </span>
+                        {item.UserEmail}
                       </p>
                     </td>
                   ),
@@ -439,6 +442,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -577,6 +581,7 @@ function AllUser() {
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
+              <p>All Admins</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add Admin
@@ -595,9 +600,9 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  Image: (item) => (
+                  ProfilePhoto: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
@@ -641,6 +646,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -693,180 +699,6 @@ function AllUser() {
                 }}
               />
             </div>
-          </div>
-        </div>
-      )
-
-    case 'Verify':
-      return (
-        <div className="background-white-border-radious">
-          <div className="padding-20px-10px">
-            <CButton
-              className="margin-right"
-              active
-              color="primary"
-              variant="outline"
-              uniqueattriname="Verifyuser"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                console.log(val)
-                setSwitchSetup(val)
-              }}
-            >
-              Verifyuser
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              uniqueattriname="students"
-              variant="outline"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                console.log(val)
-                setSwitchSetup(val)
-              }}
-            >
-              Students
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="instructors"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Instructors
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="admins"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Admins
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="Verify"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Verify User
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="Blocked"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Blocked User
-            </CButton>
-          </div>
-          <hr />
-          <div>
-            <h1> One </h1>
-          </div>
-        </div>
-      )
-
-    case 'Blocked':
-      return (
-        <div className="background-white-border-radious">
-          <div className="padding-20px-10px">
-            <CButton
-              className="margin-right"
-              active
-              color="primary"
-              variant="outline"
-              uniqueattriname="Verifyuser"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                console.log(val)
-                setSwitchSetup(val)
-              }}
-            >
-              Verifyuser
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              uniqueattriname="students"
-              variant="outline"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                console.log(val)
-                setSwitchSetup(val)
-              }}
-            >
-              Students
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="instructors"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Instructors
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="admins"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Admins
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="Verify"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Verify User
-            </CButton>
-            <CButton
-              className="margin-right"
-              color="primary"
-              variant="outline"
-              uniqueattriname="Blocked"
-              onClick={(e) => {
-                let val = e.currentTarget.getAttribute('uniqueattriname')
-                setSwitchSetup(val)
-              }}
-            >
-              Blocked User
-            </CButton>
-          </div>
-          <hr />
-          <div>
-            <h1> Two </h1>
           </div>
         </div>
       )
@@ -953,6 +785,7 @@ function AllUser() {
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
+              <p>All Users</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add User
@@ -977,9 +810,9 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  Image: (item) => (
+                  ProfilePhoto: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
@@ -1024,6 +857,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -1189,14 +1023,14 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueattriname="Verifyuser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
                 let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
             >
-              Verifyuser
+              All Users
             </CButton>
             <CButton
               className="margin-right"
@@ -1283,7 +1117,6 @@ function AllUser() {
           </div>
         </div>
       )
-
     default:
       return (
         <div className="background-white-border-radious">
@@ -1356,6 +1189,7 @@ function AllUser() {
           <hr />
           <div>
             <div className="display-flex-justify-space-between-padding">
+              <p>All Users</p>
               <div>
                 <CButton className="margin-right" color="info" variant="outline">
                   Add User
@@ -1380,9 +1214,9 @@ function AllUser() {
                 itemsPerPage={5}
                 pagination
                 scopedColumns={{
-                  Image: (item) => (
+                  ProfilePhoto: (item) => (
                     <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                      <CImage rounded thumbnail src={item.ProfilePhoto} width={100} height={100} />
                     </td>
                   ),
                   UserDetails: (item) => (
@@ -1427,6 +1261,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton

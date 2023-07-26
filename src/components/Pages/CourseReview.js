@@ -184,6 +184,7 @@ function CourseReview() {
                             display: 'flex',
                             flexDirection: 'column',
                             justifyContent: 'start',
+                            alignItems: 'start',
                           }}
                         >
                           <CButton

@@ -138,7 +138,12 @@ function CourseLanguage() {
                 <CPopover
                   content={
                     <div
-                      style={{ display: 'flex', flexDirection: 'column', justifyContent: 'start' }}
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'start',
+                        alignItems: 'start',
+                      }}
                     >
                       <CButton
                         value-get={item.langId}

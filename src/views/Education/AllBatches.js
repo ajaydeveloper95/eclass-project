@@ -175,6 +175,7 @@ function AllBatches() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'start',
+                          alignItems: 'start',
                         }}
                       >
                         <CButton
