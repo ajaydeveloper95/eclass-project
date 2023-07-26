@@ -200,6 +200,23 @@ input#exampleColorInput {
 .width-40-percent {
     width: 40%;
 }
-.text-right-new{
+
+.text-right-new {
     float: right;
+}
+
+.cAlert-custom-class-set-fit {
+    width: 50%;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.for-test {
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    position: absolute;
+    right: 0;
+    width: 70%;
 }

@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { CButton, CCardBody, CCollapse, CSmartTable } from '@coreui/react-pro'
+import { CButton, CCardBody, CCollapse, CSmartTable, CAlert } from '@coreui/react-pro'
+import CIcon from '@coreui/icons-react'
+import { cilCheckCircle } from '@coreui/icons'
 import axios from 'axios'
 
 function BlockUserComponent() {
   const [details, setDetails] = useState([])
   const [allUser, setAllUser] = useState([])
   const [updatedData, setupdatedData] = useState([])
+  const [visibleAlertSuccess, setvisibleAlertSuccess] = useState(false)
+  const [visibleAlertValue, setvisibleAlertValue] = useState('')
 
   // user Verified and Blocked function
   const UserVerifyAndBlocked = (id, getBol) => {
@@ -23,6 +27,11 @@ function BlockUserComponent() {
       )
       .then((Value) => {
         console.log(Value)
+        setvisibleAlertSuccess(true)
+        setvisibleAlertValue('Update')
+        setTimeout(() => {
+          setvisibleAlertSuccess(false)
+        }, 2000)
       })
       .catch((e) => {
         console.log('Some Error', e)
@@ -32,7 +41,7 @@ function BlockUserComponent() {
   const onBlockedBtn = (e) => {
     let getDataBlocked = e.currentTarget.getAttribute('value-get')
     console.log(getDataBlocked)
-    UserVerifyAndBlocked(getDataBlocked, false)
+    UserVerifyAndBlocked(getDataBlocked, true)
   }
 
   // useeffect and get data
@@ -43,15 +52,19 @@ function BlockUserComponent() {
         const AllUserData = result.data.data
         setAllUser(AllUserData)
         let setupAll = []
+        let userBlockNumber = 0
         for (let item in AllUserData) {
-          setupAll[item] = {
-            id: item,
-            name: `${AllUserData[item].fName} ${AllUserData[item].lName}`,
-            Role: AllUserData[item].role,
-            Blocked: !AllUserData[item].isVerified ? true : false,
-            email: AllUserData[item].email,
-            userid: AllUserData[item]._id,
-            mobileNumber: AllUserData[item].mobileNumber,
+          if (!AllUserData[item].isVerified) {
+            setupAll[userBlockNumber] = {
+              id: userBlockNumber,
+              name: `${AllUserData[item].fName} ${AllUserData[item].lName}`,
+              Role: AllUserData[item].role,
+              Blocked: !AllUserData[item].isVerified ? true : false,
+              email: AllUserData[item].email,
+              userid: AllUserData[item]._id,
+              mobileNumber: AllUserData[item].mobileNumber,
+            }
+            userBlockNumber++
           }
         }
         setupdatedData(setupAll)
@@ -59,7 +72,7 @@ function BlockUserComponent() {
       .catch((err) => {
         console.log('some Internel Server Error ', err)
       })
-  }, [])
+  }, [visibleAlertSuccess])
 
   const columns = [
     {
@@ -108,6 +121,20 @@ function BlockUserComponent() {
   return (
     <>
       <div>
+        <div className="for-test">
+          <CAlert
+            visible={visibleAlertSuccess}
+            color="success"
+            dismissible
+            className="d-flex align-items-center cAlert-custom-class-set-fit"
+            onClose={() => setvisibleAlertSuccess(false)}
+          >
+            <CIcon icon={cilCheckCircle} className="flex-shrink-0 me-2" width={24} height={24} />
+            <div>Element {visibleAlertValue} Successfully</div>
+          </CAlert>
+        </div>
+      </div>
+      <div>
         <CSmartTable
           activePage={3}
           cleaner
@@ -128,7 +155,7 @@ function BlockUserComponent() {
                   onClick={onBlockedBtn}
                   color={getBadge(item.Blocked)}
                 >
-                  Blocked
+                  Click to Verify
                 </CButton>
               </td>
             ),
