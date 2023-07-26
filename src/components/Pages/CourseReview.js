@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {
-  CCardBody,
-  CCollapse,
   CButton,
   CImage,
   CFormSwitch,
@@ -22,7 +20,7 @@ import {
   CFormInput,
   CModalFooter,
 } from '@coreui/react'
-import { cilPlus, cilTrash, cilOptions, cilPen, cilArrowLeft } from '@coreui/icons'
+import { cilTrash, cilOptions, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from './AuthFunction/AuthFun'
 import { adminUrl } from 'src/RouteDynamic'
@@ -129,36 +127,6 @@ function CourseReview() {
     },
   ]
 
-  const usersData = [
-    {
-      id: 0,
-      Image: Cimg,
-      Title: 'Learn Microsoft Excel Beginner',
-      Instructor: 'Guest',
-      Featured: 'true',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 1,
-      Image: Cimg,
-      Title: 'Learn Microsoft Excel Beginner',
-      Instructor: 'Member',
-      Featured: 'true',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-    {
-      id: 2,
-      Image: Cimg,
-      Title: 'Learn Microsoft Excel Beginner',
-      Instructor: 'Staff',
-      Featured: 'true',
-      Status: 'false',
-      _props: { align: 'middle' },
-    },
-  ]
-
   const ForStatus = (Status) => {
     switch (Status) {
       case 'true':
@@ -199,7 +167,6 @@ function CourseReview() {
         break
       }
     }
-    // let Reviewid = e.target.getAttribute('value-get')
     setVisibleEdit(true)
   }
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { CCardBody, CCollapse } from '@coreui/react-pro'
-import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
+import { cilOptions, cilPen } from '@coreui/icons'
 import { cilTrash } from '@coreui/icons'
 
 import {
@@ -212,7 +212,6 @@ function Assignments() {
               <CSmartTable
                 columns={columns}
                 items={usersData}
-                //   columnFilter
                 columnSorter
                 scopedColumns={{
                   ViewAssignment: (item) => {

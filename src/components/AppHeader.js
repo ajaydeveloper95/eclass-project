@@ -15,7 +15,6 @@ import {
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { cilApplicationsSettings, cilMenu, cilMoon, cilSun } from '@coreui/icons'
-
 import { AppBreadcrumb } from './index'
 
 import {

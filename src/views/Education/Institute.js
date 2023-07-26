@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { adminUrl } from 'src/RouteDynamic'
 import axios from 'axios'
-
 import {
   CSmartTable,
   CButton,

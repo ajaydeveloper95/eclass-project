@@ -16,7 +16,6 @@ import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function CreateCourse() {
   document.title = 'Eclass - Create Course'
-  // set state
   const [getFormData, setFormData] = useState([])
   const [getCata, setCata] = useState([])
   const [getSubCata, setSubCata] = useState([])

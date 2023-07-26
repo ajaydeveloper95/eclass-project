@@ -140,7 +140,7 @@ function VerifyUserComponent() {
             className="d-flex align-items-center cAlert-custom-class-set-fit"
             onClose={() => setvisibleAlertSuccess(false)}
           >
-            <CIcon icon={cilCheckCircle} className="flex-shrink-0 me-2" width={24} height={24} />
+            <CIcon icon={cilCheckCircle} className="flex-shrink-0 me-2" width={20} height={20} />
             <div>Element {visibleAlertValue} Successfully</div>
           </CAlert>
         </div>
@@ -151,9 +151,7 @@ function VerifyUserComponent() {
           cleaner
           clickableRows
           columns={columns}
-          //   columnFilter
           columnSorter
-          //   footer
           items={updatedData}
           itemsPerPageSelect
           itemsPerPage={5}

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { adminUrl } from 'src/RouteDynamic'
-
 import { cilPlus, cilOptions, cilTrash, cilPen } from '@coreui/icons'
-
 import {
   CSmartTable,
   CButton,

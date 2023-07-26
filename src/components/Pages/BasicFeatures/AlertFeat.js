@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { CAlert } from '@coreui/react-pro'
 import { cilCheckCircle } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
@@ -32,7 +32,6 @@ function AlertFeat(props) {
 
 export default AlertFeat
 
-// prop type set
 AlertFeat.propTypes = {
   work: PropTypes.string,
   visible: PropTypes.bool,

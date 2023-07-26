@@ -190,7 +190,7 @@ input#exampleColorInput {
     font-weight: bold
 }
 
-/* ANkit css END*/
+/* Ankit css END*/
 
 .background-color-transprent {
     background-color: transparent !important;
@@ -206,7 +206,7 @@ input#exampleColorInput {
 }
 
 .cAlert-custom-class-set-fit {
-    width: 50%;
+    width: 40%;
     position: absolute;
     top: 0;
     right: 0;
@@ -217,6 +217,6 @@ input#exampleColorInput {
     justify-content: end;
     align-items: end;
     position: absolute;
-    right: 0;
-    width: 70%;
+    right: 30px;
+    width: 50%;
 }

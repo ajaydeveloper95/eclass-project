@@ -1,10 +1,7 @@
 import React, { useState } from 'react'
-
 import { CSmartTable, CCardBody, CCollapse } from '@coreui/react-pro'
-
 import {
   CButton,
-  CImage,
   CFormSwitch,
   CFormInput,
   CForm,
@@ -15,9 +12,8 @@ import {
   CModal,
 } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { element } from 'prop-types'
 import axios from 'axios'
-import { cilOptions, cilPlus, cilPen } from '@coreui/icons'
+import { cilOptions, cilPen } from '@coreui/icons'
 import { adminUrl } from 'src/RouteDynamic'
 import { cilTrash } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'

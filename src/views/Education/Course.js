@@ -13,9 +13,7 @@ import {
   CFormSwitch,
   CPopover,
 } from '@coreui/react-pro'
-
 import CIcon from '@coreui/icons-react'
-
 import { cilClone, cilPen, cilTrash, cilCopy, cilScreenSmartphone, cilMenu } from '@coreui/icons'
 import { Link } from 'react-router-dom'
 import axios from 'axios'

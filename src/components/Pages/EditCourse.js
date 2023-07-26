@@ -1,11 +1,8 @@
 import { CCol, CRow, CButton, CCollapse } from '@coreui/react-pro'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
 import CourseEdit from './editSectionComponent/CourseEdit'
-
 import CIcon from '@coreui/icons-react'
-
 import {
   cilAlignLeft,
   cilBook,

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { commonUrl } from '../../RouteDynamic'
-// import cilArrowLeft from '@coreui/icons-react'
 import { cilOptions, cilPlus, cilPen, cilArrowLeft } from '@coreui/icons'
 import { CFormFeedback } from '@coreui/react-pro'
 

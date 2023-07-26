@@ -24,7 +24,6 @@ function AllUser() {
       })
   }, [])
 
-  console.log(userState)
   let col = []
   let colStudent = []
   let colInstructores = []
@@ -114,7 +113,6 @@ function AllUser() {
 
   const onClickEditLang = (e) => {
     const clickEdit = e.currentTarget.getAttribute('value-get')
-    console.log(clickEdit)
   }
 
   const onClickDeletLang = (e) => {
