@@ -195,15 +195,15 @@ function AllUser() {
                     <td>
                       <p>
                         {' '}
-                        <span className="font-blod">Name :</span> {item.UserDetails}
+                        <span className="font-blod">Name : </span> {item.UserDetails}
                       </p>
                       <p>
                         {' '}
-                        <span className="font-blod">Email :</span> {item.UserEmail}
+                        <span className="font-blod">Email : </span> {item.UserEmail}
                       </p>
                       <p>
                         {' '}
-                        <span className="font-blod">Mobile :</span> {item.UserEmail}
+                        <span className="font-blod">Mobile : </span> {item.UserEmail}
                       </p>
                     </td>
                   ),
@@ -403,15 +403,15 @@ function AllUser() {
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -442,6 +442,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -607,14 +608,14 @@ function AllUser() {
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span> {item.UserDetails}
+                        <span className="font-blod">Name : </span> {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -645,6 +646,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -816,15 +818,15 @@ function AllUser() {
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -855,6 +857,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton
@@ -1020,14 +1023,14 @@ function AllUser() {
               className="margin-right"
               color="primary"
               variant="outline"
-              uniqueattriname="Verifyuser"
+              uniqueattriname="Alluser"
               onClick={(e) => {
                 let val = e.currentTarget.getAttribute('uniqueattriname')
                 console.log(val)
                 setSwitchSetup(val)
               }}
             >
-              Verifyuser
+              All Users
             </CButton>
             <CButton
               className="margin-right"
@@ -1219,15 +1222,15 @@ function AllUser() {
                   UserDetails: (item) => (
                     <td>
                       <p>
-                        <span className="font-blod">Name :</span>
+                        <span className="font-blod">Name : </span>
                         {item.UserDetails}
                       </p>
                       <p>
-                        <span className="font-blod">Email :</span>
+                        <span className="font-blod">Email : </span>
                         {item.UserEmail}
                       </p>
                       <p>
-                        <span className="font-blod">Mobile :</span>
+                        <span className="font-blod">Mobile : </span>
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1258,6 +1261,7 @@ function AllUser() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'start',
+                                alignItems: 'start',
                               }}
                             >
                               <CButton

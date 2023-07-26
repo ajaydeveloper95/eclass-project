@@ -15,7 +15,7 @@ import {
   CModalBody,
   CModalFooter,
 } from '@coreui/react-pro'
-import { cilPen, cilOptions } from '@coreui/icons'
+import { cilPen, cilOptions, cilArrowLeft } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function AllRefundPolicies() {
@@ -41,7 +41,6 @@ function AllRefundPolicies() {
       })
   }, [])
 
-  // const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const columns = [
     {
       key: 'Name',
@@ -72,58 +71,6 @@ function AllRefundPolicies() {
       _props: { align: 'middle' },
     }
   }
-
-  // const usersData = [
-  //   {
-  //     id: 0,
-  //     Name: 'vijay',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 1,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 2,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 3,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 4,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 5,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  //   {
-  //     id: 6,
-  //     Name: 'Cimg',
-  //     Days: 'good',
-  //     Status: 'false',
-  //     _props: { align: 'middle' },
-  //   },
-  // ]
 
   const onClickEditPopUp = () => {
     console.log('onClickEditPopUp')
@@ -194,14 +141,16 @@ function AllRefundPolicies() {
       <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
-          <p className="text-weight-1-3rem">All Bundles</p>
-        </div>
-        <div>
           <CButton className="mx-3" color="success" variant="outline">
             <CIcon icon={cilPlus}></CIcon> Add Bundle
           </CButton>
           <CButton className="mx-3" color="warning" onClick={DeleteAllSelected} variant="outline">
             <CIcon icon={cilTrash}></CIcon> Delete Selected
+          </CButton>
+        </div>
+        <div>
+          <CButton color="primary" type="submit" variant="outline">
+            <CIcon icon={cilArrowLeft} /> Back
           </CButton>
         </div>
       </div>
@@ -246,6 +195,7 @@ function AllRefundPolicies() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'start',
+                          alignItems: 'start',
                         }}
                       >
                         <CButton

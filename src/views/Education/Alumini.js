@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
-
 import {
   CSmartTable,
   CButton,
@@ -14,7 +13,7 @@ import {
   CBadge,
   CFormInput,
 } from '@coreui/react-pro'
-import { cilOptions, cilPlus, cilTrash, cilPen } from '@coreui/icons'
+import { cilOptions, cilPlus, cilTrash, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import { adminUrl } from 'src/RouteDynamic'
 import axios from 'axios'
@@ -142,14 +141,16 @@ function Alumini() {
       <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
-          <p className="text-weight-1-3rem">All Alumni</p>
-        </div>
-        <div>
           <CButton className="mx-3" href="/education/bundleform" color="success" variant="outline">
             <CIcon icon={cilPlus} /> Add Alumni
           </CButton>
           <CButton className="mx-3" href="/education/bundleform" color="warning" variant="outline">
             <CIcon icon={cilTrash} /> Delete Selected
+          </CButton>
+        </div>
+        <div>
+          <CButton color="primary" type="submit" variant="outline">
+            <CIcon icon={cilArrowLeft} /> Back
           </CButton>
         </div>
       </div>
@@ -178,6 +179,7 @@ function Alumini() {
                           display: 'flex',
                           flexDirection: 'column',
                           justifyContent: 'start',
+                          alignItems: 'start',
                         }}
                       >
                         <CButton

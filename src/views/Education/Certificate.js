@@ -55,8 +55,6 @@ function Certificate() {
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">
               <div className="row">
-                <hr />
-                <h4>Manage Certificate</h4>
                 <hr className="mt-2" />
                 <div className="col-md-3">
                   <CNav variant="pills" className="flex-column">
@@ -550,8 +548,6 @@ function Certificate() {
           <CTabPane role="tabpanel" aria-labelledby="Refund-tab" visible={activeKey === 2}>
             <div className="container">
               <div className="row">
-                <hr />
-                <h4>Certificate Setting</h4>
                 <hr className="mt-2" />
                 <div className="col-6">
                   <h6>Percentage :</h6>
@@ -579,7 +575,6 @@ function Certificate() {
           </CTabPane>
           <CTabPane role="tabpanel" aria-labelledby="Refundtwo-tab" visible={activeKey === 3}>
             <div className="container">
-              <hr />
               <div className="row">
                 <div className="col-6">
                   <h4>Certificate Verify</h4>

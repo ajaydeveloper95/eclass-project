@@ -22,7 +22,7 @@ import {
   CFormInput,
   CModalFooter,
 } from '@coreui/react'
-import { cilPlus, cilTrash, cilOptions, cilPen } from '@coreui/icons'
+import { cilPlus, cilTrash, cilOptions, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from './AuthFunction/AuthFun'
 import { adminUrl } from 'src/RouteDynamic'

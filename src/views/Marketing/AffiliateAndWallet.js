@@ -5,7 +5,6 @@ import { CButton, CFormSwitch } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { CLoadingButton } from '@coreui/react-pro'
 import { cilColorBorder, cilArrowLeft } from '@coreui/icons'
-// import '../../layout/Tinymce.min.js'
 
 import {
   CSmartTable,
@@ -151,8 +150,6 @@ function AffiliateAndWallet() {
           <CTabPane role="tabpanel" aria-labelledby="Orders-tab" visible={activeKey === 1}>
             <div className="container">
               <hr />
-              <h4>Affiliate</h4>
-              <hr />
               <div className="row">
                 <div className="col-3">
                   <h6>Referral Code Length:</h6>
@@ -198,8 +195,6 @@ function AffiliateAndWallet() {
           <CTabPane role="tabpanel" aria-labelledby="Refund-tab" visible={activeKey === 2}>
             <div className="container">
               <hr />
-              <h4>Wallet Settings</h4>
-              <hr />
               <div className="row">
                 <div className="col-12">
                   <h6 className="mt-2">Status:</h6>
@@ -237,14 +232,10 @@ function AffiliateAndWallet() {
           <CTabPane role="tabpanel" aria-labelledby="Refundtwo-tab" visible={activeKey === 3}>
             <div className="container">
               <hr />
-              <div className="row">
-                <h6>Request To Involve</h6>
-              </div>
-              <hr />
               <div className="margin-down-and-top">
                 <div className="background-white-border-radious">
                   <div className="display-flex-justify-space-between-padding"></div>
-                  <div className="padding-20px-10px">
+                  <div>
                     <CSmartTable
                       activePage={3}
                       cleaner

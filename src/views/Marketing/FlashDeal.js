@@ -122,10 +122,6 @@ function FlashDeal() {
       <AuthFun />
       <div className="background-white-border-radious">
         <div className="container">
-          <div className="row">
-            <h6 className="mt-4">All Flash Deals</h6>
-          </div>
-          <hr />
           <div className="margin-down-and-top">
             <div className="background-white-border-radious">
               <div>
@@ -201,6 +197,7 @@ function FlashDeal() {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'start',
+                                    alignItems: 'start',
                                   }}
                                 >
                                   <CButton
