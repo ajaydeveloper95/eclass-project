@@ -26,8 +26,59 @@ function AllUser() {
 
   console.log(userState)
   let col = []
+  let colStudent = []
+  let colInstructores = []
+  let colAdmin = []
 
+  let colStudentNumber = 0
+  let colInstructoresNumber = 0
+  let colAdminNumber = 0
   for (let key in userState) {
+    if (userState[key].role === 'ADMIN') {
+      colAdmin[colAdminNumber] = {
+        id: colAdminNumber,
+        ProfilePhoto: Cimg,
+        UserDetails: `${userState[key].fName} ${userState[key].lName} `,
+        UserEmail: `${userState[key].email}`,
+        UserMobile: `${userState[key].mobileNumber}`,
+        role: `${userState[key].role}`,
+        LoginAsUser: '',
+        status: `${userState[key].isActive}`,
+        _props: { align: 'middle' },
+      }
+      colAdminNumber++
+    }
+
+    if (userState[key].role === 'STUDENT') {
+      colStudent[colStudentNumber] = {
+        id: colStudentNumber,
+        ProfilePhoto: Cimg,
+        UserDetails: `${userState[key].fName} ${userState[key].lName} `,
+        UserEmail: `${userState[key].email}`,
+        UserMobile: `${userState[key].mobileNumber}`,
+        role: `${userState[key].role}`,
+        LoginAsUser: '',
+        status: `${userState[key].isActive}`,
+        _props: { align: 'middle' },
+      }
+      colStudentNumber++
+    }
+
+    if (userState[key].role === 'INSTRUCTOR') {
+      colInstructores[colInstructoresNumber] = {
+        id: colInstructoresNumber,
+        ProfilePhoto: Cimg,
+        UserDetails: `${userState[key].fName} ${userState[key].lName} `,
+        UserEmail: `${userState[key].email}`,
+        UserMobile: `${userState[key].mobileNumber}`,
+        role: `${userState[key].role}`,
+        LoginAsUser: '',
+        status: `${userState[key].isActive}`,
+        _props: { align: 'middle' },
+      }
+      colInstructoresNumber++
+    }
+
     col[key] = {
       id: key,
       ProfilePhoto: Cimg,
@@ -181,7 +232,7 @@ function AllUser() {
                 clickableRows
                 columns={columns}
                 columnSorter
-                items={col}
+                items={colStudent}
                 itemsPerPageSelect
                 itemsPerPage={5}
                 pagination
@@ -390,7 +441,7 @@ function AllUser() {
                 clickableRows
                 columns={columns}
                 columnSorter
-                items={col}
+                items={colInstructores}
                 itemsPerPageSelect
                 itemsPerPage={5}
                 pagination
@@ -595,7 +646,7 @@ function AllUser() {
                 clickableRows
                 columns={columns}
                 columnSorter
-                items={col}
+                items={colAdmin}
                 itemsPerPageSelect
                 itemsPerPage={5}
                 pagination

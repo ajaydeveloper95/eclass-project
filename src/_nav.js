@@ -202,34 +202,34 @@ const _nav = [
       },
     ],
   },
-  {
-    component: CNavGroup,
-    name: 'Ebooks',
-    to: '/education/ebooks',
-    icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
-    items: [
-      {
-        component: CNavItem,
-        name: '- Category',
-        to: '/education/ebookcategory',
-      },
-      {
-        component: CNavItem,
-        name: '- Ebooks',
-        to: '/education/ebooks',
-      },
-      {
-        component: CNavItem,
-        name: '- Reviews',
-        to: '/education/ebooksreview',
-      },
-      {
-        component: CNavItem,
-        name: '- Orders',
-        to: '/education/ebookorders',
-      },
-    ],
-  },
+  // {
+  //   component: CNavGroup,
+  //   name: 'Ebooks',
+  //   to: '/education/ebooks',
+  //   icon: <CIcon icon={cilSpreadsheet} customClassName="nav-icon" />,
+  //   items: [
+  //     {
+  //       component: CNavItem,
+  //       name: '- Category',
+  //       to: '/education/ebookcategory',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: '- Ebooks',
+  //       to: '/education/ebooks',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: '- Reviews',
+  //       to: '/education/ebooksreview',
+  //     },
+  //     {
+  //       component: CNavItem,
+  //       name: '- Orders',
+  //       to: '/education/ebookorders',
+  //     },
+  //   ],
+  // },
   {
     component: CNavGroup,
     name: 'Meeting',
