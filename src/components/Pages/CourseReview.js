@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import {
   CCardBody,
   CCollapse,
@@ -7,6 +8,11 @@ import {
   CFormSwitch,
   CSmartTable,
   CPopover,
+  CRow,
+  CCol,
+  CForm,
+  CFormSelect,
+  CFormLabel,
 } from '@coreui/react-pro'
 import {
   CModal,
@@ -19,14 +25,59 @@ import {
 import { cilPlus, cilTrash, cilOptions, cilPen } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from './AuthFunction/AuthFun'
+import { adminUrl } from 'src/RouteDynamic'
 
 function CourseReview() {
   document.title = 'Eclass - CourseReview'
   const [details, setDetails] = useState([])
+  const [formData, setFormData] = useState([])
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
+  const [courseOptionData, setCourseOptionData] = useState([])
+  const [instructorOptionData, setinstructorOptionData] = useState([])
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
+  const courseSelectOption = []
+  const instructorSelectOption = []
+  useEffect(() => {
+    axios
+      .get(`${adminUrl}getCourse`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainCourseData = data.data.data
+        for (let item in mainCourseData) {
+          courseSelectOption[item] = {
+            label: mainCourseData[item].title,
+            value: mainCourseData[item]._id,
+          }
+        }
+        setCourseOptionData(courseSelectOption)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+
+    // instructore api call
+    axios
+      .get(`${adminUrl}getInstructorList`, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((data) => {
+        const mainInstructorData = data.data.data
+        console.log(mainInstructorData)
+        for (let item in mainInstructorData) {
+          instructorSelectOption[item] = {
+            label: `${mainInstructorData[item].fName} ${mainInstructorData[item].lName}`,
+            value: mainInstructorData[item]._id,
+          }
+        }
+        setinstructorOptionData(instructorSelectOption)
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+  }, [])
 
   const columns = [
     {
@@ -118,129 +169,210 @@ function CourseReview() {
     setVisibleDelete(true)
   }
 
+  const handleSubmitForm = (e) => {
+    e.preventDefault()
+    axios
+      .post(`${adminUrl}addCourseReview`, formData, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then(() => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some Issue', err)
+      })
+  }
+  console.log(formData)
+
   const onClickEditPopUp = (e) => {}
   return (
     <>
-      <div className="background-white-border-radious">
-        <AuthFun />
-        <div className="display-flex-justify-space-between-padding">
-          <div>
-            <p className="text-weight-1-3rem">All Coupons</p>
+      <AuthFun />
+      <CRow>
+        <CCol>
+          <div className="background-white-border-radious padding-10px-10px">
+            <div>
+              <p className="text-weight-1-3rem">Add Course Review</p>
+              <hr />
+            </div>
+            <div>
+              <CForm onSubmit={handleSubmitForm}>
+                <div className="margin-down-and-top width-dec10">
+                  <CFormLabel>Title: </CFormLabel>
+                  <CFormInput
+                    type="text"
+                    placeholder="Enter Title"
+                    onChange={(e) => {
+                      setFormData((value) => ({ ...value, title: e.target.value }))
+                    }}
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="margin-down-and-top width-dec10">
+                  <CFormLabel>Select Course: </CFormLabel>
+                  <CFormSelect
+                    aria-label="Default select example"
+                    onChange={(e) => {
+                      setFormData((value) => ({ ...value, courseId: e.target.value }))
+                    }}
+                    options={courseOptionData}
+                  />
+                </div>
+                <div className="mb-3 margin-down-and-top width-dec10">
+                  <CFormLabel>Image: </CFormLabel>
+                  <CFormInput
+                    type="file"
+                    onChange={(e) => {
+                      let img = e.target.files[0]
+                      setFormData((value) => ({ ...value, Image: URL.createObjectURL(img) }))
+                    }}
+                    id="formFile"
+                  />
+                </div>
+                <div className="margin-down-and-top width-dec10">
+                  <CFormLabel>Instructor: </CFormLabel>
+                  <CFormSelect
+                    aria-label="Default select example"
+                    onChange={(e) => {
+                      setFormData((value) => ({ ...value, Instructor: e.target.value }))
+                    }}
+                    options={instructorOptionData}
+                  />
+                </div>
+                <div className="margin-down-and-top width-dec10">
+                  <div className="d-flex gap-set-between-1rem">
+                    <CFormLabel>Featured: </CFormLabel>
+                    <CFormSwitch
+                      id="formSwitchCheckChecked"
+                      onChange={(e) => {
+                        setFormData((value) => ({ ...value, Featured: 'true' }))
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex gap-set-between-1rem">
+                    <CFormLabel>Status: </CFormLabel>
+                    <CFormSwitch
+                      id="formSwitchCheckChecked"
+                      onChange={(e) => {
+                        setFormData((value) => ({ ...value, isActive: 'true' }))
+                      }}
+                    />
+                  </div>
+                </div>
+                <div className="margin-down-and-top width-dec10">
+                  <CButton type="submit" color="primary">
+                    Create
+                  </CButton>
+                </div>
+              </CForm>
+            </div>
           </div>
-          <div>
-            <CButton className="mx-3" color="success" variant="outline">
-              <CIcon icon={cilPlus}></CIcon> Add Coupon
-            </CButton>
-            <CButton className="mx-3" color="warning" variant="outline">
-              <CIcon icon={cilTrash}></CIcon> Delete Selected
-            </CButton>
-          </div>
-        </div>
-        <hr />
-        <div className="padding-20px-10px">
-          <CSmartTable
-            activePage={3}
-            cleaner
-            clickableRows
-            columns={columns}
-            columnSorter
-            items={usersData}
-            itemsPerPageSelect
-            itemsPerPage={10}
-            pagination
-            scopedColumns={{
-              Image: (item) => (
-                <td>
-                  <CImage rounded thumbnail src={item.Image} width={100} height={100} />
-                </td>
-              ),
-              Status: (item) => (
-                <td>
-                  {ForStatus(item.Status) === 0 ? (
-                    <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                  ) : (
-                    <CFormSwitch id="formSwitchCheckChecked" />
-                  )}
-                </td>
-              ),
-              Featured: (item) => (
-                <td>
-                  {ForFeatured(item.Featured) === 0 ? (
-                    <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                  ) : (
-                    <CFormSwitch id="formSwitchCheckChecked" />
-                  )}
-                </td>
-              ),
-              show_details: (item) => {
-                return (
-                  <td className="py-2">
-                    <CPopover
-                      content={
-                        <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'start',
-                          }}
+        </CCol>
+        <CCol xs={8}>
+          <div className="background-white-border-radious">
+            <div className="display-flex-justify-space-between-padding">
+              <div>
+                <p className="text-weight-1-3rem">Course Review</p>
+              </div>
+              <div>
+                <CButton className="mx-3" color="warning" variant="outline">
+                  <CIcon icon={cilTrash}></CIcon> Delete Selected
+                </CButton>
+              </div>
+            </div>
+            <hr />
+            <div className="padding-20px-10px">
+              <CSmartTable
+                activePage={3}
+                cleaner
+                clickableRows
+                columns={columns}
+                columnSorter
+                items={usersData}
+                itemsPerPageSelect
+                itemsPerPage={10}
+                pagination
+                scopedColumns={{
+                  Image: (item) => (
+                    <td>
+                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                    </td>
+                  ),
+                  Status: (item) => (
+                    <td>
+                      {ForStatus(item.Status) === 0 ? (
+                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      ) : (
+                        <CFormSwitch id="formSwitchCheckChecked" />
+                      )}
+                    </td>
+                  ),
+                  Featured: (item) => (
+                    <td>
+                      {ForFeatured(item.Featured) === 0 ? (
+                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      ) : (
+                        <CFormSwitch id="formSwitchCheckChecked" />
+                      )}
+                    </td>
+                  ),
+                  show_details: (item) => {
+                    return (
+                      <td className="py-2">
+                        <CPopover
+                          content={
+                            <div
+                              style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'start',
+                                alignItems: 'start',
+                              }}
+                            >
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickEditLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                              </CButton>
+                              <CButton
+                                value-get={item.langId}
+                                onClick={onClickDeletLang}
+                                style={{ textDecoration: 'none', color: 'black' }}
+                                color="link"
+                              >
+                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
+                              </CButton>
+                            </div>
+                          }
+                          placement="top"
                         >
-                          <CButton
-                            value-get={item.langId}
-                            onClick={onClickEditLang}
-                            style={{ textDecoration: 'none', color: 'black' }}
-                            color="link"
-                          >
-                            <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
+                          <CButton color="secondary">
+                            <CIcon icon={cilOptions}></CIcon>
                           </CButton>
-                          <CButton
-                            value-get={item.langId}
-                            onClick={onClickDeletLang}
-                            style={{ textDecoration: 'none', color: 'black' }}
-                            color="link"
-                          >
-                            <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                          </CButton>
-                        </div>
-                      }
-                      placement="top"
-                    >
-                      <CButton color="secondary">
-                        <CIcon icon={cilOptions}></CIcon>
-                      </CButton>
-                    </CPopover>
-                  </td>
-                )
-              },
-              details: (item) => {
-                return (
-                  <CCollapse visible={details.includes(item.id)}>
-                    <CCardBody className="p-3">
-                      <h4>{item.username}</h4>
-                      <p className="text-muted">User since: {item.registered}</p>
-                      <CButton size="sm" color="info">
-                        User Settings
-                      </CButton>
-                      <CButton size="sm" color="danger" className="ml-1">
-                        Delete
-                      </CButton>
-                    </CCardBody>
-                  </CCollapse>
-                )
-              },
-            }}
-            selectable
-            sorterValue={{ column: 'name', state: 'asc' }}
-            tableFilter
-            tableHeadProps={{
-              color: 'success',
-            }}
-            tableProps={{
-              striped: true,
-              hover: true,
-            }}
-          />
-        </div>
-      </div>
+                        </CPopover>
+                      </td>
+                    )
+                  },
+                }}
+                selectable
+                sorterValue={{ column: 'name', state: 'asc' }}
+                tableFilter
+                tableHeadProps={{
+                  color: 'success',
+                }}
+                tableProps={{
+                  striped: true,
+                  hover: true,
+                }}
+              />
+            </div>
+          </div>
+        </CCol>
+      </CRow>
+
       <div>
         <div>
           {/* edit model  */}

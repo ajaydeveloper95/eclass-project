@@ -48,12 +48,20 @@
     padding: 10px 10px;
 }
 
+.padding-10px-10px {
+    padding: 10px 10px;
+}
+
 .text-weight-1-3rem {
     font-size: 1.3rem;
 }
 
 .margin-right {
     margin-right: 20px;
+}
+
+.gap-set-between-1rem {
+    gap: 1rem;
 }
 
 .width-30per {

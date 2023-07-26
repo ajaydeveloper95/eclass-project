@@ -372,7 +372,7 @@ const Dashboard = () => {
             <CWidgetStatsF
               className="mb-3"
               icon={
-                <Link to={'/user'}>
+                <Link to={'/financial/order'}>
                   <CIcon icon={cilChildFriendly} height={36} />
                 </Link>
               }
