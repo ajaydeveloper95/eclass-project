@@ -52,8 +52,8 @@ function AllCategory() {
       _style: { width: '20%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'CategoryName', _style: { width: '20%' } },
-    { key: 'Slug', _style: { width: '25%' } },
+    { key: 'CategoryName', _style: { width: '25%' } },
+    { key: 'Slug', _style: { width: '15%' } },
     { key: 'Featured', sorter: false, _style: { width: '15%' } },
     { key: 'Status', sorter: false, _style: { width: '15%' } },
     {
