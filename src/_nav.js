@@ -83,11 +83,6 @@ const _nav = [
       },
       {
         component: CNavItem,
-        name: '- Verify User',
-        to: '/education/verifyuser',
-      },
-      {
-        component: CNavItem,
         name: '- Roles And Permission',
         to: '/users/roleandpermission',
       },

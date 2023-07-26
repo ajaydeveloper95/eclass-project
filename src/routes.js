@@ -32,7 +32,6 @@ const RequestToInvolve = React.lazy(() => import('./views/User/RequestToInvolve'
 // Education
 const Course = React.lazy(() => import('./views/Education/Course'))
 const Ebooks = React.lazy(() => import('./views/Education/Ebooks'))
-const VerifyUser = React.lazy(() => import('./views/Education/VerifyUser'))
 const CreateCourse = React.lazy(() => import('./views/Education/CreateCourse'))
 const Institute = React.lazy(() => import('./views/Education/Institute'))
 const Meetings = React.lazy(() => import('./views/Education/Meetings'))
@@ -153,7 +152,6 @@ const routes = [
 
   { path: '/education', name: 'education', element: Course, exact: true },
   { path: '/education/course', name: 'Course', element: Course },
-  { path: '/education/verifyuser', name: 'VerifyUser', element: VerifyUser },
   { path: '/education/createcourse', name: 'CreateCourse', element: CreateCourse },
   { path: '/education/coursereview', name: 'CourseReview', element: CourseReview },
   { path: '/education/courselanguage', name: 'CourseLanguage', element: CourseLanguage },
