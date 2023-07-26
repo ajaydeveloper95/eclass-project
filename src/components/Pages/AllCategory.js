@@ -38,6 +38,9 @@ function AllCategory() {
   const [featuredStateManage, setFeaturedStateManage] = useState('true')
   const [statusStateManage, setStatusStateManage] = useState('true')
   const [slugSet, setSlugSet] = useState(' ')
+
+  const [validated, setValidated] = useState(false)
+
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const columns = [
     {
@@ -183,20 +186,35 @@ function AllCategory() {
     setDeleteCateId(DataId)
   }
 
-  const CategoryFormSubmit = () => {
-    axios
-      .post(`${adminUrl}addCategory`, dataSetup, {
-        headers: { access_token: localStorage.getItem('access_token') },
-      })
-      .then((result) => {
-        console.log('success')
-      })
-      .catch((e) => {
-        console.log('error')
-      })
-  }
+  // const CategoryFormSubmit = () => {
+  //   axios
+  //     .post(`${adminUrl}addCategory`, dataSetup, {
+  //       headers: { access_token: localStorage.getItem('access_token') },
+  //     })
+  //     .then((result) => {
+  //       console.log('success')
+  //     })
+  //     .catch((e) => {
+  //       console.log('error')
+  //     })
+  // }
 
-  console.log(dataSetup)
+  const CategoryFormSubmit = (event) => {
+    event.preventDefault()
+    const form = event.currentTarget
+    if (form.checkValidity() === false) {
+      event.preventDefault()
+      event.stopPropagation()
+    } else {
+      // Perform your form submission logic here
+      try {
+        // ... Your existing code for form submission
+      } catch (err) {
+        console.log('some error ', err)
+      }
+    }
+    setValidated(true)
+  }
 
   return (
     <div className="margin-down-and-top">

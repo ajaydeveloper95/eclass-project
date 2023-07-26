@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { commonUrl } from '../../RouteDynamic'
 // import cilArrowLeft from '@coreui/icons-react'
 import { cilOptions, cilPlus, cilPen, cilArrowLeft } from '@coreui/icons'
+import { CFormFeedback } from '@coreui/react-pro'
 
 import {
   CButton,
@@ -38,6 +39,7 @@ function AddUser() {
   const [visibleLinkedIn, setVisibleLinkedIn] = useState(false)
   const [statusStateManage, setStatusStateManage] = useState('true')
   const [validated, setValidated] = useState(false)
+
   const handleSubmit = (event) => {
     const form = event.currentTarget
     if (form.checkValidity() === false) {
@@ -100,7 +102,7 @@ function AddUser() {
               <CFormLabel>
                 First Name
                 <CBadge
-                  color="transprent"
+                  color="transparent"
                   textColor="danger"
                   className="form-badget-class"
                   shape="rounded"
@@ -118,12 +120,13 @@ function AddUser() {
                 placeholder="Enter First Name"
                 required
               />
+              <CFormFeedback invalid>Please enter a valid first name.</CFormFeedback>
             </CCol>
             <CCol md={3} className="my-2">
               <CFormLabel>
                 Last Name
                 <CBadge
-                  color="transprent"
+                  color="transparent"
                   textColor="danger"
                   className="form-badget-class"
                   shape="rounded"
@@ -141,12 +144,13 @@ function AddUser() {
                 placeholder="Enter Last Name"
                 required
               />
+              <CFormFeedback invalid>Please enter a valid last name.</CFormFeedback>
             </CCol>
             <CCol md={3} className="my-2">
               <CFormLabel htmlFor="validationCustomemail">
                 E-mail
                 <CBadge
-                  color="transprent"
+                  color="transparent"
                   textColor="danger"
                   className="form-badget-class"
                   shape="rounded"
@@ -162,18 +166,19 @@ function AddUser() {
                     setdata((values) => ({ ...values, email: e.target.value }))
                   }}
                   aria-describedby="inputGroupPrependFeedback"
-                  feedbackValid="Please right mail."
+                  feedbackValid="Please enter a valid email."
                   placeholder="Enter Mail-id"
                   id="validationCustomemail"
                   required
                 />
+                <CFormFeedback invalid>Please enter a valid email address.</CFormFeedback>
               </CInputGroup>
             </CCol>
             <CCol md={3} className="my-2">
               <CFormLabel>
                 Mobile Number
                 <CBadge
-                  color="transprent"
+                  color="transparent"
                   textColor="danger"
                   className="form-badget-class"
                   shape="rounded"
@@ -193,6 +198,7 @@ function AddUser() {
                   placeholder="Enter Mobile No."
                   required
                 />
+                <CFormFeedback invalid>Please enter a valid mobile number.</CFormFeedback>
               </CInputGroup>
             </CCol>
             <CCol md={3} className="my-2">
@@ -218,6 +224,7 @@ function AddUser() {
                   { label: 'STUDENT', value: 'STUDENT' },
                   { label: 'INSTRUCTOR', value: 'INSTRUCTOR' },
                 ]}
+                required
               />
             </CCol>
             <CCol md={3} className="my-2">
@@ -243,25 +250,6 @@ function AddUser() {
                 required
               />
             </CCol>
-            {/* <CCol md={3} className="my-2">
-              <CFormLabel>
-                Conform Password
-                <CBadge
-                  color="transprent"
-                  textColor="danger"
-                  className="form-badget-class"
-                  shape="rounded"
-                >
-                  *
-                </CBadge>
-              </CFormLabel>
-              <CFormInput
-                type="password"
-                placeholder="Enter same password again"
-                feedbackValid="Looks good!"
-                required
-              />
-            </CCol> */}
             <CCol xs={12} className="my-2">
               <CFormTextarea
                 id="exampleFormControlTextarea1"
@@ -272,6 +260,7 @@ function AddUser() {
               ></CFormTextarea>
             </CCol>
           </CRow>
+
           <CRow className="background-grey-form-border-radious-padding my-3">
             <p className="text-weight-1-3rem Font-bold">Address :</p>
             <CCol md={3} className="my-2">
@@ -304,23 +293,16 @@ function AddUser() {
                 onChange={(e) => {
                   setdata((values) => ({ ...values, state: e.target.value }))
                 }}
-                aria-describedby="validationCustom06Feedback"
-                feedbackInvalid="Please provide a valid city."
-                id="validationCustom06"
                 label="State"
-                required
               />
             </CCol>
             <CCol md={3} className="my-2">
               <CFormInput
-                aria-describedby="validationCustom04Feedback"
                 feedbackInvalid="Please select a valid state."
-                id="validationCustom04"
                 onChange={(e) => {
                   setdata((values) => ({ ...values, city: e.target.value }))
                 }}
                 label="City"
-                required
               ></CFormInput>
             </CCol>
             <CCol md={3} className="my-2">
@@ -329,11 +311,8 @@ function AddUser() {
                 onChange={(e) => {
                   setdata((values) => ({ ...values, pinCode: e.target.value }))
                 }}
-                aria-describedby="validationCustom05Feedback"
-                feedbackInvalid="Please provide a valid zip."
                 id="validationCustom05"
                 label="Pin Code"
-                required
               />
             </CCol>
             <CCol xs={3} className="my-2">

@@ -35,11 +35,26 @@ function CourseReview() {
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [courseOptionData, setCourseOptionData] = useState([])
   const [instructorOptionData, setinstructorOptionData] = useState([])
+  const [courcesee, setCourceSee] = useState([])
+  const [updatecource, setUpdateCource] = useState([])
+  const [updatedelete, setUpdateDelete] = useState([])
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const courseSelectOption = []
   const instructorSelectOption = []
+
   useEffect(() => {
+    axios
+      .get('http://localhost:5000/admin/getCourseReview', {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        setCourceSee(result.data.data)
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+
     axios
       .get(`${adminUrl}getCourse`, {
         headers: { access_token: localStorage.getItem('access_token') },
@@ -65,7 +80,6 @@ function CourseReview() {
       })
       .then((data) => {
         const mainInstructorData = data.data.data
-        console.log(mainInstructorData)
         for (let item in mainInstructorData) {
           instructorSelectOption[item] = {
             label: `${mainInstructorData[item].fName} ${mainInstructorData[item].lName}`,
@@ -79,6 +93,21 @@ function CourseReview() {
       })
   }, [])
 
+  let col = []
+  for (let item in courcesee) {
+    col[item] = {
+      id: item,
+      Title: courcesee[item].title,
+      Image: courcesee[item].Image,
+      Instructor: courcesee[item].Instructor,
+      Featured: courcesee[item].Featured,
+      Status: courcesee[item].isActive,
+      Instructor: courcesee[item].Instructor,
+      courceseeId: courcesee[item]._id,
+      _props: { align: 'middle' },
+    }
+  }
+
   const columns = [
     {
       key: 'Image',
@@ -86,7 +115,7 @@ function CourseReview() {
       _style: { width: '20%' },
       _props: { className: 'fw-semibold' },
     },
-    { key: 'Title', _style: { width: '35%' } },
+    { key: 'Title', _style: { width: '25%' } },
     { key: 'Instructor', sorter: false, _style: { width: '20%' } },
     { key: 'Featured', sorter: false, _style: { width: '15%' } },
     { key: 'Status', sorter: false, _style: { width: '30%' } },
@@ -99,6 +128,7 @@ function CourseReview() {
       _props: { className: 'fw-semibold' },
     },
   ]
+
   const usersData = [
     {
       id: 0,
@@ -128,6 +158,7 @@ function CourseReview() {
       _props: { align: 'middle' },
     },
   ]
+
   const ForStatus = (Status) => {
     switch (Status) {
       case 'true':
@@ -161,11 +192,20 @@ function CourseReview() {
   }
 
   const onClickEditLang = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    for (let item in courcesee) {
+      if (courcesee[item]._id === EditId) {
+        setUpdateCource(courcesee[item])
+        break
+      }
+    }
     // let Reviewid = e.target.getAttribute('value-get')
     setVisibleEdit(true)
   }
 
   const onClickDeletLang = (e) => {
+    let flashDealId = e.target.getAttribute('value-get')
+    setUpdateDelete(flashDealId)
     setVisibleDelete(true)
   }
 
@@ -182,9 +222,9 @@ function CourseReview() {
         console.log('Some Issue', err)
       })
   }
-  console.log(formData)
 
   const onClickEditPopUp = (e) => {}
+
   return (
     <>
       <AuthFun />
@@ -288,7 +328,7 @@ function CourseReview() {
                 clickableRows
                 columns={columns}
                 columnSorter
-                items={usersData}
+                items={col}
                 itemsPerPageSelect
                 itemsPerPage={10}
                 pagination
@@ -330,7 +370,7 @@ function CourseReview() {
                               }}
                             >
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.courceseeId}
                                 onClick={onClickEditLang}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -338,7 +378,7 @@ function CourseReview() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.courceseeId}
                                 onClick={onClickDeletLang}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -388,19 +428,20 @@ function CourseReview() {
                       type="file"
                       id="formFile"
                       label="Image"
-                      // value={updateCource.name}
+                      // value={updatecource.Image}
                       // onChange={(e) => {
-                      // setUpdateCource((value) => ({ ...value, name: e.target.value }))
+                      //   setUpdateCource((value) => ({ ...value, Image: e.target.value }))
+                      // }}
                     />
                   </div>
                 </div>
                 <div className="width-dec10 mt-2">
                   <CFormInput
                     type="text"
-                    // value={updateCource.name}
-                    // onChange={(e) => {
-                    //   setUpdateCource((value) => ({ ...value, name: e.target.value }))
-                    // }}
+                    value={updatecource.title}
+                    onChange={(e) => {
+                      setUpdateCource((value) => ({ ...value, title: e.target.value }))
+                    }}
                     label="Title"
                     placeholder="Enter Title"
                     aria-describedby="exampleFormControlInputHelpInline"
@@ -409,10 +450,10 @@ function CourseReview() {
                 <div className="width-dec10 mt-2">
                   <CFormInput
                     type="text"
-                    // value={updateCource.name}
-                    // onChange={(e) => {
-                    //   setUpdateCource((value) => ({ ...value, name: e.target.value }))
-                    // }}
+                    value={updatecource.Instructor}
+                    onChange={(e) => {
+                      setUpdateCource((value) => ({ ...value, Instructor: e.target.value }))
+                    }}
                     label="Instructor"
                     placeholder="Enter Instructor"
                     aria-describedby="exampleFormControlInputHelpInline"
@@ -420,7 +461,14 @@ function CourseReview() {
                 </div>
                 <div className="width-dec10 mt-2">
                   <h6>Featured</h6>
-                  <CFormSwitch label="Featured" id="formSwitchCheckDefault" />
+                  <CFormSwitch
+                    label="Featured"
+                    id="formSwitchCheckDefault"
+                    value={updatecource.Featured}
+                    onChange={(e) => {
+                      setUpdateCource((value) => ({ ...value, Featured: e.target.value }))
+                    }}
+                  />
                 </div>
                 <div className="width-dec10 mt-2">
                   <h6>Status</h6>
