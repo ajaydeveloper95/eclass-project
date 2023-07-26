@@ -166,7 +166,7 @@ function VerifyUserComponent() {
                   onClick={onVerifiedBtn}
                   color={getVerified(item.verified)}
                 >
-                  Click On Block
+                  Click to Block
                 </CButton>
               </td>
             ),
