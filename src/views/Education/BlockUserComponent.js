@@ -72,7 +72,7 @@ function BlockUserComponent() {
       .catch((err) => {
         console.log('some Internel Server Error ', err)
       })
-  }, [])
+  }, [visibleAlertSuccess])
 
   const columns = [
     {
