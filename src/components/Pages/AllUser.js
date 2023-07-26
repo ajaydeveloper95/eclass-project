@@ -779,130 +779,7 @@ function AllUser() {
           </div>
           <hr />
           <div>
-            <div className="display-flex-justify-space-between-padding">
-              <div>
-                <CButton className="margin-right" color="info" variant="outline">
-                  Add User
-                </CButton>
-                <CButton className="margin-right" color="warning" variant="outline">
-                  Delete Selected
-                </CButton>
-                <CButton className="margin-right" color="success" variant="outline">
-                  Import
-                </CButton>
-              </div>
-            </div>
-            <div className="padding-20px-10px">
-              <CSmartTable
-                activePage={3}
-                cleaner
-                clickableRows
-                columns={columns}
-                columnSorter
-                items={col}
-                itemsPerPageSelect
-                itemsPerPage={5}
-                pagination
-                scopedColumns={{
-                  Image: (item) => (
-                    <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
-                    </td>
-                  ),
-                  UserDetails: (item) => (
-                    <td>
-                      <p>
-                        <span className="font-blod">Name : </span>
-                        {item.UserDetails}
-                      </p>
-                      <p>
-                        <span className="font-blod">Email : </span>
-                        {item.UserEmail}
-                      </p>
-                      <p>
-                        <span className="font-blod">Mobile : </span>
-                        {item.UserEmail}
-                      </p>
-                    </td>
-                  ),
-                  status: (item) => (
-                    <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                      ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
-                      )}
-                    </td>
-                  ),
-                  LoginAsUser: (item) => (
-                    <td>
-                      <CButton color="link">
-                        <CIcon icon={cilLockLocked} size="xxl" />
-                      </CButton>
-                    </td>
-                  ),
-                  show_details: (item) => {
-                    return (
-                      <td className="py-2">
-                        <CPopover
-                          content={
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'start',
-                              }}
-                            >
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickEditLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
-                              </CButton>
-                            </div>
-                          }
-                          placement="top"
-                        >
-                          <CButton color="secondary">
-                            <CIcon icon={cilOptions}></CIcon>
-                          </CButton>
-                        </CPopover>
-                      </td>
-                    )
-                  },
-                }}
-                selectable
-                sorterValue={{ column: 'Role', state: 'asc' }}
-                tableFilter
-                tableFilterLabel="Search : "
-                tableFilterPlaceholder=""
-                tableHeadProps={{
-                  color: 'success',
-                }}
-                tableProps={{
-                  striped: true,
-                  hover: true,
-                }}
-              />
-            </div>
+            <h1> One </h1>
           </div>
         </div>
       )
@@ -989,130 +866,7 @@ function AllUser() {
           </div>
           <hr />
           <div>
-            <div className="display-flex-justify-space-between-padding">
-              <div>
-                <CButton className="margin-right" color="info" variant="outline">
-                  Add User
-                </CButton>
-                <CButton className="margin-right" color="warning" variant="outline">
-                  Delete Selected
-                </CButton>
-                <CButton className="margin-right" color="success" variant="outline">
-                  Import
-                </CButton>
-              </div>
-            </div>
-            <div className="padding-20px-10px">
-              <CSmartTable
-                activePage={3}
-                cleaner
-                clickableRows
-                columns={columns}
-                columnSorter
-                items={col}
-                itemsPerPageSelect
-                itemsPerPage={5}
-                pagination
-                scopedColumns={{
-                  Image: (item) => (
-                    <td>
-                      <CImage rounded thumbnail src={item.Image} width={100} height={100} />
-                    </td>
-                  ),
-                  UserDetails: (item) => (
-                    <td>
-                      <p>
-                        <span className="font-blod">Name : </span>
-                        {item.UserDetails}
-                      </p>
-                      <p>
-                        <span className="font-blod">Email : </span>
-                        {item.UserEmail}
-                      </p>
-                      <p>
-                        <span className="font-blod">Mobile : </span>
-                        {item.UserEmail}
-                      </p>
-                    </td>
-                  ),
-                  status: (item) => (
-                    <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
-                      ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
-                      )}
-                    </td>
-                  ),
-                  LoginAsUser: (item) => (
-                    <td>
-                      <CButton color="link">
-                        <CIcon icon={cilLockLocked} size="xxl" />
-                      </CButton>
-                    </td>
-                  ),
-                  show_details: (item) => {
-                    return (
-                      <td className="py-2">
-                        <CPopover
-                          content={
-                            <div
-                              style={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'start',
-                              }}
-                            >
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickEditLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
-                              </CButton>
-                              <CButton
-                                value-get={item.langId}
-                                onClick={onClickDeletLang}
-                                style={{ textDecoration: 'none', color: 'black' }}
-                                color="link"
-                              >
-                                <CIcon style={{ margin: '0px 10px' }} icon={cilZoom}></CIcon>View
-                              </CButton>
-                            </div>
-                          }
-                          placement="top"
-                        >
-                          <CButton color="secondary">
-                            <CIcon icon={cilOptions}></CIcon>
-                          </CButton>
-                        </CPopover>
-                      </td>
-                    )
-                  },
-                }}
-                selectable
-                sorterValue={{ column: 'Role', state: 'asc' }}
-                tableFilter
-                tableFilterLabel="Search : "
-                tableFilterPlaceholder=""
-                tableHeadProps={{
-                  color: 'success',
-                }}
-                tableProps={{
-                  striped: true,
-                  hover: true,
-                }}
-              />
-            </div>
+            <h1> Two </h1>
           </div>
         </div>
       )
@@ -1239,11 +993,7 @@ function AllUser() {
                         {item.UserEmail}
                       </p>
                       <p>
-<<<<<<< HEAD
                         <span className="font-blod">Mobile : </span>
-=======
-                        <span className="font-blod">Mobile :</span>
->>>>>>> 9e675eac4aed66a54afea21fdbc33069c0716c95
                         {item.UserEmail}
                       </p>
                     </td>
@@ -1325,8 +1075,6 @@ function AllUser() {
                   hover: true,
                 }}
               />
-<<<<<<< HEAD
-=======
             </div>
           </div>
         </div>
@@ -1531,7 +1279,6 @@ function AllUser() {
             </div>
             <div className="padding-20px-10px">
               <BlockUserComponent />
->>>>>>> 9e675eac4aed66a54afea21fdbc33069c0716c95
             </div>
           </div>
         </div>
