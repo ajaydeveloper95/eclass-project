@@ -3,10 +3,21 @@ import { cilTrash, cilOptions, cilPen, cilArrowLeft } from '@coreui/icons'
 import { CSmartTable, CButton, CCardBody, CCollapse, CPopover } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import {
+  CFormInput,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
+} from '@coreui/react-pro'
 
 function ReportedCourses() {
   document.title = 'Eclass - Reported Courses'
   const [details, setDetails] = useState([])
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
+
   const columns = [
     {
       key: 'User',
@@ -26,6 +37,7 @@ function ReportedCourses() {
       _props: { className: 'fw-semibold' },
     },
   ]
+
   const usersData = [
     {
       id: 0,
@@ -73,6 +85,7 @@ function ReportedCourses() {
       _props: { align: 'middle' },
     },
   ]
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -83,6 +96,23 @@ function ReportedCourses() {
     }
     setDetails(newDetails)
   }
+
+  const onClickEditLang = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    console.log(EditId)
+    setVisibleEdit(true)
+  }
+
+  const onClickDeletLang = (e) => {
+    let DelId = e.target.getAttribute('value-get')
+    console.log(DelId)
+    setVisibleDelete(true)
+  }
+
+  const onClickEditPopUp = () => {
+    console.log('zjkhfdsafn')
+  }
+
   return (
     <div className="background-white-border-radious">
       <AuthFun />
@@ -127,7 +157,7 @@ function ReportedCourses() {
                       >
                         <CButton
                           value-get={item.langId}
-                          // onClick={onClickEditLang}
+                          onClick={onClickEditLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -135,7 +165,7 @@ function ReportedCourses() {
                         </CButton>
                         <CButton
                           value-get={item.langId}
-                          // onClick={onClickDeletLang}
+                          onClick={onClickDeletLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -182,6 +212,107 @@ function ReportedCourses() {
             hover: true,
           }}
         />
+      </div>
+      <div>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Reported Courses</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.couponCode}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
+                    // }}
+                    label="User"
+                    placeholder="Enter User"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.amount}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                    // }}
+                    label="Issue"
+                    placeholder="Enter Issue"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.maxUsageLimit}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
+                    // }}
+                    label="Email"
+                    placeholder="Enter Email"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.maxUsageLimit}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
+                    // }}
+                    label="Details"
+                    placeholder="Enter Details"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.discountType}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
+                    // }}
+                    label="Course"
+                    placeholder="Enter Course"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+              </div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickEditPopUp}>
+                Update
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickDeletLang}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
       </div>
     </div>
   )

@@ -15,7 +15,6 @@ import {
 } from '@coreui/react-pro'
 import { CModal, CModalHeader, CModalTitle, CModalBody, CModalFooter } from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
-import { element } from 'prop-types'
 import axios from 'axios'
 import { adminUrl } from 'src/RouteDynamic'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
@@ -52,6 +51,7 @@ function Assignments() {
       _props: { align: 'middle' },
     },
   ]
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -84,10 +84,14 @@ function Assignments() {
       })
   }
 
-  const onClickEditLang = () => {
+  const onClickEditLang = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    console.log(EditId)
     setVisibleEdit(true)
   }
-  const onClickDeletLang = () => {
+  const onClickDeletLang = (e) => {
+    let DelId = e.target.getAttribute('value-get')
+    console.log(DelId)
     setVisibleDelete(true)
   }
 
@@ -297,7 +301,7 @@ function Assignments() {
                 {/* edit model  */}
                 <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
                   <CModalHeader onClose={() => setVisibleEdit(false)}>
-                    <CModalTitle>Edit Coupon</CModalTitle>
+                    <CModalTitle>Edit Assignment</CModalTitle>
                   </CModalHeader>
                   <CModalBody>
                     <div>
@@ -308,47 +312,8 @@ function Assignments() {
                           // onChange={(e) => {
                           //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
                           // }}
-                          label="Coupon Code"
-                          placeholder="Coupon Code"
-                          aria-describedby="exampleFormControlInputHelpInline"
-                        />
-                      </div>
-                      <div className="width-dec10 mt-2">
-                        <CFormInput
-                          type="text"
-                          // value={updateCoupon.amount}
-                          // onChange={(e) => {
-                          //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
-                          // }}
-                          label="Amount"
-                          placeholder="Enter Amount"
-                          aria-describedby="exampleFormControlInputHelpInline"
-                        />
-                      </div>
-                      <div className="width-dec10 mt-2">
-                        <CFormInput
-                          type="text"
-                          // value={updateCoupon.maxUsageLimit}
-                          // onChange={(e) => {
-                          //   setUpdateCoupon((value) => ({
-                          //     ...value,
-                          //     maxUsageLimit: e.target.value,
-                          //   }))
-                          // }}
-                          label="Max-Usage"
-                          placeholder="Enter Max Usage"
-                          aria-describedby="exampleFormControlInputHelpInline"
-                        />
-                      </div>
-                      <div className="width-dec10 mt-2">
-                        <CFormInput
-                          type="text"
-                          // value={updateCoupon.discountType}
-                          // onChange={(e) => {
-                          //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
-                          // }}
-                          label="Details"
-                          placeholder="Enter Details"
+                          label="Course"
+                          placeholder="Enter Course"
                           aria-describedby="exampleFormControlInputHelpInline"
                         />
                       </div>

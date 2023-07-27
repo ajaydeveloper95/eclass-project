@@ -98,7 +98,9 @@ function FlashDeal() {
     }
   }
 
-  const Deletonpopuphandal = () => {}
+  const Deletonpopuphandal = () => {
+    console.log('sfhb')
+  }
 
   const onClickEditCate = (e) => {
     let EditId = e.target.getAttribute('value-get')

@@ -9,6 +9,14 @@ import {
   CFormSwitch,
   CPopover,
 } from '@coreui/react-pro'
+import {
+  CFormInput,
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
+} from '@coreui/react-pro'
 import CIcon from '@coreui/icons-react'
 import { cilPen, cilArrowLeft } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
@@ -16,6 +24,8 @@ import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 function AllBatches() {
   document.title = 'Eclass - All Batch'
   const [details, setDetails] = useState([])
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const columns = [
     {
@@ -111,6 +121,23 @@ function AllBatches() {
     }
     setDetails(newDetails)
   }
+
+  const onClickEditLang = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    console.log(EditId)
+    setVisibleEdit(true)
+  }
+
+  const onClickDeletLang = (e) => {
+    let DelId = e.target.getAttribute('value-get')
+    console.log(DelId)
+    setVisibleDelete(true)
+  }
+
+  const onClickEditPopUp = () => {
+    console.log('Working Done')
+  }
+
   return (
     <div className="background-white-border-radious">
       <AuthFun />
@@ -181,7 +208,7 @@ function AllBatches() {
                       >
                         <CButton
                           value-get={item.langId}
-                          // onClick={onClickEditLang}
+                          onClick={onClickEditLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -189,7 +216,7 @@ function AllBatches() {
                         </CButton>
                         <CButton
                           value-get={item.langId}
-                          // onClick={onClickDeletLang}
+                          onClick={onClickDeletLang}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -236,6 +263,92 @@ function AllBatches() {
             hover: true,
           }}
         />
+      </div>
+      <div>
+        <div>
+          {/* edit model  */}
+          <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+            <CModalHeader onClose={() => setVisibleEdit(false)}>
+              <CModalTitle>Edit Batch</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <div className="mb-3">
+                    <CFormInput
+                      type="file"
+                      id="formFile"
+                      label="Upload Image"
+                      // value={updateCoupon.amount}
+                      // onChange={(e) => {
+                      //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                      // }}
+                    />
+                  </div>
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    // value={updateCoupon.amount}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                    // }}
+                    label="Batch"
+                    placeholder="Enter Batch"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>Featured</h6>
+                  <CFormSwitch
+                    id="formSwitchCheckDefault"
+                    // value={updateCoupon.amount}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                    // }}
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>Status</h6>
+                  <CFormSwitch
+                    id="formSwitchCheckDefault"
+                    // value={updateCoupon.amount}
+                    // onChange={(e) => {
+                    //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                    // }}
+                  />
+                </div>
+              </div>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickEditPopUp}>
+                Update
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
+        <div>
+          {/* delete model  */}
+          <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+            <CModalHeader onClose={() => setVisibleDelete(false)}>
+              <CModalTitle>Delete</CModalTitle>
+            </CModalHeader>
+            <CModalBody>
+              <p>Do you really want to delete these records? This process cannot be undone.</p>
+            </CModalBody>
+            <CModalFooter>
+              <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                No
+              </CButton>
+              <CButton color="primary" onClick={onClickDeletLang}>
+                Yes
+              </CButton>
+            </CModalFooter>
+          </CModal>
+        </div>
       </div>
     </div>
   )

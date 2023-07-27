@@ -229,7 +229,9 @@ function RequestToInvolve() {
     console.log('t')
   }
 
-  const onclickEditRequest = () => {
+  const onclickEditRequest = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    console.log(EditId)
     setVisibleEdit(true)
   }
 

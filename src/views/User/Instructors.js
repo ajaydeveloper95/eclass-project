@@ -4,9 +4,23 @@ import { CSmartTable, CButton, CBadge, CPopover, CAvatar } from '@coreui/react-p
 import { cilOptions, cilTrash, cilPen, cilArrowLeft } from '@coreui/icons'
 import CIcon from '@coreui/icons-react'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import {
+  CModal,
+  CModalHeader,
+  CModalTitle,
+  CModalBody,
+  CModalFooter,
+  CFormInput,
+  CDatePicker,
+  CFormSwitch,
+} from '@coreui/react-pro'
 
 function Instructors() {
   const [instState, setinstState] = useState([])
+  const [updatestate, setUpdatestate] = useState([])
+  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [visibleDelete, setVisibleDelete] = useState(false)
+
   useEffect(() => {
     axios
       .get('http://localhost:5000/admin/getInstructorList', {
@@ -21,6 +35,16 @@ function Instructors() {
   }, [])
 
   let col = []
+  for (let item in instState) {
+    col[item] = {
+      id: item,
+      Number: item,
+      Image: instState[item].Image,
+      name: instState[item].fName,
+      InstructoreEmail: instState[item].isApplyForInstructor,
+      mobileNumber: instState[item].mobileNumber,
+    }
+  }
 
   const ImgAdd = 'https://cdn.pixabay.com/photo/2017/01/24/03/53/plant-2004483_1280.jpg'
 
@@ -35,9 +59,6 @@ function Instructors() {
       Image: ImgAdd,
     }
   }
-
-  console.log(col)
-  console.log(instState)
 
   const columns = [
     {
@@ -62,14 +83,10 @@ function Instructors() {
     },
   ]
 
-  const onClickEditLang = (e) => {
-    const clickEdit = e.currentTarget.getAttribute('value-get')
-    console.log(clickEdit)
-  }
-
-  const onClickDeletLang = (e) => {
-    console.log('delet on click handle')
-  }
+  // const onClickEditLang = (e) => {
+  //   const clickEdit = e.currentTarget.getAttribute('value-get')
+  //   console.log(clickEdit)
+  // }
 
   const getBadge = (status) => {
     switch (status) {
@@ -81,6 +98,25 @@ function Instructors() {
         return 'primary'
     }
   }
+
+  const onClickEditCate = (e) => {
+    let EditId = e.target.getAttribute('value-get')
+    for (let item in instState) {
+      if (instState[item]._id === EditId) {
+        setUpdatestate(instState[item])
+        break
+      }
+    }
+    setVisibleEdit(true)
+  }
+
+  const onClickDeletCate = (e) => {
+    let flashDealId = e.target.getAttribute('value-get')
+    // setDeleteflaseid(flashDealId)
+    setVisibleDelete(true)
+  }
+
+  const Deletonpopuphandal = () => {}
 
   return (
     <>
@@ -141,7 +177,7 @@ function Instructors() {
                       >
                         <CButton
                           value-get={item.langId}
-                          onClick={onClickEditLang}
+                          onClick={onClickEditCate}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -149,7 +185,7 @@ function Instructors() {
                         </CButton>
                         <CButton
                           value-get={item.langId}
-                          onClick={onClickDeletLang}
+                          onClick={onClickDeletCate}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
                         >
@@ -178,6 +214,99 @@ function Instructors() {
             hover: true,
           }}
         />
+        <div>
+          <div>
+            {/* edit model  */}
+            <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+              <CModalHeader onClose={() => setVisibleEdit(false)}>
+                <CModalTitle>Edit Instructor</CModalTitle>
+              </CModalHeader>
+              <CModalBody>
+                <div>
+                  <div className="width-dec10 mt-2">
+                    <div className="mb-3">
+                      <CFormInput
+                        type="file"
+                        id="formFile"
+                        label="Upload Image"
+                        value={instState.fName}
+                        onChange={(e) => {
+                          setUpdatestate((value) => ({ ...value, fName: e.target.value }))
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="width-dec10 mt-2">
+                    <CFormInput
+                      type="text"
+                      value={instState.Image}
+                      onChange={(e) => {
+                        setUpdatestate((value) => ({ ...value, Image: e.target.value }))
+                      }}
+                      label="Name"
+                      placeholder="Enter Name"
+                      aria-describedby="exampleFormControlInputHelpInline"
+                    />
+                  </div>
+                  <div className="width-dec10 mt-2">
+                    <CFormInput
+                      type="text"
+                      // value={updatecource.title}
+                      // onChange={(e) => {
+                      //   setUpdateCource((value) => ({ ...value, title: e.target.value }))
+                      // }}
+                      label="Email"
+                      placeholder="Enter Email"
+                      aria-describedby="exampleFormControlInputHelpInline"
+                    />
+                  </div>
+                  <div className="width-dec10 mt-2">
+                    <CFormInput
+                      type="text"
+                      // value={updatecource.title}
+                      // onChange={(e) => {
+                      //   setUpdateCource((value) => ({ ...value, title: e.target.value }))
+                      // }}
+                      label="Mobile No"
+                      placeholder="Enter Mobile No"
+                      aria-describedby="exampleFormControlInputHelpInline"
+                    />
+                  </div>
+                  <div className="width-dec10 mt-2">
+                    <h6>Status</h6>
+                    <CFormSwitch id="formSwitchCheckDefault" />
+                  </div>
+                </div>
+              </CModalBody>
+              <CModalFooter>
+                <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                  No
+                </CButton>
+                <CButton color="primary">Update</CButton>
+              </CModalFooter>
+            </CModal>
+          </div>
+
+          <div>
+            {/* delete model  */}
+            <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+              <CModalHeader onClose={() => setVisibleDelete(false)}>
+                <CModalTitle>Delete</CModalTitle>
+              </CModalHeader>
+              <CModalBody>
+                <p>Do you really want to delete these records? This process cannot be undone.</p>
+              </CModalBody>
+              <CModalFooter>
+                <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                  No
+                </CButton>
+                <CButton color="primary" onClick={Deletonpopuphandal}>
+                  Yes
+                </CButton>
+              </CModalFooter>
+            </CModal>
+          </div>
+        </div>
       </div>
     </>
   )

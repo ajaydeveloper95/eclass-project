@@ -7,6 +7,7 @@ import {
   CButton,
   CCardBody,
   CCollapse,
+  CFormInput,
   CFormSwitch,
   CPopover,
   CModal,
@@ -93,10 +94,15 @@ function AllRefundPolicies() {
   }
 
   const OnClickEditShow = (e) => {
-    let editID = e.target.getAttribute('value-get')
-    console.log(editID)
-    console.log('update refund policy', updateRefundPolicy)
+    let EditId = e.target.getAttribute('value-get')
+    console.log(EditId, 'SHow id ')
     setVisibleEdit(true)
+    for (let item in refundPolicy) {
+      if (refundPolicy[item]._id === EditId) {
+        setUpdateRefundPolicy(refundPolicy[item])
+        break
+      }
+    }
   }
 
   const DeleteAllSelected = () => {
@@ -267,10 +273,46 @@ function AllRefundPolicies() {
           {/* edit model  */}
           <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
             <CModalHeader onClose={() => setVisibleEdit(false)}>
-              <CModalTitle>Edit Coupon</CModalTitle>
+              <CModalTitle>Edit Refund Policies</CModalTitle>
             </CModalHeader>
             <CModalBody>
-              <div>hello</div>
+              <div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="text"
+                    value={updateRefundPolicy.name}
+                    onChange={(e) => {
+                      setUpdateRefundPolicy((value) => ({ ...value, name: e.target.value }))
+                    }}
+                    label="Name"
+                    placeholder="Enter Name"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <CFormInput
+                    type="number"
+                    value={updateRefundPolicy.days}
+                    onChange={(e) => {
+                      setUpdateRefundPolicy((value) => ({ ...value, days: e.target.value }))
+                    }}
+                    label="Day"
+                    placeholder="Enter Day"
+                    aria-describedby="exampleFormControlInputHelpInline"
+                  />
+                </div>
+                <div className="width-dec10 mt-2">
+                  <h6>Status</h6>
+                  <CFormSwitch
+                    label=""
+                    id="formSwitchCheckDefault"
+                    value={updateRefundPolicy.isActive}
+                    onChange={(e) => {
+                      setUpdateRefundPolicy((value) => ({ ...value, isActive: e.target.value }))
+                    }}
+                  />
+                </div>
+              </div>
             </CModalBody>
             <CModalFooter>
               <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
