@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { cilColorBorder, cilArrowLeft } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
+import { cilOptions, cilPen } from '@coreui/icons'
+import { cilTrash, cilPlus, cibSonos } from '@coreui/icons'
+
 import {
   CSmartTable,
   CButton,
@@ -429,31 +432,42 @@ function RequestToInvolve() {
                             <td className="py-2">
                               <CPopover
                                 content={
-                                  <CModal visible={visible} onClose={() => setVisible(false)}>
-                                    <CModalHeader onClose={() => setVisible(false)}>
-                                      <CModalTitle>Modal title</CModalTitle>
-                                    </CModalHeader>
-                                    <CModalBody>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                      <p>ANkit</p>
-                                    </CModalBody>
-                                    <CModalFooter>
-                                      <CButton color="secondary" onClick={() => setVisible(false)}>
-                                        Close
-                                      </CButton>
-                                      <CButton color="primary">Save changes</CButton>
-                                    </CModalFooter>
-                                  </CModal>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'start',
+                                      alignItems: 'start',
+                                    }}
+                                  >
+                                    <CButton
+                                      value-get={item.couponDataId}
+                                      onClick={onClickEditShow}
+                                      style={{ textDecoration: 'none', color: 'black' }}
+                                      color="link"
+                                    >
+                                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>
+                                      Edit
+                                    </CButton>
+                                    <CButton
+                                      value-get={item.couponDataId}
+                                      onClick={(e) => {
+                                        let CouponIdGet = e.target.getAttribute('value-get')
+                                        setCouponId(CouponIdGet)
+                                        setVisibleDelete(true)
+                                      }}
+                                      style={{ textDecoration: 'none', color: 'black' }}
+                                      color="link"
+                                    >
+                                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>
+                                      Delete
+                                    </CButton>
+                                  </div>
                                 }
                                 placement="top"
                               >
-                                <CButton color="secondary" onClick={() => setVisible(!visible)}>
-                                  <CIcon icon={cilColorBorder}></CIcon>
+                                <CButton color="secondary">
+                                  <CIcon icon={cilOptions}></CIcon>
                                 </CButton>
                               </CPopover>
                             </td>
