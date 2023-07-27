@@ -66,6 +66,7 @@ function AllUser() {
         role: `${userState[key].role}`,
         LoginAsUser: '',
         status: `${userState[key].isActive}`,
+        AdminId: `${userState[key]._id}`,
         _props: { align: 'middle' },
       }
       colAdminNumber++
@@ -81,6 +82,7 @@ function AllUser() {
         role: `${userState[key].role}`,
         LoginAsUser: '',
         status: `${userState[key].isActive}`,
+        StudentId: `${userState[key]._id}`,
         _props: { align: 'middle' },
       }
       colStudentNumber++
@@ -96,6 +98,7 @@ function AllUser() {
         role: `${userState[key].role}`,
         LoginAsUser: '',
         status: `${userState[key].isActive}`,
+        InstructoresId: `${userState[key]._id}`,
         _props: { align: 'middle' },
       }
       colInstructoresNumber++
@@ -110,6 +113,7 @@ function AllUser() {
       role: `${userState[key].role}`,
       LoginAsUser: '',
       status: `${userState[key].isActive}`,
+      AllUserId: `${userState[key]._id}`,
       _props: { align: 'middle' },
     }
   }
@@ -119,41 +123,56 @@ function AllUser() {
   }
 
   const onClickEditShowStudent = (e) => {
-    let couponId = e.target.getAttribute('value-get')
+    let StudentId = e.target.getAttribute('value-get')
+    console.log('edit studnet id ', StudentId)
     setVisibleEdit(true)
   }
 
-  const onClickDeletLangStudent = () => {
+  const onClickDeletLangStudent = (e) => {
+    let StudentId = e.target.getAttribute('value-get')
+    console.log('deletew studnet id ', StudentId)
     setVisibleDelete(true)
   }
 
-  const onclickviewstudent = () => {
+  const onclickviewstudent = (e) => {
+    let viewStudentId = e.target.getAttribute('value-get')
+    console.log('view studnet id ', viewStudentId)
     setVisibleView(true)
   }
 
   const onClickEditShowInstructors = (e) => {
-    let couponId = e.target.getAttribute('value-get')
+    let InstructoresId = e.target.getAttribute('value-get')
+    console.log('InstructoresId edit id ', InstructoresId)
     setVisibleEdit(true)
   }
 
-  const onClickDeletLangInstructors = () => {
+  const onClickDeletLangInstructors = (e) => {
+    let InstructoresId = e.target.getAttribute('value-get')
+    console.log('InstructoresId delete id ', InstructoresId)
     setVisibleDelete(true)
   }
 
-  const onclickviewInstructors = () => {
+  const onclickviewInstructors = (e) => {
+    let InstructoresId = e.target.getAttribute('value-get')
+    console.log('InstructoresId view id ', InstructoresId)
     setVisibleView(true)
   }
 
   const onClickEditShowAdmin = (e) => {
-    let couponId = e.target.getAttribute('value-get')
+    let AdminId = e.target.getAttribute('value-get')
+    console.log('admin id edit id ', AdminId)
     setVisibleEdit(true)
   }
 
-  const onClickDeletLangAdmin = () => {
+  const onClickDeletLangAdmin = (e) => {
+    let AdminId = e.target.getAttribute('value-get')
+    console.log('admin id delete id ', AdminId)
     setVisibleDelete(true)
   }
 
-  const onclickviewAdmin = () => {
+  const onclickviewAdmin = (e) => {
+    let AdminId = e.target.getAttribute('value-get')
+    console.log('admin id view id ', AdminId)
     setVisibleView(true)
   }
 
@@ -364,7 +383,7 @@ function AllUser() {
                               }}
                             >
                               <CButton
-                                value-get={item.couponDataId}
+                                value-get={item.StudentId}
                                 onClick={onClickEditShowStudent}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -372,7 +391,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.couponDataId}
+                                value-get={item.StudentId}
                                 onClick={(e) => {
                                   // let CouponIdGet = e.target.getAttribute('value-get')
                                   // setCouponId(CouponIdGet)
@@ -384,7 +403,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.StudentId}
                                 onClick={onclickviewstudent}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -513,7 +532,32 @@ function AllUser() {
                   <CModalTitle>View</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                  <p>This is a View Modal</p>
+                  <div>
+                    <div className="text-align-center">
+                      <CImage
+                        rounded
+                        thumbnail
+                        src="https://eclass.mediacity.co.in/demo/public/images/user_img/1675157596image-handsome-happy-guy-christmas-sweater-smiling-looking-camera-celebrating-xmas-holidays-standing-red-background.jpg"
+                        width={100}
+                        height={100}
+                      />
+                      <h4>AdminMediaCity</h4>
+                    </div>
+                    <div className="d-flex j justify-content-space-evenly">
+                      <CButton color="info" variant="ghost">
+                        Admin@mediacity.co.in
+                      </CButton>
+                      <CButton color="success" variant="ghost">
+                        +87343242356
+                      </CButton>
+                    </div>
+                    <div>
+                      <div className="text-align-center">
+                        <p>Addresh : Enter addresh</p>
+                        <p>Role : Admin</p>
+                      </div>
+                    </div>
+                  </div>
                 </CModalBody>
                 <CModalFooter>
                   <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
@@ -684,7 +728,7 @@ function AllUser() {
                               }}
                             >
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.InstructoresId}
                                 onClick={onClickEditShowInstructors}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -692,7 +736,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.InstructoresId}
                                 onClick={onClickDeletLangInstructors}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -700,7 +744,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.InstructoresId}
                                 onClick={onclickviewInstructors}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -829,7 +873,32 @@ function AllUser() {
                   <CModalTitle>View</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                  <p>This is a View Modal</p>
+                  <div>
+                    <div className="text-align-center">
+                      <CImage
+                        rounded
+                        thumbnail
+                        src="https://eclass.mediacity.co.in/demo/public/images/user_img/1675157596image-handsome-happy-guy-christmas-sweater-smiling-looking-camera-celebrating-xmas-holidays-standing-red-background.jpg"
+                        width={100}
+                        height={100}
+                      />
+                      <h4>AdminMediaCity</h4>
+                    </div>
+                    <div className="d-flex j justify-content-space-evenly">
+                      <CButton color="info" variant="ghost">
+                        Admin@mediacity.co.in
+                      </CButton>
+                      <CButton color="success" variant="ghost">
+                        +87343242356
+                      </CButton>
+                    </div>
+                    <div>
+                      <div className="text-align-center">
+                        <p>Addresh : Enter addresh</p>
+                        <p>Role : Admin</p>
+                      </div>
+                    </div>
+                  </div>
                 </CModalBody>
                 <CModalFooter>
                   <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
@@ -996,7 +1065,7 @@ function AllUser() {
                               }}
                             >
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AdminId}
                                 onClick={onClickEditShowAdmin}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1004,7 +1073,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AdminId}
                                 onClick={onClickDeletLangAdmin}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1012,7 +1081,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AdminId}
                                 onClick={onclickviewAdmin}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1141,7 +1210,32 @@ function AllUser() {
                   <CModalTitle>View</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                  <p>This is a View Modal</p>
+                  <div>
+                    <div className="text-align-center">
+                      <CImage
+                        rounded
+                        thumbnail
+                        src="https://eclass.mediacity.co.in/demo/public/images/user_img/1675157596image-handsome-happy-guy-christmas-sweater-smiling-looking-camera-celebrating-xmas-holidays-standing-red-background.jpg"
+                        width={100}
+                        height={100}
+                      />
+                      <h4>AdminMediaCity</h4>
+                    </div>
+                    <div className="d-flex j justify-content-space-evenly">
+                      <CButton color="info" variant="ghost">
+                        Admin@mediacity.co.in
+                      </CButton>
+                      <CButton color="success" variant="ghost">
+                        +87343242356
+                      </CButton>
+                    </div>
+                    <div>
+                      <div className="text-align-center">
+                        <p>Addresh : Enter addresh</p>
+                        <p>Role : Admin</p>
+                      </div>
+                    </div>
+                  </div>
                 </CModalBody>
                 <CModalFooter>
                   <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
@@ -1315,7 +1409,7 @@ function AllUser() {
                               }}
                             >
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AllUserId}
                                 onClick={onclickEditalluser}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1323,7 +1417,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AllUserId}
                                 onClick={onclickDeletealluser}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1331,7 +1425,7 @@ function AllUser() {
                                 <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>Delete
                               </CButton>
                               <CButton
-                                value-get={item.langId}
+                                value-get={item.AllUserId}
                                 onClick={onclickViewalluser}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
@@ -1460,7 +1554,32 @@ function AllUser() {
                   <CModalTitle>View</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
-                  <p>This is a View Modal</p>
+                  <div>
+                    <div className="text-align-center">
+                      <CImage
+                        rounded
+                        thumbnail
+                        src="https://eclass.mediacity.co.in/demo/public/images/user_img/1675157596image-handsome-happy-guy-christmas-sweater-smiling-looking-camera-celebrating-xmas-holidays-standing-red-background.jpg"
+                        width={100}
+                        height={100}
+                      />
+                      <h4>AdminMediaCity</h4>
+                    </div>
+                    <div className="d-flex j justify-content-space-evenly">
+                      <CButton color="info" variant="ghost">
+                        Admin@mediacity.co.in
+                      </CButton>
+                      <CButton color="success" variant="ghost">
+                        +87343242356
+                      </CButton>
+                    </div>
+                    <div>
+                      <div className="text-align-center">
+                        <p>Addresh : Enter addresh</p>
+                        <p>Role : Admin</p>
+                      </div>
+                    </div>
+                  </div>
                 </CModalBody>
                 <CModalFooter>
                   <CButton color="secondary" onClick={() => setVisibleDelete(false)}>

@@ -220,3 +220,16 @@ input#exampleColorInput {
     right: 30px;
     width: 50%;
 }
+
+.social-profile-link-css{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    width: 90%;
+}
+
+.text-align-center{
+    text-align: center;
+}

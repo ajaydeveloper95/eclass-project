@@ -363,7 +363,7 @@ function AddUser() {
                 </CDropdownMenu>
               </CDropdown>
 
-              <div>
+              <div className="social-profile-link-css">
                 <div className="width-40-percent">
                   <CCollapse visible={visibleFacebook}>
                     <CCard className="mt-3 background-color-transprent">
