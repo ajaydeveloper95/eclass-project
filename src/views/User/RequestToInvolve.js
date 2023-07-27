@@ -3,7 +3,6 @@ import { cilColorBorder, cilArrowLeft } from '@coreui/icons'
 import { CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreui/react'
 import { cilOptions, cilPen } from '@coreui/icons'
 import { cilTrash, cilPlus, cibSonos } from '@coreui/icons'
-
 import {
   CSmartTable,
   CButton,
@@ -19,6 +18,7 @@ import {
 import CIcon from '@coreui/icons-react'
 import axios from 'axios'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import { CFormInput } from '@coreui/react-pro'
 
 function RequestToInvolve() {
   document.title = 'Eclass - All Category'
@@ -28,6 +28,8 @@ function RequestToInvolve() {
   const [activeKey, setActiveKey] = useState(1)
   const [requestToInvolvement, setRequestToInvolvement] = useState([])
   const [requestToInvolvementNew, setRequestToInvolvementNew] = useState([])
+  const [visibleDelete, setVisibleDelete] = useState(false)
+  const [visibleEdit, setVisibleEdit] = useState(false)
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
@@ -207,6 +209,7 @@ function RequestToInvolve() {
         return -1
     }
   }
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -226,6 +229,19 @@ function RequestToInvolve() {
     console.log('t')
   }
 
+  const onclickEditRequest = () => {
+    setVisibleEdit(true)
+  }
+
+  const onclickDeleteRequest = () => {}
+
+  const onClickDeletLang = () => {
+    console.log('Mbysaudgewdb')
+  }
+
+  const onClickEditPopUp = () => {
+    console.log('kjsdhde')
+  }
   return (
     <>
       <AuthFun />
@@ -325,25 +341,42 @@ function RequestToInvolve() {
                             <td className="py-2">
                               <CPopover
                                 content={
-                                  <CModal visible={visible} onClose={() => setVisible(false)}>
-                                    <CModalHeader onClose={() => setVisible(false)}>
-                                      <CModalTitle>Modal title</CModalTitle>
-                                    </CModalHeader>
-                                    <CModalBody>
-                                      <p>ANkit</p>
-                                    </CModalBody>
-                                    <CModalFooter>
-                                      <CButton color="secondary" onClick={() => setVisible(false)}>
-                                        Close
-                                      </CButton>
-                                      <CButton color="primary">Save changes</CButton>
-                                    </CModalFooter>
-                                  </CModal>
+                                  <div
+                                    style={{
+                                      display: 'flex',
+                                      flexDirection: 'column',
+                                      justifyContent: 'start',
+                                      alignItems: 'start',
+                                    }}
+                                  >
+                                    <CButton
+                                      value-get={item.couponDataId}
+                                      onClick={onclickEditRequest}
+                                      style={{ textDecoration: 'none', color: 'black' }}
+                                      color="link"
+                                    >
+                                      <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>
+                                      Edit
+                                    </CButton>
+                                    <CButton
+                                      value-get={item.couponDataId}
+                                      onClick={(e) => {
+                                        let CouponIdGet = e.target.getAttribute('value-get')
+                                        // setCouponId(CouponIdGet)
+                                        setVisibleDelete(true)
+                                      }}
+                                      style={{ textDecoration: 'none', color: 'black' }}
+                                      color="link"
+                                    >
+                                      <CIcon style={{ margin: '0px 10px' }} icon={cilTrash}></CIcon>
+                                      Delete
+                                    </CButton>
+                                  </div>
                                 }
                                 placement="top"
                               >
-                                <CButton color="secondary" onClick={() => setVisible(!visible)}>
-                                  <CIcon icon={cilColorBorder}></CIcon>
+                                <CButton color="secondary">
+                                  <CIcon icon={cilOptions}></CIcon>
                                 </CButton>
                               </CPopover>
                             </td>
@@ -364,6 +397,103 @@ function RequestToInvolve() {
                       }}
                     />
                   </div>
+                </div>
+              </div>
+              <div>
+                <div>
+                  {/* edit model  */}
+                  <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+                    <CModalHeader onClose={() => setVisibleEdit(false)}>
+                      <CModalTitle>Edit Coupon</CModalTitle>
+                    </CModalHeader>
+                    <CModalBody>
+                      <div>
+                        <div className="width-dec10 mt-2">
+                          <CFormInput
+                            type="text"
+                            // value={updateCoupon.couponCode}
+                            // onChange={(e) => {
+                            //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
+                            // }}
+                            label="Coupon Code"
+                            placeholder="Coupon Code"
+                            aria-describedby="exampleFormControlInputHelpInline"
+                          />
+                        </div>
+                        <div className="width-dec10 mt-2">
+                          <CFormInput
+                            type="text"
+                            // value={updateCoupon.amount}
+                            // onChange={(e) => {
+                            //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
+                            // }}
+                            label="Amount"
+                            placeholder="Enter Amount"
+                            aria-describedby="exampleFormControlInputHelpInline"
+                          />
+                        </div>
+                        <div className="width-dec10 mt-2">
+                          <CFormInput
+                            type="text"
+                            // value={updateCoupon.maxUsageLimit}
+                            // onChange={(e) => {
+                            //   setUpdateCoupon((value) => ({
+                            //     ...value,
+                            //     maxUsageLimit: e.target.value,
+                            //   }))
+                            // }}
+                            label="Max-Usage"
+                            placeholder="Enter Max Usage"
+                            aria-describedby="exampleFormControlInputHelpInline"
+                          />
+                        </div>
+                        <div className="width-dec10 mt-2">
+                          <CFormInput
+                            type="text"
+                            // value={updateCoupon.discountType}
+                            // onChange={(e) => {
+                            //   setUpdateCoupon((value) => ({
+                            //     ...value,
+                            //     discountType: e.target.value,
+                            //   }))
+                            // }}
+                            label="Details"
+                            placeholder="Enter Details"
+                            aria-describedby="exampleFormControlInputHelpInline"
+                          />
+                        </div>
+                      </div>
+                    </CModalBody>
+                    <CModalFooter>
+                      <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
+                        No
+                      </CButton>
+                      <CButton color="primary" onClick={onClickEditPopUp}>
+                        Update
+                      </CButton>
+                    </CModalFooter>
+                  </CModal>
+                </div>
+                <div>
+                  {/* delete model  */}
+                  <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+                    <CModalHeader onClose={() => setVisibleDelete(false)}>
+                      <CModalTitle>Delete</CModalTitle>
+                    </CModalHeader>
+                    <CModalBody>
+                      <p>
+                        Do you really want to delete these records? This process cannot be undone.
+                      </p>
+                    </CModalBody>
+                    <CModalFooter>
+                      <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+                        No
+                      </CButton>
+                      <CButton color="primary" onClick={onClickDeletLang}>
+                        Yes
+                      </CButton>
+                    </CModalFooter>
+                  </CModal>
                 </div>
               </div>
             </div>
@@ -442,7 +572,7 @@ function RequestToInvolve() {
                                   >
                                     <CButton
                                       value-get={item.couponDataId}
-                                      onClick={onClickEditShow}
+                                      onClick={onclickEditRequest}
                                       style={{ textDecoration: 'none', color: 'black' }}
                                       color="link"
                                     >
@@ -453,7 +583,7 @@ function RequestToInvolve() {
                                       value-get={item.couponDataId}
                                       onClick={(e) => {
                                         let CouponIdGet = e.target.getAttribute('value-get')
-                                        setCouponId(CouponIdGet)
+                                        // setCouponId(CouponIdGet)
                                         setVisibleDelete(true)
                                       }}
                                       style={{ textDecoration: 'none', color: 'black' }}

@@ -96,7 +96,9 @@ function AllRefundPolicies() {
     let editID = e.target.getAttribute('value-get')
     console.log(editID)
     console.log('update refund policy', updateRefundPolicy)
+    setVisibleEdit(true)
   }
+
   const DeleteAllSelected = () => {
     for (let item in selectedSetupState) {
       axios

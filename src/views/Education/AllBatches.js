@@ -100,6 +100,7 @@ function AllBatches() {
         return -1
     }
   }
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
