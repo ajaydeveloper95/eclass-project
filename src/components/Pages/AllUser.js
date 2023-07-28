@@ -8,17 +8,7 @@ import VerifyUserComponent from 'src/views/Education/VerifyUserComponent'
 import BlockUserComponent from 'src/views/Education/BlockUserComponent'
 
 import {
-  CCardBody,
-  CCollapse,
-  CRow,
-  CCol,
   CFormInput,
-  CForm,
-  CFormSelect,
-  CBadge,
-  CInputGroupText,
-  CInputGroup,
-  CDatePicker,
   CModal,
   CModalHeader,
   CModalTitle,
@@ -34,6 +24,8 @@ function AllUser() {
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [visibleView, setVisibleView] = useState(false)
+  const [deleteIdSetup, setDeleteIdSetup] = useState('')
+  const [editElement, seteditElement] = useState([])
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
   useEffect(() => {
@@ -45,7 +37,7 @@ function AllUser() {
       .catch((err) => {
         console.log('some error are accured ', err)
       })
-  }, [])
+  }, [visibleDelete])
 
   let col = []
   let colStudent = []
@@ -130,7 +122,7 @@ function AllUser() {
 
   const onClickDeletLangStudent = (e) => {
     let StudentId = e.target.getAttribute('value-get')
-    console.log('deletew studnet id ', StudentId)
+    setDeleteIdSetup(StudentId)
     setVisibleDelete(true)
   }
 
@@ -148,7 +140,7 @@ function AllUser() {
 
   const onClickDeletLangInstructors = (e) => {
     let InstructoresId = e.target.getAttribute('value-get')
-    console.log('InstructoresId delete id ', InstructoresId)
+    setDeleteIdSetup(InstructoresId)
     setVisibleDelete(true)
   }
 
@@ -166,7 +158,7 @@ function AllUser() {
 
   const onClickDeletLangAdmin = (e) => {
     let AdminId = e.target.getAttribute('value-get')
-    console.log('admin id delete id ', AdminId)
+    setDeleteIdSetup(AdminId)
     setVisibleDelete(true)
   }
 
@@ -177,14 +169,38 @@ function AllUser() {
   }
 
   const onClickDeletLang = () => {
-    console.log('All sections data funcation')
+    // set delete api
+    console.log(deleteIdSetup, 'id set')
+    axios
+      .post(
+        `${adminUrl}deleteUsers`,
+        { _id: deleteIdSetup },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((data) => {
+        console.log('success')
+        setDeleteIdSetup('')
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    console.log('All delete section function ')
+    setVisibleDelete(false)
   }
 
-  const onclickEditalluser = () => {
+  const onclickEditalluser = (e) => {
+    let editAllId = e.target.getAttribute('value-get')
+    console.log(editAllId, 'edit id ')
+    // setDeleteIdSetup(editAllId)
     setVisibleEdit(true)
   }
 
-  const onclickDeletealluser = () => {
+  const onclickDeletealluser = (e) => {
+    let deleteId = e.target.getAttribute('value-get')
+    console.log(deleteId, 'delete id')
+    setDeleteIdSetup(deleteId)
     setVisibleDelete(true)
   }
 
@@ -392,11 +408,7 @@ function AllUser() {
                               </CButton>
                               <CButton
                                 value-get={item.StudentId}
-                                onClick={(e) => {
-                                  // let CouponIdGet = e.target.getAttribute('value-get')
-                                  // setCouponId(CouponIdGet)
-                                  setVisibleDelete(true)
-                                }}
+                                onClick={onClickDeletLangStudent}
                                 style={{ textDecoration: 'none', color: 'black' }}
                                 color="link"
                               >
