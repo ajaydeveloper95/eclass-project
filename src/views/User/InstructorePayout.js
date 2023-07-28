@@ -218,7 +218,6 @@ function InstructorePayout() {
                     <h6>Bank Transfer Enable:</h6>
                     <CFormSwitch size="xl" label="" id="formSwitchCheckDefaultXL" />
                   </div>
-
                   <div className="col-12"></div>
                 </div>
               </div>
