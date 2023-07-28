@@ -39,7 +39,6 @@ function RequestToInvolve() {
         headers: { access_token: localStorage.getItem('access_token') },
       })
       .then((result) => {
-        console.log(result.data.data, 'Ankittt resquest')
         setRequestToInvolvement(result.data.data)
       })
       .catch((e) => {
@@ -51,7 +50,6 @@ function RequestToInvolve() {
         headers: { access_token: localStorage.getItem('access_token') },
       })
       .then((result) => {
-        console.log(result.data.data, 'Ankittt resquest')
         setRequestToInvolvementNew(result.data.data)
       })
       .catch((e) => {
