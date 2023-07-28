@@ -4,6 +4,7 @@ import CIcon from '@coreui/icons-react'
 import { cilCheckCircle } from '@coreui/icons'
 import axios from 'axios'
 import AlertFeat from 'src/components/Pages/BasicFeatures/AlertFeat'
+import { adminUrl } from 'src/RouteDynamic'
 
 function VerifyUserComponent() {
   const [details, setDetails] = useState([])
@@ -48,7 +49,7 @@ function VerifyUserComponent() {
   // useeffect and get data
   useEffect(() => {
     axios
-      .get('http://localhost:5000/admin/getUsers')
+      .get(`${adminUrl}getUsers`)
       .then((result) => {
         const AllUserData = result.data.data
         setAllUser(AllUserData)

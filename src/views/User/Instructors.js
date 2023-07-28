@@ -14,16 +14,18 @@ import {
   CDatePicker,
   CFormSwitch,
 } from '@coreui/react-pro'
+import { adminUrl } from 'src/RouteDynamic'
 
 function Instructors() {
   const [instState, setinstState] = useState([])
   const [updatestate, setUpdatestate] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [visibleDelete, setVisibleDelete] = useState(false)
+  const [deleteId, setdeleteId] = useState('')
 
   useEffect(() => {
     axios
-      .get('http://localhost:5000/admin/getInstructorList', {
+      .get(`${adminUrl}getInstructorList`, {
         headers: { access_token: localStorage.getItem('access_token') },
       })
       .then((instruct) => {
@@ -34,19 +36,8 @@ function Instructors() {
       })
   }, [])
 
-  let col = []
-  for (let item in instState) {
-    col[item] = {
-      id: item,
-      Number: item,
-      Image: instState[item].Image,
-      name: instState[item].fName,
-      InstructoreEmail: instState[item].isApplyForInstructor,
-      mobileNumber: instState[item].mobileNumber,
-    }
-  }
-
   const ImgAdd = 'https://cdn.pixabay.com/photo/2017/01/24/03/53/plant-2004483_1280.jpg'
+  let col = []
 
   for (let key in instState) {
     col[key] = {
@@ -57,6 +48,7 @@ function Instructors() {
       status: instState[key].isActive ? 'Approved' : 'Denied',
       mobileNumber: instState[key].mobileNumber,
       Image: ImgAdd,
+      elementID: instState[key]._id,
     }
   }
 
@@ -83,11 +75,6 @@ function Instructors() {
     },
   ]
 
-  // const onClickEditLang = (e) => {
-  //   const clickEdit = e.currentTarget.getAttribute('value-get')
-  //   console.log(clickEdit)
-  // }
-
   const getBadge = (status) => {
     switch (status) {
       case 'Approved':
@@ -111,12 +98,15 @@ function Instructors() {
   }
 
   const onClickDeletCate = (e) => {
-    let flashDealId = e.target.getAttribute('value-get')
-    // setDeleteflaseid(flashDealId)
+    let deleteId = e.target.getAttribute('value-get')
+    setdeleteId(deleteId)
     setVisibleDelete(true)
   }
 
-  const Deletonpopuphandal = () => {}
+  const Deletonpopuphandal = () => {
+    console.log('delete handle')
+    setVisibleDelete(false)
+  }
 
   return (
     <>
@@ -176,7 +166,7 @@ function Instructors() {
                         }}
                       >
                         <CButton
-                          value-get={item.langId}
+                          value-get={item.elementID}
                           onClick={onClickEditCate}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
@@ -184,7 +174,7 @@ function Instructors() {
                           <CIcon style={{ margin: '0px 10px' }} icon={cilPen}></CIcon>Edit
                         </CButton>
                         <CButton
-                          value-get={item.langId}
+                          value-get={item.elementID}
                           onClick={onClickDeletCate}
                           style={{ textDecoration: 'none', color: 'black' }}
                           color="link"
