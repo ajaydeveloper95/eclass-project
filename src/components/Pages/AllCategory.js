@@ -38,6 +38,8 @@ function AllCategory() {
   const [featuredStateManage, setFeaturedStateManage] = useState('true')
   const [statusStateManage, setStatusStateManage] = useState('true')
   const [slugSet, setSlugSet] = useState(' ')
+  const [deleteId, setDeleteId] = useState('')
+  const [visibleDelete, setVisibleDelete] = useState(false)
 
   const [validated, setValidated] = useState(false)
 
@@ -81,7 +83,7 @@ function AllCategory() {
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, [visibleDelete])
 
   let col = []
 
@@ -127,20 +129,8 @@ function AllCategory() {
 
   const onClickDeletCate = (e) => {
     let DeleteId = e.target.getAttribute('value-get')
-    axios
-      .post(
-        'http://localhost:5000/admin/deleteCategory',
-        { _id: DeleteId },
-        {
-          headers: { access_token: localStorage.getItem('access_token') },
-        },
-      )
-      .then((result) => {
-        console.log('success')
-      })
-      .catch((e) => {
-        console.log(e)
-      })
+    setDeleteId(DeleteId)
+    setVisibleDelete(true)
   }
 
   const ForFeatured = (Featured) => {
@@ -214,6 +204,24 @@ function AllCategory() {
       }
     }
     setValidated(true)
+  }
+
+  const onClickDeletLang = () => {
+    axios
+      .post(
+        'http://localhost:5000/admin/deleteCategory',
+        { _id: deleteId },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+    setVisibleDelete(false)
   }
 
   return (
@@ -542,6 +550,25 @@ function AllCategory() {
         </CModal>
       </div>
       {/* edit model end */}
+      <div>
+        {/* delete model  */}
+        <CModal visible={visibleDelete} onClose={() => setVisibleDelete(false)}>
+          <CModalHeader onClose={() => setVisibleDelete(false)}>
+            <CModalTitle>Delete</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <p>Do you really want to delete these records? This process cannot be undone.</p>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
+              No
+            </CButton>
+            <CButton color="primary" onClick={onClickDeletLang}>
+              Yes
+            </CButton>
+          </CModalFooter>
+        </CModal>
+      </div>
     </div>
   )
 }
