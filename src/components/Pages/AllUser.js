@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { adminUrl } from '../../RouteDynamic'
 import { CSmartTable, CButton, CImage, CFormSwitch, CPopover } from '@coreui/react-pro'
-import { cilLockLocked, cilOptions, cilTrash, cilPen, cilZoom } from '@coreui/icons'
+import { cilLockLocked, cilOptions, cilTrash, cilPen, cilZoom, cilArrowLeft } from '@coreui/icons'
 import axios from 'axios'
 import CIcon from '@coreui/icons-react'
 import VerifyUserComponent from 'src/views/Education/VerifyUserComponent'
@@ -14,12 +14,30 @@ import {
   CModalTitle,
   CModalBody,
   CModalFooter,
+  CForm,
+  CRow,
+  CCol,
+  CFormLabel,
+  CBadge,
+  CFormTextarea,
+  CInputGroup,
+  CCard,
+  CCollapse,
+  CFormFeedback,
+  CAvatar,
+  CFormSelect,
+  CInputGroupText,
+  CDropdownItem,
+  CDropdown,
+  CDropdownMenu,
+  CDropdownToggle,
 } from '@coreui/react-pro'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
 
 function AllUser() {
   document.title = 'Eclass - All User'
   const [userState, setUserState] = useState([])
+  const [getdata, setdata] = useState([])
   const [SwitchSetup, setSwitchSetup] = useState('Alluser')
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
@@ -27,6 +45,11 @@ function AllUser() {
   const [deleteIdSetup, setDeleteIdSetup] = useState('')
   const [editElement, seteditElement] = useState([])
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
+  const [visibleFacebook, setVisibleFacebook] = useState(false)
+  const [visibleTwitter, setVisibleTwitter] = useState(false)
+  const [visibleLinkedIn, setVisibleLinkedIn] = useState(false)
+  const [statusStateManage, setStatusStateManage] = useState('true')
+  const [validated, setValidated] = useState(false)
 
   useEffect(() => {
     axios
@@ -37,7 +60,7 @@ function AllUser() {
       .catch((err) => {
         console.log('some error are accured ', err)
       })
-  }, [visibleDelete])
+  }, [visibleDelete, visibleEdit])
 
   let col = []
   let colStudent = []
@@ -110,13 +133,54 @@ function AllUser() {
     }
   }
 
+  const handleSubmitUpdate = (event) => {
+    const form = event.currentTarget
+    if (form.checkValidity() === true) {
+      event.preventDefault()
+      event.stopPropagation()
+      // api call if validation is success
+      let pushData = {
+        _id: getdata._id,
+        isActive: getdata.isActive,
+        fName: getdata.fName,
+        lName: getdata.lName,
+        role: getdata.role,
+        email: getdata.email,
+        mobileNumber: getdata.mobileNumber,
+        // linkedInUrl: getdata.linkedInUrl,
+        // tweeterUrl: getdata.tweeterUrl,
+        // faceBookUrl: getdata.faceBookUrl,
+      }
+
+      axios
+        .post(`${adminUrl}updateUsers`, pushData, {
+          headers: { access_token: localStorage.getItem('access_token') },
+        })
+        .then((result) => {
+          console.log('success')
+        })
+        .catch((e) => {
+          console.log('some issue ', e)
+        })
+      setVisibleEdit(false)
+    } else {
+      alert('Fill required Field')
+    }
+    setValidated(true)
+  }
+
   const onClickEditPopUp = () => {
     console.log('Ankit update')
   }
 
   const onClickEditShowStudent = (e) => {
     let StudentId = e.target.getAttribute('value-get')
-    console.log('edit studnet id ', StudentId)
+    for (let item in userState) {
+      if (userState[item]._id === StudentId) {
+        setdata(userState[item])
+        break
+      }
+    }
     setVisibleEdit(true)
   }
 
@@ -134,7 +198,12 @@ function AllUser() {
 
   const onClickEditShowInstructors = (e) => {
     let InstructoresId = e.target.getAttribute('value-get')
-    console.log('InstructoresId edit id ', InstructoresId)
+    for (let item in userState) {
+      if (userState[item]._id === InstructoresId) {
+        setdata(userState[item])
+        break
+      }
+    }
     setVisibleEdit(true)
   }
 
@@ -152,7 +221,12 @@ function AllUser() {
 
   const onClickEditShowAdmin = (e) => {
     let AdminId = e.target.getAttribute('value-get')
-    console.log('admin id edit id ', AdminId)
+    for (let item in userState) {
+      if (userState[item]._id === AdminId) {
+        setdata(userState[item])
+        break
+      }
+    }
     setVisibleEdit(true)
   }
 
@@ -192,8 +266,12 @@ function AllUser() {
 
   const onclickEditalluser = (e) => {
     let editAllId = e.target.getAttribute('value-get')
-    console.log(editAllId, 'edit id ')
-    // setDeleteIdSetup(editAllId)
+    for (let item in userState) {
+      if (userState[item]._id === editAllId) {
+        setdata(userState[item])
+        break
+      }
+    }
     setVisibleEdit(true)
   }
 
@@ -452,70 +530,445 @@ function AllUser() {
           <div>
             <div>
               {/* edit model  */}
-              <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+              <CModal size="xl" visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
                 <CModalHeader onClose={() => setVisibleEdit(false)}>
-                  <CModalTitle>Edit Coupon</CModalTitle>
+                  <CModalTitle>Edit User</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                   <div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.couponCode}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
-                        // }}
-                        label="Coupon Code"
-                        placeholder="Coupon Code"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.amount}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
-                        // }}
-                        label="Amount"
-                        placeholder="Enter Amount"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.maxUsageLimit}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
-                        // }}
-                        label="Max-Usage"
-                        placeholder="Enter Max Usage"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.discountType}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
-                        // }}
-                        label="Details"
-                        placeholder="Enter Details"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
+                    <CForm
+                      className=" g-3 needs-validation"
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmitUpdate}
+                    >
+                      <CRow className="background-grey-form-border-radious-padding">
+                        <div className="display-flex-justify-space-between-padding">
+                          <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+                        </div>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            First Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.fName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, fName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom01"
+                            placeholder="Enter First Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid first name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Last Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.lName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, lName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom02"
+                            placeholder="Enter Last Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid last name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel htmlFor="validationCustomemail">
+                            E-mail
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CInputGroupText>@</CInputGroupText>
+                            <CFormInput
+                              type="email"
+                              value={getdata.email}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, email: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please enter a valid email."
+                              placeholder="Enter Mail-id"
+                              id="validationCustomemail"
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid email address.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Mobile Number
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CFormInput
+                              type="text"
+                              value={getdata.mobileNumber}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, mobileNumber: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please choose a username."
+                              id="validationCustommobile"
+                              placeholder="Enter Mobile No."
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid mobile number.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Role Selection
+                            <CBadge
+                              color="transprent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormSelect
+                            aria-label="Default select example"
+                            value={getdata.role}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, role: e.target.value }))
+                            }}
+                            options={[
+                              { label: 'ADMIN', value: 'ADMIN' },
+                              { label: 'STUDENT', value: 'STUDENT' },
+                              { label: 'INSTRUCTOR', value: 'INSTRUCTOR' },
+                            ]}
+                            required
+                          />
+                        </CCol>
+                        <CCol xs={12} className="my-2">
+                          <CFormTextarea
+                            id="exampleFormControlTextarea1"
+                            label="Example Textarea"
+                            placeholder="Enter Details About You..."
+                            rows={7}
+                            text="Must be 8-20 words long."
+                          ></CFormTextarea>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Address :</p>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.address}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, address: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom040Feedback"
+                            id="validationCustom040"
+                            placeholder="Enter Address"
+                            label="Address"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, country: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom010Feedback"
+                            id="validationCustom010"
+                            placeholder="Enter country"
+                            label="Country"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.state}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, state: e.target.value }))
+                            }}
+                            label="State"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            feedbackInvalid="Please select a valid state."
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, city: e.target.value }))
+                            }}
+                            label="City"
+                          ></CFormInput>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, pinCode: e.target.value }))
+                            }}
+                            id="validationCustom05"
+                            label="Pin Code"
+                          />
+                        </CCol>
+                        <CCol xs={3} className="my-2">
+                          <CFormLabel>Avatar Upload :</CFormLabel>
+                          <CInputGroup className="mb-3">
+                            <CFormInput
+                              type="file"
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, image: e.target.value }))
+                              }}
+                              id="inputGroupFile02"
+                            />
+                          </CInputGroup>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Social Profile Link:</p>
+                        <CCol md={12} className="my-2">
+                          <CDropdown>
+                            <CDropdownToggle href="#" color="primary">
+                              +
+                            </CDropdownToggle>
+                            <CDropdownMenu>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleFacebook(!visibleFacebook)
+                                }}
+                              >
+                                Facebook URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleTwitter(!visibleTwitter)
+                                }}
+                              >
+                                Twitter URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  // e.preventDefault()
+                                  setVisibleLinkedIn(!visibleLinkedIn)
+                                }}
+                              >
+                                LinkedIn URL
+                              </CDropdownItem>
+                            </CDropdownMenu>
+                          </CDropdown>
+
+                          <div className="social-profile-link-css">
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleFacebook}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.faceBookUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            faceBookUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter FaceBook URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleFacebook(!visibleFacebook)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleLinkedIn}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://freelogopng.com/images/all_img/1656994883linkedin-logo-transparent.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.linkedInUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            linkedInUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter LinkedIn URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleLinkedIn(!visibleLinkedIn)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleTwitter}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  {/* <CCardBody> */}
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.freeiconspng.com/thumbs/logo-twitter-png/blue-logo-twitter-birds-emblem-3.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.tweeterUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            tweeterUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter Twitter URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleTwitter(!visibleTwitter)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                  {/* </CCardBody> */}
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                          </div>
+                        </CCol>
+                      </CRow>
+                      <CRow className="my-3">
+                        <CCol>
+                          <CFormLabel>Status :</CFormLabel>
+                          <CFormSwitch
+                            onChange={(e) => {
+                              if (statusStateManage) {
+                                setStatusStateManage('false')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                              if (statusStateManage === 'false') {
+                                setStatusStateManage('true')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                            }}
+                            id="formSwitchCheckChecked"
+                          />
+                        </CCol>
+                      </CRow>
+                      <CRow>
+                        <CCol xs={12} className="my-2">
+                          <hr />
+                          <CButton color="primary" type="submit">
+                            Update
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </CForm>
                   </div>
                 </CModalBody>
-                <CModalFooter>
-                  <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
-                    No
-                  </CButton>
-                  <CButton color="primary" onClick={onClickEditPopUp}>
-                    Update
-                  </CButton>
-                </CModalFooter>
               </CModal>
             </div>
             <div>
@@ -793,70 +1246,445 @@ function AllUser() {
           <div>
             <div>
               {/* edit model  */}
-              <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+              <CModal size="xl" visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
                 <CModalHeader onClose={() => setVisibleEdit(false)}>
-                  <CModalTitle>Edit Coupon</CModalTitle>
+                  <CModalTitle>Edit User</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                   <div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.couponCode}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
-                        // }}
-                        label="Coupon Code"
-                        placeholder="Coupon Code"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.amount}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
-                        // }}
-                        label="Amount"
-                        placeholder="Enter Amount"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.maxUsageLimit}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
-                        // }}
-                        label="Max-Usage"
-                        placeholder="Enter Max Usage"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.discountType}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
-                        // }}
-                        label="Details"
-                        placeholder="Enter Details"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
+                    <CForm
+                      className=" g-3 needs-validation"
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmitUpdate}
+                    >
+                      <CRow className="background-grey-form-border-radious-padding">
+                        <div className="display-flex-justify-space-between-padding">
+                          <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+                        </div>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            First Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.fName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, fName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom01"
+                            placeholder="Enter First Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid first name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Last Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.lName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, lName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom02"
+                            placeholder="Enter Last Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid last name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel htmlFor="validationCustomemail">
+                            E-mail
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CInputGroupText>@</CInputGroupText>
+                            <CFormInput
+                              type="email"
+                              value={getdata.email}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, email: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please enter a valid email."
+                              placeholder="Enter Mail-id"
+                              id="validationCustomemail"
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid email address.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Mobile Number
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CFormInput
+                              type="text"
+                              value={getdata.mobileNumber}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, mobileNumber: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please choose a username."
+                              id="validationCustommobile"
+                              placeholder="Enter Mobile No."
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid mobile number.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Role Selection
+                            <CBadge
+                              color="transprent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormSelect
+                            aria-label="Default select example"
+                            value={getdata.role}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, role: e.target.value }))
+                            }}
+                            options={[
+                              { label: 'ADMIN', value: 'ADMIN' },
+                              { label: 'STUDENT', value: 'STUDENT' },
+                              { label: 'INSTRUCTOR', value: 'INSTRUCTOR' },
+                            ]}
+                            required
+                          />
+                        </CCol>
+                        <CCol xs={12} className="my-2">
+                          <CFormTextarea
+                            id="exampleFormControlTextarea1"
+                            label="Example Textarea"
+                            placeholder="Enter Details About You..."
+                            rows={7}
+                            text="Must be 8-20 words long."
+                          ></CFormTextarea>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Address :</p>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.address}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, address: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom040Feedback"
+                            id="validationCustom040"
+                            placeholder="Enter Address"
+                            label="Address"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, country: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom010Feedback"
+                            id="validationCustom010"
+                            placeholder="Enter country"
+                            label="Country"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.state}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, state: e.target.value }))
+                            }}
+                            label="State"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            feedbackInvalid="Please select a valid state."
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, city: e.target.value }))
+                            }}
+                            label="City"
+                          ></CFormInput>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, pinCode: e.target.value }))
+                            }}
+                            id="validationCustom05"
+                            label="Pin Code"
+                          />
+                        </CCol>
+                        <CCol xs={3} className="my-2">
+                          <CFormLabel>Avatar Upload :</CFormLabel>
+                          <CInputGroup className="mb-3">
+                            <CFormInput
+                              type="file"
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, image: e.target.value }))
+                              }}
+                              id="inputGroupFile02"
+                            />
+                          </CInputGroup>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Social Profile Link:</p>
+                        <CCol md={12} className="my-2">
+                          <CDropdown>
+                            <CDropdownToggle href="#" color="primary">
+                              +
+                            </CDropdownToggle>
+                            <CDropdownMenu>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleFacebook(!visibleFacebook)
+                                }}
+                              >
+                                Facebook URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleTwitter(!visibleTwitter)
+                                }}
+                              >
+                                Twitter URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  // e.preventDefault()
+                                  setVisibleLinkedIn(!visibleLinkedIn)
+                                }}
+                              >
+                                LinkedIn URL
+                              </CDropdownItem>
+                            </CDropdownMenu>
+                          </CDropdown>
+
+                          <div className="social-profile-link-css">
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleFacebook}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.faceBookUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            faceBookUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter FaceBook URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleFacebook(!visibleFacebook)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleLinkedIn}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://freelogopng.com/images/all_img/1656994883linkedin-logo-transparent.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.linkedInUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            linkedInUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter LinkedIn URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleLinkedIn(!visibleLinkedIn)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleTwitter}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  {/* <CCardBody> */}
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.freeiconspng.com/thumbs/logo-twitter-png/blue-logo-twitter-birds-emblem-3.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.tweeterUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            tweeterUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter Twitter URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleTwitter(!visibleTwitter)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                  {/* </CCardBody> */}
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                          </div>
+                        </CCol>
+                      </CRow>
+                      <CRow className="my-3">
+                        <CCol>
+                          <CFormLabel>Status :</CFormLabel>
+                          <CFormSwitch
+                            onChange={(e) => {
+                              if (statusStateManage) {
+                                setStatusStateManage('false')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                              if (statusStateManage === 'false') {
+                                setStatusStateManage('true')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                            }}
+                            id="formSwitchCheckChecked"
+                          />
+                        </CCol>
+                      </CRow>
+                      <CRow>
+                        <CCol xs={12} className="my-2">
+                          <hr />
+                          <CButton color="primary" type="submit">
+                            Update
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </CForm>
                   </div>
                 </CModalBody>
-                <CModalFooter>
-                  <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
-                    No
-                  </CButton>
-                  <CButton color="primary" onClick={onClickEditPopUp}>
-                    Update
-                  </CButton>
-                </CModalFooter>
               </CModal>
             </div>
             <div>
@@ -1130,70 +1958,445 @@ function AllUser() {
           <div>
             <div>
               {/* edit model  */}
-              <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+              <CModal size="xl" visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
                 <CModalHeader onClose={() => setVisibleEdit(false)}>
-                  <CModalTitle>Edit Coupon</CModalTitle>
+                  <CModalTitle>Edit User</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                   <div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.couponCode}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
-                        // }}
-                        label="Coupon Code"
-                        placeholder="Coupon Code"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.amount}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
-                        // }}
-                        label="Amount"
-                        placeholder="Enter Amount"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.maxUsageLimit}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
-                        // }}
-                        label="Max-Usage"
-                        placeholder="Enter Max Usage"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.discountType}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
-                        // }}
-                        label="Details"
-                        placeholder="Enter Details"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
+                    <CForm
+                      className=" g-3 needs-validation"
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmitUpdate}
+                    >
+                      <CRow className="background-grey-form-border-radious-padding">
+                        <div className="display-flex-justify-space-between-padding">
+                          <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+                        </div>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            First Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.fName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, fName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom01"
+                            placeholder="Enter First Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid first name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Last Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.lName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, lName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom02"
+                            placeholder="Enter Last Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid last name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel htmlFor="validationCustomemail">
+                            E-mail
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CInputGroupText>@</CInputGroupText>
+                            <CFormInput
+                              type="email"
+                              value={getdata.email}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, email: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please enter a valid email."
+                              placeholder="Enter Mail-id"
+                              id="validationCustomemail"
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid email address.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Mobile Number
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CFormInput
+                              type="text"
+                              value={getdata.mobileNumber}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, mobileNumber: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please choose a username."
+                              id="validationCustommobile"
+                              placeholder="Enter Mobile No."
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid mobile number.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Role Selection
+                            <CBadge
+                              color="transprent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormSelect
+                            aria-label="Default select example"
+                            value={getdata.role}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, role: e.target.value }))
+                            }}
+                            options={[
+                              { label: 'ADMIN', value: 'ADMIN' },
+                              { label: 'STUDENT', value: 'STUDENT' },
+                              { label: 'INSTRUCTOR', value: 'INSTRUCTOR' },
+                            ]}
+                            required
+                          />
+                        </CCol>
+                        <CCol xs={12} className="my-2">
+                          <CFormTextarea
+                            id="exampleFormControlTextarea1"
+                            label="Example Textarea"
+                            placeholder="Enter Details About You..."
+                            rows={7}
+                            text="Must be 8-20 words long."
+                          ></CFormTextarea>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Address :</p>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.address}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, address: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom040Feedback"
+                            id="validationCustom040"
+                            placeholder="Enter Address"
+                            label="Address"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, country: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom010Feedback"
+                            id="validationCustom010"
+                            placeholder="Enter country"
+                            label="Country"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.state}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, state: e.target.value }))
+                            }}
+                            label="State"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            feedbackInvalid="Please select a valid state."
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, city: e.target.value }))
+                            }}
+                            label="City"
+                          ></CFormInput>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, pinCode: e.target.value }))
+                            }}
+                            id="validationCustom05"
+                            label="Pin Code"
+                          />
+                        </CCol>
+                        <CCol xs={3} className="my-2">
+                          <CFormLabel>Avatar Upload :</CFormLabel>
+                          <CInputGroup className="mb-3">
+                            <CFormInput
+                              type="file"
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, image: e.target.value }))
+                              }}
+                              id="inputGroupFile02"
+                            />
+                          </CInputGroup>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Social Profile Link:</p>
+                        <CCol md={12} className="my-2">
+                          <CDropdown>
+                            <CDropdownToggle href="#" color="primary">
+                              +
+                            </CDropdownToggle>
+                            <CDropdownMenu>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleFacebook(!visibleFacebook)
+                                }}
+                              >
+                                Facebook URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleTwitter(!visibleTwitter)
+                                }}
+                              >
+                                Twitter URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  // e.preventDefault()
+                                  setVisibleLinkedIn(!visibleLinkedIn)
+                                }}
+                              >
+                                LinkedIn URL
+                              </CDropdownItem>
+                            </CDropdownMenu>
+                          </CDropdown>
+
+                          <div className="social-profile-link-css">
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleFacebook}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.faceBookUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            faceBookUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter FaceBook URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleFacebook(!visibleFacebook)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleLinkedIn}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://freelogopng.com/images/all_img/1656994883linkedin-logo-transparent.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.linkedInUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            linkedInUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter LinkedIn URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleLinkedIn(!visibleLinkedIn)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleTwitter}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  {/* <CCardBody> */}
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.freeiconspng.com/thumbs/logo-twitter-png/blue-logo-twitter-birds-emblem-3.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.tweeterUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            tweeterUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter Twitter URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleTwitter(!visibleTwitter)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                  {/* </CCardBody> */}
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                          </div>
+                        </CCol>
+                      </CRow>
+                      <CRow className="my-3">
+                        <CCol>
+                          <CFormLabel>Status :</CFormLabel>
+                          <CFormSwitch
+                            onChange={(e) => {
+                              if (statusStateManage) {
+                                setStatusStateManage('false')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                              if (statusStateManage === 'false') {
+                                setStatusStateManage('true')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                            }}
+                            id="formSwitchCheckChecked"
+                          />
+                        </CCol>
+                      </CRow>
+                      <CRow>
+                        <CCol xs={12} className="my-2">
+                          <hr />
+                          <CButton color="primary" type="submit">
+                            Update
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </CForm>
                   </div>
                 </CModalBody>
-                <CModalFooter>
-                  <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
-                    No
-                  </CButton>
-                  <CButton color="primary" onClick={onClickEditPopUp}>
-                    Update
-                  </CButton>
-                </CModalFooter>
               </CModal>
             </div>
             <div>
@@ -1474,70 +2677,445 @@ function AllUser() {
           <div>
             <div>
               {/* edit model  */}
-              <CModal visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
+              <CModal size="xl" visible={visibleEdit} onClose={() => setVisibleEdit(false)}>
                 <CModalHeader onClose={() => setVisibleEdit(false)}>
-                  <CModalTitle>Edit Coupon</CModalTitle>
+                  <CModalTitle>Edit User</CModalTitle>
                 </CModalHeader>
                 <CModalBody>
                   <div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.couponCode}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, couponCode: e.target.value }))
-                        // }}
-                        label="Coupon Code"
-                        placeholder="Coupon Code"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.amount}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, amount: e.target.value }))
-                        // }}
-                        label="Amount"
-                        placeholder="Enter Amount"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.maxUsageLimit}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, maxUsageLimit: e.target.value }))
-                        // }}
-                        label="Max-Usage"
-                        placeholder="Enter Max Usage"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
-                    <div className="width-dec10 mt-2">
-                      <CFormInput
-                        type="text"
-                        // value={updateCoupon.discountType}
-                        // onChange={(e) => {
-                        //   setUpdateCoupon((value) => ({ ...value, discountType: e.target.value }))
-                        // }}
-                        label="Details"
-                        placeholder="Enter Details"
-                        aria-describedby="exampleFormControlInputHelpInline"
-                      />
-                    </div>
+                    <CForm
+                      className=" g-3 needs-validation"
+                      noValidate
+                      validated={validated}
+                      onSubmit={handleSubmitUpdate}
+                    >
+                      <CRow className="background-grey-form-border-radious-padding">
+                        <div className="display-flex-justify-space-between-padding">
+                          <p className="text-weight-1-3rem Font-bold">Personal Details :</p>
+                        </div>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            First Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.fName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, fName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom01"
+                            placeholder="Enter First Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid first name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Last Name
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormInput
+                            type="text"
+                            value={getdata.lName}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, lName: e.target.value }))
+                            }}
+                            feedbackValid="Looks good!"
+                            id="validationCustom02"
+                            placeholder="Enter Last Name"
+                            required
+                          />
+                          <CFormFeedback invalid>Please enter a valid last name.</CFormFeedback>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel htmlFor="validationCustomemail">
+                            E-mail
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CInputGroupText>@</CInputGroupText>
+                            <CFormInput
+                              type="email"
+                              value={getdata.email}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, email: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please enter a valid email."
+                              placeholder="Enter Mail-id"
+                              id="validationCustomemail"
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid email address.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Mobile Number
+                            <CBadge
+                              color="transparent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CInputGroup className="has-validation">
+                            <CFormInput
+                              type="text"
+                              value={getdata.mobileNumber}
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, mobileNumber: e.target.value }))
+                              }}
+                              aria-describedby="inputGroupPrependFeedback"
+                              feedbackValid="Please choose a username."
+                              id="validationCustommobile"
+                              placeholder="Enter Mobile No."
+                              required
+                            />
+                            <CFormFeedback invalid>
+                              Please enter a valid mobile number.
+                            </CFormFeedback>
+                          </CInputGroup>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormLabel>
+                            Role Selection
+                            <CBadge
+                              color="transprent"
+                              textColor="danger"
+                              className="form-badget-class"
+                              shape="rounded"
+                            >
+                              *
+                            </CBadge>
+                          </CFormLabel>
+                          <CFormSelect
+                            aria-label="Default select example"
+                            value={getdata.role}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, role: e.target.value }))
+                            }}
+                            options={[
+                              { label: 'ADMIN', value: 'ADMIN' },
+                              { label: 'STUDENT', value: 'STUDENT' },
+                              { label: 'INSTRUCTOR', value: 'INSTRUCTOR' },
+                            ]}
+                            required
+                          />
+                        </CCol>
+                        <CCol xs={12} className="my-2">
+                          <CFormTextarea
+                            id="exampleFormControlTextarea1"
+                            label="Example Textarea"
+                            placeholder="Enter Details About You..."
+                            rows={7}
+                            text="Must be 8-20 words long."
+                          ></CFormTextarea>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Address :</p>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.address}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, address: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom040Feedback"
+                            id="validationCustom040"
+                            placeholder="Enter Address"
+                            label="Address"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, country: e.target.value }))
+                            }}
+                            aria-describedby="validationCustom010Feedback"
+                            id="validationCustom010"
+                            placeholder="Enter country"
+                            label="Country"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            // value={getdata.state}
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, state: e.target.value }))
+                            }}
+                            label="State"
+                          />
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            feedbackInvalid="Please select a valid state."
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, city: e.target.value }))
+                            }}
+                            label="City"
+                          ></CFormInput>
+                        </CCol>
+                        <CCol md={3} className="my-2">
+                          <CFormInput
+                            type="text"
+                            onChange={(e) => {
+                              setdata((values) => ({ ...values, pinCode: e.target.value }))
+                            }}
+                            id="validationCustom05"
+                            label="Pin Code"
+                          />
+                        </CCol>
+                        <CCol xs={3} className="my-2">
+                          <CFormLabel>Avatar Upload :</CFormLabel>
+                          <CInputGroup className="mb-3">
+                            <CFormInput
+                              type="file"
+                              onChange={(e) => {
+                                setdata((values) => ({ ...values, image: e.target.value }))
+                              }}
+                              id="inputGroupFile02"
+                            />
+                          </CInputGroup>
+                        </CCol>
+                      </CRow>
+
+                      <CRow className="background-grey-form-border-radious-padding my-3">
+                        <p className="text-weight-1-3rem Font-bold">Social Profile Link:</p>
+                        <CCol md={12} className="my-2">
+                          <CDropdown>
+                            <CDropdownToggle href="#" color="primary">
+                              +
+                            </CDropdownToggle>
+                            <CDropdownMenu>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleFacebook(!visibleFacebook)
+                                }}
+                              >
+                                Facebook URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  e.preventDefault()
+                                  setVisibleTwitter(!visibleTwitter)
+                                }}
+                              >
+                                Twitter URL
+                              </CDropdownItem>
+                              <CDropdownItem
+                                onClick={(e) => {
+                                  // e.preventDefault()
+                                  setVisibleLinkedIn(!visibleLinkedIn)
+                                }}
+                              >
+                                LinkedIn URL
+                              </CDropdownItem>
+                            </CDropdownMenu>
+                          </CDropdown>
+
+                          <div className="social-profile-link-css">
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleFacebook}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.edigitalagency.com.au/wp-content/uploads/Facebook-logo-blue-circle-large-white-f.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.faceBookUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            faceBookUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter FaceBook URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleFacebook(!visibleFacebook)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleLinkedIn}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://freelogopng.com/images/all_img/1656994883linkedin-logo-transparent.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.linkedInUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            linkedInUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter LinkedIn URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleLinkedIn(!visibleLinkedIn)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                            <div className="width-40-percent">
+                              <CCollapse visible={visibleTwitter}>
+                                <CCard className="mt-3 background-color-transprent">
+                                  {/* <CCardBody> */}
+                                  <CRow>
+                                    <CCol>
+                                      <CAvatar src="https://www.freeiconspng.com/thumbs/logo-twitter-png/blue-logo-twitter-birds-emblem-3.png" />
+                                    </CCol>
+                                    <CCol xs={8}>
+                                      <CFormInput
+                                        type="text"
+                                        value={getdata.tweeterUrl}
+                                        onChange={(e) => {
+                                          setdata((values) => ({
+                                            ...values,
+                                            tweeterUrl: e.target.value,
+                                          }))
+                                        }}
+                                        placeholder="Enter Twitter URL"
+                                        aria-label="default input example"
+                                      />
+                                    </CCol>
+                                    <CCol>
+                                      <div>
+                                        <CButton
+                                          onClick={(e) => {
+                                            e.preventDefault()
+                                            setVisibleTwitter(!visibleTwitter)
+                                          }}
+                                          color="info"
+                                          variant="ghost"
+                                        >
+                                          <CPopover
+                                            content="Delete"
+                                            placement="bottom"
+                                            trigger="hover"
+                                          >
+                                            <CIcon icon={cilTrash} />
+                                          </CPopover>
+                                        </CButton>
+                                      </div>
+                                    </CCol>
+                                  </CRow>
+                                  {/* </CCardBody> */}
+                                </CCard>
+                              </CCollapse>
+                            </div>
+                          </div>
+                        </CCol>
+                      </CRow>
+                      <CRow className="my-3">
+                        <CCol>
+                          <CFormLabel>Status :</CFormLabel>
+                          <CFormSwitch
+                            onChange={(e) => {
+                              if (statusStateManage) {
+                                setStatusStateManage('false')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                              if (statusStateManage === 'false') {
+                                setStatusStateManage('true')
+                                setdata((values) => ({ ...values, isActive: statusStateManage }))
+                              }
+                            }}
+                            id="formSwitchCheckChecked"
+                          />
+                        </CCol>
+                      </CRow>
+                      <CRow>
+                        <CCol xs={12} className="my-2">
+                          <hr />
+                          <CButton color="primary" type="submit">
+                            Update
+                          </CButton>
+                        </CCol>
+                      </CRow>
+                    </CForm>
                   </div>
                 </CModalBody>
-                <CModalFooter>
-                  <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
-                    No
-                  </CButton>
-                  <CButton color="primary" onClick={onClickEditPopUp}>
-                    Update
-                  </CButton>
-                </CModalFooter>
               </CModal>
             </div>
             <div>
