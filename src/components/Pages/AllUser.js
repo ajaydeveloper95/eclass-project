@@ -260,7 +260,6 @@ function AllUser() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-    console.log('All delete section function ')
     setVisibleDelete(false)
   }
 

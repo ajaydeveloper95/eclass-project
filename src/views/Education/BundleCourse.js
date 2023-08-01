@@ -80,7 +80,7 @@ function BundleCourse() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-  }, [])
+  }, [visibleEdit, visibleDelete])
 
   let col = []
   for (let item in bundleCourseData) {
@@ -210,7 +210,32 @@ function BundleCourse() {
     setVisibleEdit(true)
   }
   const onClickEditPopUp = () => {
-    console.log('test')
+    let Data = {
+      _id: UpdatedBundle._id,
+      courseId: UpdatedBundle.courseId,
+      details: UpdatedBundle.details,
+      shortDetails: UpdatedBundle.shortDetails,
+      title: UpdatedBundle.title,
+      discountPrice: UpdatedBundle.discountPrice,
+      duration: UpdatedBundle.duration,
+      featured: UpdatedBundle.featured,
+      isActive: UpdatedBundle.isActive,
+      paid: UpdatedBundle.paid,
+      price: UpdatedBundle.price,
+      discountPrice: UpdatedBundle.discountPrice,
+      subscription: UpdatedBundle.subscription,
+    }
+    axios
+      .post(`${adminUrl}updateBundle`, Data, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then(() => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    setVisibleEdit(false)
   }
   const onClickDeletLang = () => {
     axios
@@ -281,11 +306,13 @@ function BundleCourse() {
                     text="Please select Course."
                     onChange={(e) => {
                       let courseArr = e
-                      let OnlyGetId = []
+                      // let OnlyGetId = []
+                      let OnlyGetId = {}
                       for (let i in courseArr) {
                         OnlyGetId[i] = courseArr[i].value
                       }
                       const StringArray = OnlyGetId.toString()
+                      console.log(typeof StringArray)
                       setDataHandle((value) => ({ ...value, courseId: StringArray }))
                     }}
                   />
@@ -631,8 +658,8 @@ function BundleCourse() {
                     label="Bundle Name :"
                     placeholder="Bundle Name"
                     onChange={(e) => {
-                      let title = e.target.value
-                      setDataHandle((value) => ({ ...value, title: title }))
+                      let titleName = e.target.value
+                      setUpdatedBundle((value) => ({ ...value, title: titleName }))
                     }}
                     aria-describedby="exampleFormControlInputHelpInline"
                   />
@@ -649,7 +676,7 @@ function BundleCourse() {
                         OnlyGetId[i] = courseArr[i].value
                       }
                       const StringArray = OnlyGetId.toString()
-                      setDataHandle((value) => ({ ...value, courseId: StringArray }))
+                      setUpdatedBundle((value) => ({ ...value, courseId: StringArray }))
                     }}
                   />
                 </div>
@@ -663,7 +690,7 @@ function BundleCourse() {
                       onChange={(e) => {
                         let imgStore = e.target.files[0]
                         const imgUrlString = URL.createObjectURL(imgStore)
-                        setDataHandle((value) => ({ ...value, image: imgUrlString }))
+                        setUpdatedBundle((value) => ({ ...value, image: imgUrlString }))
                       }}
                       id="formFileLg"
                     />
@@ -676,7 +703,7 @@ function BundleCourse() {
                     value={UpdatedBundle.shortDetails}
                     rows={3}
                     onChange={(e) => {
-                      setDataHandle((value) => ({ ...value, shortDetails: e.target.value }))
+                      setUpdatedBundle((value) => ({ ...value, shortDetails: e.target.value }))
                     }}
                     placeholder="Please Enter Detailed Description"
                   ></CFormTextarea>
@@ -688,7 +715,7 @@ function BundleCourse() {
                     value={UpdatedBundle.details}
                     rows={3}
                     onChange={(e) => {
-                      setDataHandle((value) => ({ ...value, details: e.target.value }))
+                      setUpdatedBundle((value) => ({ ...value, details: e.target.value }))
                     }}
                     placeholder="Please Enter More Detail"
                   ></CFormTextarea>
@@ -700,10 +727,10 @@ function BundleCourse() {
                     onChange={(e) => {
                       if (stateSubs === 'true') {
                         setStateSubs('false')
-                        setDataHandle((value) => ({ ...value, subscription: stateSubs }))
+                        setUpdatedBundle((value) => ({ ...value, subscription: stateSubs }))
                       } else {
                         setStateSubs('true')
-                        setDataHandle((value) => ({ ...value, subscription: stateSubs }))
+                        setUpdatedBundle((value) => ({ ...value, subscription: stateSubs }))
                       }
                     }}
                   />
@@ -711,41 +738,44 @@ function BundleCourse() {
                 <div className="width-dec10 margin-down-and-top">
                   <CFormSwitch
                     id="selettest"
+                    checked={UpdatedBundle.paid ? true : false}
                     label=": Paid"
                     onChange={(e) => {
                       if (statePaid === 'true') {
                         setStatePaid('false')
                         setVisiblePaid(true)
-                        setDataHandle((value) => ({ ...value, paid: statePaid }))
+                        setUpdatedBundle((value) => ({ ...value, paid: statePaid }))
                       } else {
                         setStatePaid('true')
                         setVisiblePaid(false)
-                        setDataHandle((value) => ({ ...value, paid: statePaid }))
+                        setUpdatedBundle((value) => ({ ...value, paid: statePaid }))
                       }
                     }}
                   />
                   <div className="width-dec10 margin-down-and-top">
-                    <CCollapse visible={visiblePaid}>
+                    <CCollapse visible={true}>
                       <CFormInput
                         type="text"
                         id="exampleFormControlInput2"
                         label="Price :"
+                        value={UpdatedBundle.price}
                         placeholder="Set Price"
                         onChange={(e) => {
                           let title = e.target.value
-                          setDataHandle((value) => ({ ...value, price: title }))
+                          setUpdatedBundle((value) => ({ ...value, price: title }))
                         }}
                         aria-describedby="exampleFormControlInputHelpInline"
                       />
                       <div className="margin-down-and-top">
                         <CFormInput
                           type="text"
+                          value={UpdatedBundle.discountPrice}
                           id="exampleFormControlInput2"
                           label="Discount Price :"
                           placeholder="Set Discount Price"
                           onChange={(e) => {
                             let title = e.target.value
-                            setDataHandle((value) => ({ ...value, discountPrice: title }))
+                            setUpdatedBundle((value) => ({ ...value, discountPrice: title }))
                           }}
                           aria-describedby="exampleFormControlInputHelpInline"
                         />
@@ -761,14 +791,14 @@ function BundleCourse() {
                       if (stateExpireDur === 'true') {
                         setStateExpireDur('false')
                         setVisibleDurationExpire(true)
-                        setDataHandle((value) => ({
+                        setUpdatedBundle((value) => ({
                           ...value,
                           duration: stateExpireDur,
                         }))
                       } else {
                         setStateExpireDur('true')
                         setVisibleDurationExpire(false)
-                        setDataHandle((value) => ({
+                        setUpdatedBundle((value) => ({
                           ...value,
                           duration: stateExpireDur,
                         }))
@@ -784,7 +814,7 @@ function BundleCourse() {
                         placeholder="Set Duration"
                         onChange={(e) => {
                           let title = e.target.value
-                          setDataHandle((value) => ({ ...value, bundleExpireDuration: title }))
+                          setUpdatedBundle((value) => ({ ...value, bundleExpireDuration: title }))
                         }}
                         aria-describedby="exampleFormControlInputHelpInline"
                       />
@@ -798,13 +828,13 @@ function BundleCourse() {
                     onChange={(e) => {
                       if (stateFeatured === 'true') {
                         setStateFeatured('false')
-                        setDataHandle((value) => ({
+                        setUpdatedBundle((value) => ({
                           ...value,
                           featured: stateFeatured,
                         }))
                       } else {
                         setStateFeatured('true')
-                        setDataHandle((value) => ({
+                        setUpdatedBundle((value) => ({
                           ...value,
                           featured: stateFeatured,
                         }))
@@ -819,7 +849,7 @@ function BundleCourse() {
                     onChange={(e) => {
                       if (stateStatus === 'true') {
                         setStateStatus('false')
-                        setDataHandle((value) => ({
+                        setUpdatedBundle((value) => ({
                           ...value,
                           isActive: stateStatus,
                         }))

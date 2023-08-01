@@ -89,7 +89,7 @@ function CourseReview() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-  }, [])
+  }, [visibleDelete, visibleEdit])
 
   let col = []
   for (let item in courcesee) {
@@ -148,6 +148,7 @@ function CourseReview() {
         return -1
     }
   }
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -170,10 +171,30 @@ function CourseReview() {
     setVisibleEdit(true)
   }
 
+  const onClickDeletLangPop = () => {
+    console.log(updatedelete, 'update delete id ')
+    axios
+      .post(
+        `${adminUrl}deleteCourseReview`,
+        { _id: updatedelete },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then(() => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some Issue', err)
+      })
+    setVisibleDelete(false)
+  }
+
   const onClickDeletLang = (e) => {
     let flashDealId = e.target.getAttribute('value-get')
     setUpdateDelete(flashDealId)
     setVisibleDelete(true)
+    console.log(updatedelete)
   }
 
   const handleSubmitForm = (e) => {
@@ -190,7 +211,9 @@ function CourseReview() {
       })
   }
 
-  const onClickEditPopUp = (e) => {}
+  const onClickEditPopUp = (e) => {
+    console.log('Hello')
+  }
 
   return (
     <>
@@ -415,15 +438,14 @@ function CourseReview() {
                   />
                 </div>
                 <div className="width-dec10 mt-2">
-                  <CFormInput
-                    type="text"
+                  <CFormLabel>Instructor: </CFormLabel>
+                  <CFormSelect
+                    aria-label="Default select example"
                     value={updatecource.Instructor}
                     onChange={(e) => {
                       setUpdateCource((value) => ({ ...value, Instructor: e.target.value }))
                     }}
-                    label="Instructor"
-                    placeholder="Enter Instructor"
-                    aria-describedby="exampleFormControlInputHelpInline"
+                    options={instructorOptionData}
                   />
                 </div>
                 <div className="width-dec10 mt-2">
@@ -466,7 +488,7 @@ function CourseReview() {
               <CButton color="secondary" onClick={() => setVisibleDelete(false)}>
                 No
               </CButton>
-              <CButton color="primary" onClick={onClickDeletLang}>
+              <CButton color="primary" onClick={onClickDeletLangPop}>
                 Yes
               </CButton>
             </CModalFooter>
