@@ -233,3 +233,7 @@ input#exampleColorInput {
 .text-align-center{
     text-align: center;
 }
+
+.input-group.mb-3.new-width {
+    width: 460px;
+}

@@ -17,6 +17,7 @@ import CIcon from '@coreui/icons-react'
 import { adminUrl } from 'src/RouteDynamic'
 import axios from 'axios'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import { CInputGroup, CFormSelect, CInputGroupText } from '@coreui/react'
 
 function Alumini() {
   const [details, setDetails] = useState([])
@@ -28,6 +29,7 @@ function Alumini() {
   const [allUserData, setAllUserData] = useState([])
   const [AlumniInfoTable, setAlumniInfoTable] = useState([])
   const [alumniUpdate, setAlumniUpdate] = useState([])
+  const [ShowAdd, setShowAdd] = useState(false)
 
   const columns = [
     {
@@ -37,6 +39,7 @@ function Alumini() {
     },
     { key: 'Action', _style: { width: '30%' } },
   ]
+
   const usersData = [
     { id: 0, AlumniName: 'John Doe', Action: 'Pending', _props: { align: 'middle' } },
     {
@@ -78,10 +81,8 @@ function Alumini() {
       })
   }, [])
 
-  // console.log(allUserData)
-  // console.log(AluminiGet)
-
   let col = []
+
   for (let item in AluminiGet) {
     for (let i in allUserData) {
       if (allUserData[i]._id === AluminiGet[item].userId) {
@@ -94,7 +95,6 @@ function Alumini() {
       }
     }
   }
-  console.log(col)
 
   const onClickEditLang = (e) => {
     let id = e.currentTarget.getAttribute('value-get')
@@ -111,11 +111,10 @@ function Alumini() {
       }
     }
   }
+
   const onClickEditPopUp = () => {
     console.log(' data get successfully , but api issue')
   }
-
-  console.log(alumniUpdate)
 
   const onClickDeletLang = () => {
     axios
@@ -135,13 +134,22 @@ function Alumini() {
     setVisibleDelete(false)
   }
 
+  const onClickAdd = () => {
+    setShowAdd(true)
+  }
   return (
     <div className="background-white-border-radious">
       <AuthFun />
       <div className="display-flex-justify-space-between-padding">
         <div>
-          <CButton className="mx-3" href="/education/bundleform" color="success" variant="outline">
-            <CIcon icon={cilPlus} /> Add Alumni
+          <CButton
+            className="mx-3"
+            // href="/education/bundleform"
+            color="success"
+            variant="outline"
+            onClick={onClickAdd}
+          >
+            <CIcon icon={cilPlus} onClick={onClickAdd} /> Add Alumni
           </CButton>
           <CButton className="mx-3" href="/education/bundleform" color="warning" variant="outline">
             <CIcon icon={cilTrash} /> Delete Selected
@@ -309,6 +317,84 @@ function Alumini() {
             </CButton>
             <CButton color="primary" onClick={onClickDeletLang}>
               Yes
+            </CButton>
+          </CModalFooter>
+        </CModal>
+      </div>
+
+      <div>
+        {/* Add model  */}
+        <CModal visible={ShowAdd} onClose={() => setShowAdd(false)}>
+          <CModalHeader onClose={() => setShowAdd(false)}>
+            <CModalTitle>Add</CModalTitle>
+          </CModalHeader>
+          <CModalBody>
+            <div>
+              <div className="my-2">
+                <CFormLabel>
+                  Alumni First Name:
+                  <CBadge
+                    color="transprent"
+                    textColor="danger"
+                    className="form-badget-class"
+                    shape="rounded"
+                  >
+                    *
+                  </CBadge>
+                  <CInputGroup className="mb-3 new-width">
+                    <CFormSelect id="inputGroupSelect02">
+                      <option>Choose...</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </CFormSelect>
+                  </CInputGroup>
+                </CFormLabel>
+                {/* <CFormInput
+                  type="text"
+                  // value={alumniUpdate.fName}
+                  // onChange={(e) => {
+                  //   setAlumniUpdate((values) => ({ ...values, fName: e.target.value }))
+                  //   console.log('test')
+                  // }}
+                  feedbackValid="Looks good!"
+                  id="validationCustom01"
+                  placeholder="Enter First Name"
+                  required
+                /> */}
+              </div>
+              {/* <div className="my-2">
+                <CFormLabel>
+                  Alumni Last Name:
+                  <CBadge
+                    color="transprent"
+                    textColor="danger"
+                    className="form-badget-class"
+                    shape="rounded"
+                  >
+                    *
+                  </CBadge>
+                </CFormLabel>
+                <CFormInput
+                  type="text"
+                  // value={alumniUpdate.lName}
+                  // onChange={(e) => {
+                  //   setAlumniUpdate((values) => ({ ...values, lName: e.target.value }))
+                  // }}
+                  feedbackValid="Looks good!"
+                  id="validationCustom01"
+                  placeholder="Enter Last Name"
+                  required
+                />
+              </div> */}
+            </div>
+          </CModalBody>
+          <CModalFooter>
+            <CButton color="secondary" onClick={() => setShowAdd(false)}>
+              No
+            </CButton>
+            <CButton color="primary" onClick={onClickEditPopUp}>
+              Save
             </CButton>
           </CModalFooter>
         </CModal>
