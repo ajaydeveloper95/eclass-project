@@ -149,6 +149,14 @@ function CourseReview() {
     }
   }
 
+  const InstructorName = (Instructor) => {
+    for (let item in instructorOptionData) {
+      if (instructorOptionData[item].value === Instructor) {
+        return instructorOptionData[item].label
+      }
+    }
+  }
+
   const toggleDetails = (index) => {
     const position = details.indexOf(index)
     let newDetails = details.slice()
@@ -213,6 +221,29 @@ function CourseReview() {
 
   const onClickEditPopUp = (e) => {
     console.log('Hello')
+    console.log(updatecource)
+    axios
+      .post(
+        `${adminUrl}updateCourseReview`,
+        {
+          _id: updatecource._id,
+          title: updatecource.title,
+          courseId: updatecource.courseId,
+          Instructor: updatecource.Instructor,
+          Featured: updatecource.Featured,
+          isActive: updatecource.isActive,
+        },
+        {
+          headers: { access_token: localStorage.getItem('access_token') },
+        },
+      )
+      .then(() => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some Issue', err)
+      })
+    setVisibleEdit(false)
   }
 
   return (
@@ -326,6 +357,11 @@ function CourseReview() {
                   Image: (item) => (
                     <td>
                       <CImage rounded thumbnail src={item.Image} width={100} height={100} />
+                    </td>
+                  ),
+                  Instructor: (item) => (
+                    <td>
+                      <p>{InstructorName(item.Instructor)}</p>
                     </td>
                   ),
                   Status: (item) => (
