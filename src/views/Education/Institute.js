@@ -31,6 +31,7 @@ function Institute() {
   const [instuteData, setInstuteData] = useState([])
   const [instuteDataRender, setInstuteDataRender] = useState([])
   const [instuteDataGet, setInstuteDataGet] = useState([])
+  const [updatedInstuteData, setUpdatedInstuteData] = useState([])
   const [instuteIdDelete, setInstuteDeleteId] = useState('')
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
@@ -83,7 +84,7 @@ function Institute() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-  }, [])
+  }, [visibleDelete, visibleEdit])
   const usersData = [
     {
       id: 0,
@@ -168,8 +169,15 @@ function Institute() {
   const onClickEditLang = (e) => {
     const clickEdit = e.currentTarget.getAttribute('value-get')
     setVisibleEdit(!visibleEdit)
-    console.log(clickEdit)
+    for (let item in instuteData) {
+      if (instuteData[item]._id === clickEdit) {
+        setUpdatedInstuteData(instuteData[item])
+        break
+      }
+    }
   }
+
+  console.log(updatedInstuteData)
 
   const InstituteFormSubmit = () => {
     axios
@@ -203,6 +211,32 @@ function Institute() {
   }
 
   console.log(instuteDataGet)
+
+  const onClickEditInstutePop = () => {
+    console.log('edit pop')
+    let forUpdatedData = {
+      _id: updatedInstuteData._id,
+      instituteName: updatedInstuteData.instituteName,
+      slug: updatedInstuteData.slug,
+      email: updatedInstuteData.email,
+      mobile: updatedInstuteData.mobile,
+      about: updatedInstuteData.about,
+      logo: updatedInstuteData.logo,
+      affilatedBy: updatedInstuteData.affilatedBy,
+      skills: updatedInstuteData.skills,
+    }
+    axios
+      .post(`${adminUrl}updateInstitute`, forUpdatedData, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then(() => {
+        console.log('success')
+      })
+      .catch((err) => {
+        console.log('Some issue ', err)
+      })
+    setVisibleEdit(false)
+  }
 
   return (
     <div className="margin-bottom-down-20px">
@@ -539,9 +573,12 @@ function Institute() {
                     </CFormLabel>
                     <CFormInput
                       type="text"
+                      value={updatedInstuteData.instituteName}
                       onChange={(e) => {
-                        // setdata((values) => ({ ...values, fname: e.target.value }))
-                        console.log('test')
+                        setUpdatedInstuteData((values) => ({
+                          ...values,
+                          instituteName: e.target.value,
+                        }))
                       }}
                       feedbackValid="Looks good!"
                       id="validationCustom01"
@@ -563,9 +600,9 @@ function Institute() {
                     </CFormLabel>
                     <CFormInput
                       type="text"
+                      value={updatedInstuteData.slug}
                       onChange={(e) => {
-                        // setdata((values) => ({ ...values, fname: e.target.value }))
-                        console.log('test')
+                        setUpdatedInstuteData((values) => ({ ...values, slug: e.target.value }))
                       }}
                       placeholder="Enter-Slug-Here"
                       required
@@ -578,7 +615,6 @@ function Institute() {
                         type="file"
                         onChange={(e) => {
                           // setdata((values) => ({ ...values, image: e.target.value }))
-                          console.log('test')
                         }}
                         id="inputGroupFile02"
                       />
@@ -598,9 +634,9 @@ function Institute() {
                     </CFormLabel>
                     <CFormInput
                       type="text"
+                      value={updatedInstuteData.email}
                       onChange={(e) => {
-                        // setdata((values) => ({ ...values, fname: e.target.value }))
-                        console.log('test')
+                        setUpdatedInstuteData((values) => ({ ...values, email: e.target.value }))
                       }}
                       placeholder="Enter Email."
                       required
@@ -620,9 +656,9 @@ function Institute() {
                     </CFormLabel>
                     <CFormInput
                       type="text"
+                      value={updatedInstuteData.mobile}
                       onChange={(e) => {
-                        // setdata((values) => ({ ...values, fname: e.target.value }))
-                        console.log('test')
+                        setUpdatedInstuteData((values) => ({ ...values, mobile: e.target.value }))
                       }}
                       placeholder="Enter Mobile Number"
                       required
@@ -632,9 +668,9 @@ function Institute() {
                     <CFormLabel>Address:</CFormLabel>
                     <CFormInput
                       type="text"
+                      value={updatedInstuteData.address}
                       onChange={(e) => {
-                        // setdata((values) => ({ ...values, fname: e.target.value }))
-                        console.log('test')
+                        setUpdatedInstuteData((values) => ({ ...values, address: e.target.value }))
                       }}
                       placeholder="Enter Address"
                       required
@@ -670,7 +706,13 @@ function Institute() {
                         *
                       </CBadge>
                     </CFormLabel>
-                    <CFormTextarea rows={5}></CFormTextarea>
+                    <CFormTextarea
+                      rows={5}
+                      value={updatedInstuteData.about}
+                      onChange={(e) => {
+                        setUpdatedInstuteData((values) => ({ ...values, about: e.target.value }))
+                      }}
+                    ></CFormTextarea>
                   </CCol>
                 </CRow>
               </CForm>
@@ -680,7 +722,9 @@ function Institute() {
             <CButton color="secondary" onClick={() => setVisibleEdit(false)}>
               Close
             </CButton>
-            <CButton color="primary">Update</CButton>
+            <CButton color="primary" onClick={onClickEditInstutePop}>
+              Update
+            </CButton>
           </CModalFooter>
         </CModal>
       </div>

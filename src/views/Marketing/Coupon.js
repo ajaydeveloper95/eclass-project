@@ -50,7 +50,7 @@ function Coupon() {
       .catch((e) => {
         console.log('some issue on Server', e)
       })
-  }, [])
+  }, [visibleDelete, visibleEdit])
 
   const columns = [
     {
@@ -113,20 +113,26 @@ function Coupon() {
   }
 
   const onClickEditPopUp = () => {
-    // axios
-    //   .post(
-    //     'http://localhost:5000/admin/updateCoupon',
-    //     updateCoupon,
-    //     {
-    //       headers: { access_token: localStorage.getItem('access_token') },
-    //     },
-    //   )
-    //   .then((result) => [console.log('successfully')])
-    //   .catch((e) => {
-    //     console.log('some issue on Server', e)
-    //   })
-    console.log(updateCoupon)
-    // setVisibleEdit(false)
+    let updateDataSet = {
+      _id: updateCoupon._id,
+      couponCode: updateCoupon.couponCode,
+      couponCodeDisplayOnFront: updateCoupon.couponCodeDisplayOnFront,
+      discountType: updateCoupon.discountType,
+      linkedTo: updateCoupon.linkedTo,
+      maxUsageLimit: updateCoupon.maxUsageLimit,
+      amount: updateCoupon.amount,
+    }
+    axios
+      .post('http://localhost:5000/admin/updateCoupon', updateDataSet, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setVisibleEdit(false)
   }
 
   const onClickEditShow = (e) => {
