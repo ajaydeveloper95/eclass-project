@@ -45,6 +45,8 @@ function BundleCourse() {
   const [visiblePaid, setVisiblePaid] = useState(false)
   const [visibleDurationExpire, setVisibleDurationExpire] = useState(false)
   const [selectedSetupState, setSelectedSetupState] = useState([])
+  const [statusManage, setstatusManage] = useState('')
+  const [subsManage, setsubsManage] = useState('')
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
 
@@ -80,7 +82,7 @@ function BundleCourse() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-  }, [visibleEdit, visibleDelete])
+  }, [visibleEdit, visibleDelete, statusManage, subsManage])
 
   let col = []
   for (let item in bundleCourseData) {
@@ -90,7 +92,7 @@ function BundleCourse() {
       BundleName: bundleCourseData[item].title,
       Details: bundleCourseData[item].shortDetails,
       Status: bundleCourseData[item].isActive,
-      Subscription: bundleCourseData[item].paid,
+      Subscription: bundleCourseData[item].subscription,
       BundleId: bundleCourseData[item]._id,
       _props: { align: 'middle' },
     }
@@ -120,9 +122,9 @@ function BundleCourse() {
   ]
   const ForStatus = (Status) => {
     switch (Status) {
-      case 'true':
+      case true:
         return 1
-      case 'false':
+      case false:
         return 0
       default:
         return -1
@@ -131,9 +133,9 @@ function BundleCourse() {
   console.log(UpdatedBundle)
   const ForSubscription = (Subscription) => {
     switch (Subscription) {
-      case 'true':
+      case true:
         return 1
-      case 'false':
+      case false:
         return 0
       default:
         return -1
@@ -274,6 +276,74 @@ function BundleCourse() {
     }
   }
 
+  const handleStatusMainFun = (Id, State) => {
+    console.log('id of the element is ', Id)
+    console.log('State of the element is ', State)
+    let StatusUpdate = {
+      _id: Id,
+      isActive: State,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateBundle`, StatusUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
+  }
+
+  const onHandleStatus = (e) => {
+    let statusState = e.target.getAttribute('value-status')
+    let RefundId = e.target.getAttribute('value-get')
+    console.log(RefundId)
+    if (statusState === 'true') {
+      setstatusManage(false)
+      handleStatusMainFun(RefundId, false)
+    } else {
+      setstatusManage(true)
+      handleStatusMainFun(RefundId, true)
+    }
+  }
+
+  const onHandleSubscription = (e) => {
+    let statusState = e.target.getAttribute('value-subs')
+    let RefundId = e.target.getAttribute('value-get')
+    console.log(RefundId)
+    if (statusState === 'true') {
+      setsubsManage(false)
+      handleSubscriptionMainFun(RefundId, false)
+    } else {
+      setsubsManage(true)
+      handleSubscriptionMainFun(RefundId, true)
+    }
+  }
+
+  const handleSubscriptionMainFun = (Id, SubState) => {
+    console.log('id of the element is  handleSubscriptionMainFun', Id)
+    console.log('State of the element is handleSubscriptionMainFun', SubState)
+    let SubscriptionUpdate = {
+      _id: Id,
+      subscription: SubState,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateBundle`, SubscriptionUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success handleSubscriptionMainFun')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setsubsManage('success')
+  }
+
   return (
     <div>
       <AuthFun />
@@ -326,8 +396,21 @@ function BundleCourse() {
                       size="sm"
                       onChange={(e) => {
                         let imgStore = e.target.files[0]
-                        const imgUrlString = URL.createObjectURL(imgStore)
-                        setDataHandle((value) => ({ ...value, image: imgUrlString }))
+                        // console.log(imgStore)
+                        // axios
+                        //   .post('http://localhost:5000/common/imageUpload', imgStore, {
+                        //     headers: {
+                        //       'Content-Type': 'application/json',
+                        //       Accept: 'application/json',
+                        //     },
+                        //   })
+                        //   .then((result) => {
+                        //     console.log(result, 'data')
+                        //   })
+                        //   .catch((e) => {
+                        //     console.log('some error', e)
+                        //   })
+                        // setDataHandle((value) => ({ ...value, image: imgUrlString }))
                       }}
                       id="formFileLg"
                     />
@@ -561,19 +644,41 @@ function BundleCourse() {
                   ),
                   Status: (item) => (
                     <td>
-                      {ForStatus(item.Status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {ForStatus(item.Status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.BundleId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.BundleId}
+                          value-status="false"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                        />
                       )}
                     </td>
                   ),
                   Subscription: (item) => (
                     <td>
-                      {ForSubscription(item.Subscription) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {ForSubscription(item.Subscription) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.BundleId}
+                          value-subs="true"
+                          onChange={onHandleSubscription}
+                          id="formSwitchCheckCheckedsub"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.BundleId}
+                          value-subs="false"
+                          onChange={onHandleSubscription}
+                          id="formSwitchCheckCheckedsub"
+                        />
                       )}
                     </td>
                   ),

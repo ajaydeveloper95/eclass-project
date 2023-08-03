@@ -18,12 +18,14 @@ import {
 
 function CourseLanguage() {
   document.title = 'Eclass - CourseLanguage'
+  const [details, setDetails] = useState([])
   const [courseLang, setcourseLang] = useState([])
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [updateCource, setUpdateCource] = useState([])
   const [courceid, setCourceId] = useState([])
   const [getFormData, setFormData] = useState([])
+  const [statusManage, setstatusManage] = useState('')
 
   useEffect(() => {
     axios
@@ -36,7 +38,7 @@ function CourseLanguage() {
       .catch((err) => {
         console.log(err)
       })
-  }, [visibleDelete, visibleEdit])
+  }, [visibleDelete, visibleEdit, statusManage])
 
   const columns = [
     {
@@ -55,18 +57,18 @@ function CourseLanguage() {
       id: key,
       name: `${courseLang[key].name}`,
       Status: `${courseLang[key].isActive}`,
-      Action: `${courseLang[key].designation}`,
       langId: courseLang[key]._id,
     }
   }
 
+  console.log(col)
+
   const StatusCheck = (Status) => {
     switch (Status) {
-      case 'true':
+      case true:
         return 0
-      case 'false':
+      case false:
         return 1
-
       default:
         return -1
     }
@@ -139,6 +141,51 @@ function CourseLanguage() {
       })
   }
 
+  const onHandleStatus = (e) => {
+    let statusState = e.target.getAttribute('value-status')
+    let RefundId = e.target.getAttribute('value-get')
+    let delete1 = e.target.getAttribute('value')
+    console.log(delete1)
+    console.log(statusState)
+    if (statusState === 'true') {
+      setstatusManage(false)
+      handleStatusMainFun(RefundId, false)
+    } else {
+      setstatusManage(true)
+      handleStatusMainFun(RefundId, true)
+    }
+  }
+
+  const handleStatusMainFun = (Id, State) => {
+    let StatusUpdate = {
+      _id: Id,
+      isActive: State,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateCourseLanguage`, StatusUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
+  }
+
+  const toggleDetails = (index) => {
+    const position = details.indexOf(index)
+    let newDetails = details.slice()
+    if (position !== -1) {
+      newDetails.splice(position, 1)
+    } else {
+      newDetails = [...details, index]
+    }
+    setDetails(newDetails)
+  }
+
   return (
     <>
       <CRow>
@@ -203,22 +250,26 @@ function CourseLanguage() {
                 columns={columns}
                 items={col}
                 columnSorter
+                clickableRows
+                elementCover
                 scopedColumns={{
                   Status: (item) => (
                     <td>
-                      {StatusCheck(item.Status) === 0 ? (
+                      {StatusCheck(item.Status) === 1 ? (
                         <CFormSwitch
-                          onChange={(e) => {
-                            console.log('1 ')
-                          }}
+                          value-get={item.langId}
+                          value-status="true"
+                          value={item.Status}
+                          onChange={onHandleStatus}
                           id="formSwitchCheckChecked"
                           defaultChecked
                         />
                       ) : (
                         <CFormSwitch
-                          onChange={(e) => {
-                            console.log(e.target.value)
-                          }}
+                          value-get={item.langId}
+                          value-status="false"
+                          value={item.Status}
+                          onChange={onHandleStatus}
                           id="formSwitchCheckChecked"
                         />
                       )}
@@ -266,6 +317,14 @@ function CourseLanguage() {
                 pagination
                 tableProps={{
                   hover: true,
+                }}
+                selectable
+                sorterValue={{ column: 'BundleName', state: 'asc' }}
+                tableFilter
+                tableFilterLabel="Search :"
+                tableFilterPlaceholder="Type.."
+                tableHeadProps={{
+                  color: 'success',
                 }}
               />
             </div>

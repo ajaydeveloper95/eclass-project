@@ -18,6 +18,7 @@ import {
 } from '@coreui/react-pro'
 import { cilPen, cilOptions, cilArrowLeft } from '@coreui/icons'
 import AuthFun from 'src/components/Pages/AuthFunction/AuthFun'
+import { adminUrl } from 'src/RouteDynamic'
 
 function AllRefundPolicies() {
   document.title = 'Eclass - Refund Policies'
@@ -28,6 +29,7 @@ function AllRefundPolicies() {
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [visibleDelete, setVisibleDelete] = useState(false)
   const [refundPolicyIdGet, SetRefundPolicyIdGet] = useState('')
+  const [statusManage, setstatusManage] = useState('')
 
   useEffect(() => {
     axios
@@ -40,7 +42,7 @@ function AllRefundPolicies() {
       .catch((e) => {
         console.log('some issue on Server', e)
       })
-  }, [])
+  }, [visibleDelete, visibleEdit, statusManage])
 
   const columns = [
     {
@@ -74,13 +76,30 @@ function AllRefundPolicies() {
   }
 
   const onClickEditPopUp = () => {
-    console.log('onClickEditPopUp')
+    let editData = {
+      _id: updateRefundPolicy._id,
+      name: updateRefundPolicy.name,
+      days: updateRefundPolicy.days,
+      // details: updateRefundPolicy.details,
+      // isActive: updateRefundPolicy.isActive,
+    }
+    axios
+      .post(`${adminUrl}updateRefundPolicy`, editData, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setVisibleEdit(false)
   }
 
   const onClickDeletLang = () => {
     axios
       .post(
-        'http://localhost:5000/admin/deleteRefundPolicy',
+        `${adminUrl}deleteRefundPolicy`,
         { _id: refundPolicyIdGet },
         {
           headers: { access_token: localStorage.getItem('access_token') },
@@ -95,7 +114,6 @@ function AllRefundPolicies() {
 
   const OnClickEditShow = (e) => {
     let EditId = e.target.getAttribute('value-get')
-    console.log(EditId, 'SHow id ')
     setVisibleEdit(true)
     for (let item in refundPolicy) {
       if (refundPolicy[item]._id === EditId) {
@@ -109,7 +127,7 @@ function AllRefundPolicies() {
     for (let item in selectedSetupState) {
       axios
         .post(
-          'http://localhost:5000/admin/deleteRefundPolicy',
+          `${adminUrl}deleteRefundPolicy`,
           { _id: selectedSetupState[item].RefundPolicyId },
           {
             headers: { access_token: localStorage.getItem('access_token') },
@@ -124,13 +142,45 @@ function AllRefundPolicies() {
 
   const ForStatus = (Status) => {
     switch (Status) {
-      case 'true':
+      case true:
         return 1
-      case 'false':
+      case false:
         return 0
       default:
         return -1
     }
+  }
+
+  const onHandleStatus = (e) => {
+    let statusState = e.target.getAttribute('value-status')
+    let RefundId = e.target.getAttribute('value-get')
+    console.log(RefundId)
+    if (statusState === 'true') {
+      handleStatusMainFun(RefundId, false)
+    } else {
+      handleStatusMainFun(RefundId, true)
+    }
+  }
+
+  const handleStatusMainFun = (Id, State) => {
+    console.log('id of the element is ', Id)
+    console.log('State of the element is ', State)
+    let StatusUpdate = {
+      _id: Id,
+      isActive: State,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateRefundPolicy`, StatusUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
   }
 
   const toggleDetails = (index) => {
@@ -186,10 +236,21 @@ function AllRefundPolicies() {
           scopedColumns={{
             Status: (item) => (
               <td>
-                {ForStatus(item.Status) === 0 ? (
-                  <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                {ForStatus(item.Status) === 1 ? (
+                  <CFormSwitch
+                    value-get={item.RefundPolicyId}
+                    value-status="true"
+                    id="formSwitchCheckChecked"
+                    onChange={onHandleStatus}
+                    defaultChecked
+                  />
                 ) : (
-                  <CFormSwitch id="formSwitchCheckChecked" />
+                  <CFormSwitch
+                    value-get={item.RefundPolicyId}
+                    value-status="false"
+                    onChange={onHandleStatus}
+                    id="formSwitchCheckChecked"
+                  />
                 )}
               </td>
             ),
@@ -301,7 +362,7 @@ function AllRefundPolicies() {
                     aria-describedby="exampleFormControlInputHelpInline"
                   />
                 </div>
-                <div className="width-dec10 mt-2">
+                {/* <div className="width-dec10 mt-2">
                   <h6>Status</h6>
                   <CFormSwitch
                     label=""
@@ -311,7 +372,7 @@ function AllRefundPolicies() {
                       setUpdateRefundPolicy((value) => ({ ...value, isActive: e.target.value }))
                     }}
                   />
-                </div>
+                </div> */}
               </div>
             </CModalBody>
             <CModalFooter>

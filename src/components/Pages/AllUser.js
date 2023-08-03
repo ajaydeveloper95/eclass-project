@@ -50,6 +50,7 @@ function AllUser() {
   const [visibleLinkedIn, setVisibleLinkedIn] = useState(false)
   const [statusStateManage, setStatusStateManage] = useState('true')
   const [validated, setValidated] = useState(false)
+  const [statusManage, setstatusManage] = useState('')
 
   useEffect(() => {
     axios
@@ -312,12 +313,46 @@ function AllUser() {
   const getBadge = (status) => {
     switch (status) {
       case 'true':
-        return 0
-      case 'false':
         return 1
+      case 'false':
+        return 0
       default:
         return -1
     }
+  }
+
+  const onHandleStatus = (e) => {
+    let statusState = e.target.getAttribute('value-status')
+    let RefundId = e.target.getAttribute('value-get')
+    console.log(RefundId)
+    if (statusState === 'true') {
+      setstatusManage(false)
+      handleStatusMainFun(RefundId, false)
+    } else {
+      setstatusManage(true)
+      handleStatusMainFun(RefundId, true)
+    }
+  }
+
+  const handleStatusMainFun = (Id, State) => {
+    console.log('id of the element is ', Id)
+    console.log('State of the element is ', State)
+    let StatusUpdate = {
+      _id: Id,
+      isActive: State,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateUsers`, StatusUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
   }
 
   switch (SwitchSetup) {
@@ -448,10 +483,21 @@ function AllUser() {
                   ),
                   status: (item) => (
                     <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {getBadge(item.status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.StudentId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.StudentId}
+                          value-status="false"
+                          onChange={onHandleStatus}
+                          id="test"
+                        />
                       )}
                     </td>
                   ),
@@ -1164,10 +1210,21 @@ function AllUser() {
                   ),
                   status: (item) => (
                     <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {getBadge(item.status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.InstructoresId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.InstructoresId}
+                          value-status="false"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                        />
                       )}
                     </td>
                   ),
@@ -1876,10 +1933,21 @@ function AllUser() {
                   ),
                   status: (item) => (
                     <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {getBadge(item.status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.AdminId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.AdminId}
+                          value-status="false"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                        />
                       )}
                     </td>
                   ),
@@ -2595,10 +2663,21 @@ function AllUser() {
                   ),
                   status: (item) => (
                     <td>
-                      {getBadge(item.status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {getBadge(item.status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.AllUserId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.AllUserId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckChecked"
+                        />
                       )}
                     </td>
                   ),
