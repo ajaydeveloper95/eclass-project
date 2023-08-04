@@ -36,6 +36,7 @@ function CourseReview() {
   const [courcesee, setCourceSee] = useState([])
   const [updatecource, setUpdateCource] = useState([])
   const [updatedelete, setUpdateDelete] = useState([])
+  const [statusManage, setstatusManage] = useState('')
 
   const Cimg = 'https://cdn.pixabay.com/photo/2023/05/27/18/15/barn-swallows-8022044_1280.jpg'
   const courseSelectOption = []
@@ -115,7 +116,11 @@ function CourseReview() {
     },
     { key: 'Title', _style: { width: '25%' } },
     { key: 'Instructor', sorter: false, _style: { width: '20%' } },
-    { key: 'Featured', sorter: false, _style: { width: '15%' } },
+    {
+      key: 'Featured',
+      sorter: false,
+      _style: { width: '15%' },
+    },
     { key: 'Status', sorter: false, _style: { width: '30%' } },
     {
       key: 'show_details',
@@ -129,9 +134,9 @@ function CourseReview() {
 
   const ForStatus = (Status) => {
     switch (Status) {
-      case 'true':
+      case true:
         return 1
-      case 'false':
+      case false:
         return 0
       default:
         return -1
@@ -140,9 +145,9 @@ function CourseReview() {
 
   const ForFeatured = (Featured) => {
     switch (Featured) {
-      case 'true':
+      case true:
         return 1
-      case 'false':
+      case false:
         return 0
       default:
         return -1
@@ -246,6 +251,70 @@ function CourseReview() {
     setVisibleEdit(false)
   }
 
+  const onHandleStatus = (e) => {
+    let statusState = e.target.getAttribute('value-status')
+    let RefundId = e.target.getAttribute('value-get')
+    console.log(RefundId)
+    if (statusState === 'true') {
+      handleStatusMainFun(RefundId, false)
+    } else {
+      handleStatusMainFun(RefundId, true)
+    }
+  }
+
+  const handleStatusMainFun = (Id, State) => {
+    console.log('id of the element is ', Id)
+    console.log('State of the element is ', State)
+    let StatusUpdate = {
+      _id: Id,
+      isActive: State,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateCourseReview`, StatusUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
+  }
+
+  const onHandleFeatured = (e) => {
+    let featured = e.target.getAttribute('value-Featured')
+    let featuredId = e.target.getAttribute('value-get')
+    console.log(featuredId)
+    if (featured === 'true') {
+      handleFeaturedMainFun(featuredId, false)
+    } else {
+      handleFeaturedMainFun(featuredId, true)
+    }
+  }
+
+  const handleFeaturedMainFun = (IdSet, featuredState) => {
+    console.log('id of the element is ', IdSet)
+    console.log('State of the element is ', featuredState)
+    let FeaturedUpdate = {
+      _id: IdSet,
+      Featured: featuredState,
+    }
+    // api call
+    axios
+      .post(`${adminUrl}updateCourseReview`, FeaturedUpdate, {
+        headers: { access_token: localStorage.getItem('access_token') },
+      })
+      .then((result) => {
+        console.log('success')
+      })
+      .catch((e) => {
+        console.log('some issue on Server', e)
+      })
+    setstatusManage('success')
+  }
+
   return (
     <>
       <AuthFun />
@@ -344,6 +413,7 @@ function CourseReview() {
             <hr />
             <div className="padding-20px-10px">
               <CSmartTable
+                stripedColumns
                 activePage={3}
                 cleaner
                 clickableRows
@@ -366,19 +436,41 @@ function CourseReview() {
                   ),
                   Status: (item) => (
                     <td>
-                      {ForStatus(item.Status) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {ForStatus(item.Status) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.courceseeId}
+                          value-status="true"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckCheckedchage"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.courceseeId}
+                          value-status="false"
+                          onChange={onHandleStatus}
+                          id="formSwitchCheckCheckedchangee"
+                        />
                       )}
                     </td>
                   ),
                   Featured: (item) => (
                     <td>
-                      {ForFeatured(item.Featured) === 0 ? (
-                        <CFormSwitch id="formSwitchCheckChecked" defaultChecked />
+                      {ForFeatured(item.Featured) === 1 ? (
+                        <CFormSwitch
+                          value-get={item.courceseeId}
+                          value-Featured="true"
+                          onChange={onHandleFeatured}
+                          id="formSwitchCheckChecked2"
+                          defaultChecked
+                        />
                       ) : (
-                        <CFormSwitch id="formSwitchCheckChecked" />
+                        <CFormSwitch
+                          value-get={item.courceseeId}
+                          value-Featured="false"
+                          onChange={onHandleFeatured}
+                          id="formSwitchCheckChecked33"
+                        />
                       )}
                     </td>
                   ),
