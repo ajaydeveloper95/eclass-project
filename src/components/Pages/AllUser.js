@@ -61,7 +61,7 @@ function AllUser() {
       .catch((err) => {
         console.log('some error are accured ', err)
       })
-  }, [visibleDelete, visibleEdit])
+  }, [visibleDelete, visibleEdit, statusManage])
 
   let col = []
   let colStudent = []
@@ -322,14 +322,17 @@ function AllUser() {
   }
 
   const onHandleStatus = (e) => {
-    let statusState = e.target.getAttribute('value-status')
-    let RefundId = e.target.getAttribute('value-get')
-    console.log(RefundId)
+    const statusState = e.currentTarget.getAttribute('value-status')
+    const RefundId = e.currentTarget.getAttribute('value-get')
+    console.log(RefundId, 'id')
+    console.log(statusState, 'true and flase ')
     if (statusState === 'true') {
-      setstatusManage(false)
+      setstatusManage('false')
+      console.log('false function send ')
       handleStatusMainFun(RefundId, false)
     } else {
-      setstatusManage(true)
+      console.log('true function send ')
+      setstatusManage('true')
       handleStatusMainFun(RefundId, true)
     }
   }
@@ -341,6 +344,7 @@ function AllUser() {
       _id: Id,
       isActive: State,
     }
+    console.log(StatusUpdate, 'send data to server')
     // api call
     axios
       .post(`${adminUrl}updateUsers`, StatusUpdate, {

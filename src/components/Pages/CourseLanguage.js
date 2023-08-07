@@ -65,9 +65,9 @@ function CourseLanguage() {
 
   const StatusCheck = (Status) => {
     switch (Status) {
-      case true:
+      case 'true':
         return 0
-      case false:
+      case 'false':
         return 1
       default:
         return -1
@@ -255,11 +255,10 @@ function CourseLanguage() {
                 scopedColumns={{
                   Status: (item) => (
                     <td>
-                      {StatusCheck(item.Status) === 1 ? (
+                      {StatusCheck(item.Status) === 0 ? (
                         <CFormSwitch
                           value-get={item.langId}
                           value-status="true"
-                          value={item.Status}
                           onChange={onHandleStatus}
                           id="formSwitchCheckChecked"
                           defaultChecked
@@ -268,7 +267,6 @@ function CourseLanguage() {
                         <CFormSwitch
                           value-get={item.langId}
                           value-status="false"
-                          value={item.Status}
                           onChange={onHandleStatus}
                           id="formSwitchCheckChecked"
                         />

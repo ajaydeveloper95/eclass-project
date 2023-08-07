@@ -90,7 +90,7 @@ function CourseReview() {
       .catch((err) => {
         console.log('Some issue ', err)
       })
-  }, [visibleDelete, visibleEdit])
+  }, [visibleDelete, visibleEdit, statusManage])
 
   let col = []
   for (let item in courcesee) {
@@ -103,6 +103,7 @@ function CourseReview() {
       Status: courcesee[item].isActive,
       Instructor: courcesee[item].Instructor,
       courceseeId: courcesee[item]._id,
+      FeatId: courcesee[item]._id,
       _props: { align: 'middle' },
     }
   }
@@ -284,9 +285,8 @@ function CourseReview() {
   }
 
   const onHandleFeatured = (e) => {
-    let featured = e.target.getAttribute('value-Featured')
     let featuredId = e.target.getAttribute('value-get')
-    console.log(featuredId)
+    let featured = e.target.getAttribute('value-Featured')
     if (featured === 'true') {
       handleFeaturedMainFun(featuredId, false)
     } else {
@@ -458,7 +458,7 @@ function CourseReview() {
                     <td>
                       {ForFeatured(item.Featured) === 1 ? (
                         <CFormSwitch
-                          value-get={item.courceseeId}
+                          value-get={item.FeatId}
                           value-Featured="true"
                           onChange={onHandleFeatured}
                           id="formSwitchCheckChecked2"
@@ -466,7 +466,7 @@ function CourseReview() {
                         />
                       ) : (
                         <CFormSwitch
-                          value-get={item.courceseeId}
+                          value-get={item.FeatId}
                           value-Featured="false"
                           onChange={onHandleFeatured}
                           id="formSwitchCheckChecked33"
